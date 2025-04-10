@@ -1,0 +1,5 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow:
+# Must set the Proper value once the site is deployed on Netlify
+Sitemap: https://www.example.com/sitemap.xml

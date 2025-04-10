@@ -1,8 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { QueryProvider, ErrorBoundaryProvider, HelmetProvider, ReactRouterProvider } from '@/providers'
-
+import {
+  QueryProvider,
+  ErrorBoundaryProvider,
+  HelmetProvider,
+  ReactRouterProvider
+} from '@/providers'
+import 'tailwindcss/tailwind.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,5 +18,5 @@ createRoot(document.getElementById('root')!).render(
         </HelmetProvider>
       </QueryProvider>
     </ErrorBoundaryProvider>
-  </StrictMode>,
+  </StrictMode>
 )
