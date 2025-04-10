@@ -1,9 +1,18 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
+dotenv.config();
+
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  define: {
+    /* DUMMY JSON BASE URLL */
+    VITE_DUMMY_JSON_BASEURL: `"${process.env.VITE_DUMMY_JSON_BASEURL}"`,
+  },
+  plugins: [react(), tsconfigPaths()],
   server: {
     port: 4005,
   },
