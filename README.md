@@ -107,3 +107,7 @@ Hai piena libertà creativa per:
 Questo progetto è pensato per valutare il tuo approccio allo sviluppo e la tua capacità di affrontare sfide tecniche.  
 
 **Buon lavoro!** 🎉  
+
+# Mockup Files
+
+- Product Mockup -> https://excalidraw.com/#json=m744fJ9wdv_6d20l4zhZ6,6XxFSBFyK_U0JzVqWxSVHw

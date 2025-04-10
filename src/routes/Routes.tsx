@@ -14,6 +14,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
       },
       {
+        path: '/home',
+        caseSensitive: true,
+        element: <Home />,
+        errorElement: <ErrorPage />
+      },
+      {
         path: '/cart',
         caseSensitive: true,
         element: <Cart />,
