@@ -1,5 +1,28 @@
-import { TAppConfig } from "@/config/types";
+
 import { DEFAULT_LANG, DEFAULT_SUPPORTED_LANGUAGE } from "@/utils/constants";
+
+// --> Possible Application Locales
+export type TLocales = 'en' | 'it' | 'de';
+
+// --> Application Metadata and Configuration
+export type TAppConfig = {
+    appName: string;
+    appDescription: string;
+    appDeployedUrl: string;
+    appAuthors: { name: string; url: string }[];
+    appVersion: string;
+    defaultLanguage: TLocales;
+    supportedLanguages: string[];
+    helmets: {
+        [key: string]: {
+            title: string;
+            description: string;
+            keywords: string[];
+            route?: string;
+        };
+    };
+};
+
 
 export const appConfig: TAppConfig = {
     appName: "Sikuro Group - FE Interview",
@@ -12,6 +35,12 @@ export const appConfig: TAppConfig = {
     defaultLanguage: DEFAULT_LANG,
     supportedLanguages: DEFAULT_SUPPORTED_LANGUAGE,
     helmets: {
+        default: {
+            title: "Home",
+            description: "Discover our fantastic products and services",
+            keywords: ["home", "products", "cart", "services"],
+            route: "/",
+        },
         home: {
             title: "Home",
             description: "Discover our fantastic products and services",

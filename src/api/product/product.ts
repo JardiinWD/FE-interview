@@ -1,3 +1,5 @@
+// --> Documentation : https://dummyjson.com/docs/products
+
 import axios from 'axios';
 
 // ----------- API ISTANCE

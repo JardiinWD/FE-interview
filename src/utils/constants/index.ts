@@ -1,4 +1,4 @@
-import { TLocales } from '@/config/types';
+import { TLocales } from '@/config/appConfig';
 
 // --> Application Config Constants
 export const DEFAULT_LANG: TLocales = 'it';
