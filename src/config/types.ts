@@ -15,6 +15,7 @@ export type TAppConfig = {
             title: string;
             description: string;
             keywords: string[];
+            route?: string;
         };
     };
 };
