@@ -1,6 +1,11 @@
 // --> Documentation : https://dummyjson.com/docs/products
 import axios from 'axios'
-import { IProductApi, TPromiseError, TProductApiContext } from '@/api/types'
+import {
+  IProductApi,
+  TPromiseError,
+  TProductApiContext,
+  IProductQueryParams
+} from '@/api/types'
 
 // ----------- API ISTANCE
 const productApi = axios.create({
@@ -22,13 +27,20 @@ export const ProductApi: IProductApi = {
       status: 'error'
     }
   },
-  getProducts: async () => {
+  getProducts: async (queryParams?: IProductQueryParams) => {
     try {
+      let productUrl: string = '/'
+      // Check if there are query params
+      if (queryParams) {
+        // Destructure the query params
+        const { limit, skip, order, sortBy } = queryParams
+        // Set the URL with the query params
+        productUrl = `/?limit=${limit || 0}&skip=${skip || 0}&order=${order || 'asc'}&sortBy=${sortBy || 'id'}`
+      }
       // Retrieve the necessary Data from the API
-      const response = await productApi.get('/')
+      const response = await productApi.get(productUrl)
       // Check if the response is valid
-      if (response.statusText !== 'OK' || !response.data)
-        throw new Error(`Something went Wrong with getProducts API Call!`)
+      if (!response.data) throw new Error(`Something went Wrong with getProducts API Call!`)
       // Return the data in the expected format
       return {
         data: response.data,

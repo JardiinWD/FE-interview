@@ -1,27 +1,59 @@
 import { ProductApi } from '@/api'
-import { DataLoop, FlexContainer, Image, Typography } from '@/components/atoms'
+import { DataLoop, FlexContainer, Typography } from '@/components/atoms'
+import { ProductCard } from '@/components/molecules'
 import { useQuery } from '@tanstack/react-query'
-import React, { JSX } from 'react'
+import React, { JSX, useState } from 'react'
+import { IProductQueryParams } from '@/api/types'
+
+// -------------- INTERFACES
+interface IState {
+  limit: IProductQueryParams['limit']
+  skip: IProductQueryParams['skip']
+  order: IProductQueryParams['order']
+  sortBy: IProductQueryParams['sortBy']
+}
 
 const Home: React.FC = (): JSX.Element => {
+  // -------------- STATE
+  const [state, setState] = useState<IState>({
+    limit: 10,
+    skip: 0,
+    order: 'asc',
+    sortBy: 'id'
+  })
+
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
     queryKey: [''],
+    staleTime: 5000, // Keeps previous data for 5 seconds
     queryFn: async () => {
       // Call the API to get the products and destructure the response
-      const { data, error, status } = await ProductApi.getProducts()
+      const { data, error, status } = await ProductApi.getProducts({
+        limit: state.limit,
+        skip: state.skip,
+        order: state.order,
+        sortBy: state.sortBy
+      })
+      // Return the necessary data
       return {
         data: data,
         error: error,
         status: status
       }
-    }
+    },
+    
   })
-  
-
 
   return (
-    <FlexContainer flexContainerId='homepage' direction='column' justify='center' align='center' gap={2} className='h-screen'>
+    <FlexContainer
+      flexContainerId="homepage"
+      wrap="nowrap"
+      direction="column"
+      justify="flex-start"
+      align="center"
+      gap={2}
+      className="h-screen"
+    >
       <Typography
         tagAs="h1"
         text={`${isPending ? 'Loading...' : 'Hello World'}`}
@@ -29,19 +61,33 @@ const Home: React.FC = (): JSX.Element => {
         weight="bold"
         className="text-center"
       />
-      <FlexContainer flexContainerId='data-loop' direction='row' justify='center' align='center' gap={2}>
-        <DataLoop 
-          render={(_, item) => (
-            <Image 
-              src={item.images[0]}
-              alt={item.description}
-              className="rounded-lg"
-              htmlHeight={300}
-              htmlWidth={300}
-              fit="contain"
-            />
-          )} 
-          eachData={apiData?.data?.products} 
+      {/* PRODUCT IMAGES */}
+      {/* TODO: Update with GridContainer */}
+      <FlexContainer
+        flexContainerId="data-loop"
+        direction="row"
+        justify="center"
+        align="center"
+        gap={2}
+      >
+        <DataLoop
+          render={(index, item) => {
+            return (
+              <ProductCard
+                key={index}
+                title={item.title}
+                description={item.description}
+                imageSrc={item.images[0]}
+                price={item.price}
+                rating={item.rating}
+                onAddToCart={() => console.log(`Adding ${item.title} to cart`)}
+                onViewDetails={() =>
+                  console.log(`Viewing details for ${item.title}`)
+                }
+              />
+            )
+          }}
+          eachData={apiData?.data?.products}
         />
       </FlexContainer>
     </FlexContainer>

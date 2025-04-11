@@ -1,4 +1,4 @@
-import { IProduct } from '@/api/types'
+import { ICart, IProduct } from '@/api/types'
 import { JSX, ReactNode } from 'react'
 
 // -------------
@@ -105,8 +105,44 @@ export interface IImageProps {
 // -------------
 // ------------- LOOP
 // -------------
-export interface IDataLoopProps<T> {
-  render?: (index: number, item: IProduct) => ReactNode;
-  eachData?: IProduct[];
-  fallback?: ReactNode;
+
+export interface IDataLoopProps<T extends IProduct | ICart> {
+  render?: (index: number, item: T) => ReactNode
+  eachData?: T[]
+  fallback?: ReactNode
+}
+
+// -------------
+// ------------- PRODUCT CARD
+// -------------
+
+// --> Product card props
+export interface IProductCardProps {
+  title?: IProduct['title']
+  description?: IProduct['description']
+  imageSrc?: IProduct['images'][0]
+  onAddToCart?: () => void
+  onViewDetails?: () => void
+}
+
+// -------------
+// ------------- BUTTON
+// -------------
+
+// --> Possible button variants
+export type TButtonVariant = 'primary' | 'secondary'
+// --> Possible button types
+export type TButtonType = 'button' | 'submit'
+
+// --> Button props
+export interface IButtonProps {
+  variant: TButtonVariant
+  onClick?: () => void
+  children: React.ReactNode
+  style?: React.CSSProperties
+  buttonType?: TButtonType
+  className?: string
+  formId?: string
+  buttonId?: string
+  disabled?: boolean
 }

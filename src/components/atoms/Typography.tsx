@@ -1,9 +1,5 @@
 import React, { JSX } from 'react'
-import {
-  TTypographyTagName,
-  TTypographyWeight,
-  ITypographyProps
-} from '@/types/atoms'
+import {ITypographyProps} from '@/types/atoms'
 import fonts from '@/assets/styles/fonts.module.scss'
 
 /**
@@ -33,7 +29,7 @@ const Typography: React.FC<ITypographyProps> = ({
   whiteSpace = false
 }): JSX.Element => {
   // ------------- TAG Fonts Size
-  const typographyVariant: Record<TTypographyTagName, string> = {
+  const typographyVariant: Record<ITypographyProps['tagAs'], string> = {
     h1: `${fonts.h1_font_size}`,
     h2: `${fonts.h2_font_size}`,
     h3: `${fonts.h3_font_size}`,
@@ -45,7 +41,7 @@ const Typography: React.FC<ITypographyProps> = ({
   }
 
   // ------------- TAG Fonts Weight
-  const typographyWeight: Record<TTypographyWeight, string> = {
+  const typographyWeight: Record<ITypographyProps['weight'], string> = {
     regular: fonts.font_weight_regular,
     medium: fonts.font_weight_medium,
     bold: fonts.font_weight_bold,

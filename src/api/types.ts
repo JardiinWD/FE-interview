@@ -118,9 +118,17 @@ export interface IProductPromise {
 // ------------ CART API CALL CONTEXT
 export type TProductApiContext = 'getProducts'
 
-// ------------ CART API LAYER
+// ------------ PRODUCT API LAYER
+
+export interface IProductQueryParams {
+  limit?: number
+  skip?: number
+  sortBy?: string
+  order?: 'asc' | 'desc'
+}
+
 export interface IProductApi {
-  getProducts: () => Promise<IProductPromise>
+  getProducts: (queryParams?: IProductQueryParams) => Promise<IProductPromise>
   handleProductErrors: (
     error: TPromiseError,
     context: TProductApiContext
