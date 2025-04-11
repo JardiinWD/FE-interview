@@ -20,20 +20,27 @@ const Button: React.FC<IButtonProps> = ({
   buttonType = 'button',
   formId = `generic-form-id`,
   buttonId = `generic-button-id`,
-  disabled = false,
+  disabled = false
 }): JSX.Element => {
+  // ------------- VARIANTS
+  const buttonVariants: Record<IButtonProps['variant'], string> = {
+    primary: `bg-primary_blue_400 text-primary_white_100 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:bg-primary_blue_500`,
+    secondary: `bg-primary_blue_100 text-primary_black_500 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:text-primary_white_100 hover:bg-primary_blue_200`
+  }
 
-    // ------------- VARIANTS
-    const buttonVariants: Record<IButtonProps['variant'], string> = {
-      primary: `bg-primary_blue_400 text-primary_white_100 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:bg-primary_blue_500`,
-      secondary: `bg-primary_blue_100 text-primary_black_500 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:text-primary_white_100 hover:bg-primary_blue_200`,
-    }
-
-    return (
-      <button formTarget={formId} onClick={onClick} disabled={disabled} className={`${className} ${buttonVariants[variant]}`} style={style} type={buttonType} id={buttonId}>
-        {children}
-      </button>
-    )
+  return (
+    <button
+      formTarget={formId}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${className} ${buttonVariants[variant]}`}
+      style={style}
+      type={buttonType}
+      id={buttonId}
+    >
+      {children}
+    </button>
+  )
 }
 
 export default Button

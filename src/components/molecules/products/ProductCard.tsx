@@ -3,17 +3,6 @@ import { Card } from '@chakra-ui/react'
 import { Typography, Image, Button } from '@/components/atoms'
 import { IProductCardProps } from '@/types/atoms'
 
-/* 
-title?: IProduct['title']
-  description?: IProduct['description']
-  imageSrc?: IProduct['images'][0]
-  price?: IProduct['price']
-  rating?: IProduct['rating']
-  onAddToCart?: () => void
-  onViewDetails?: () => void
-
-*/
-
 const ProductCard: React.FC<IProductCardProps> = ({
   title = 'Product',
   description = 'Product Description',
@@ -45,10 +34,20 @@ const ProductCard: React.FC<IProductCardProps> = ({
         />
         {/* CARD BUTTONS */}
         <Card.Footer gap="2" margin={0} padding={0}>
-          <Button buttonId='product-info' buttonType='button' onClick={onViewDetails} variant="secondary">
+          <Button
+            buttonId="product-info"
+            buttonType="button"
+            onClick={onViewDetails}
+            variant="secondary"
+          >
             Other Info
           </Button>
-          <Button buttonId='add-to-cart' buttonType='button' onClick={onAddToCart} variant="primary">
+          <Button
+            buttonId="add-to-cart"
+            buttonType="button"
+            onClick={onAddToCart}
+            variant="primary"
+          >
             Add to cart
           </Button>
         </Card.Footer>

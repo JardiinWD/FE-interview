@@ -1,5 +1,5 @@
 import React, { JSX } from 'react'
-import {ITypographyProps} from '@/types/atoms'
+import { ITypographyProps } from '@/types/atoms'
 import fonts from '@/assets/styles/fonts.module.scss'
 
 /**

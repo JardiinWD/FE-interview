@@ -40,7 +40,8 @@ export const ProductApi: IProductApi = {
       // Retrieve the necessary Data from the API
       const response = await productApi.get(productUrl)
       // Check if the response is valid
-      if (!response.data) throw new Error(`Something went Wrong with getProducts API Call!`)
+      if (!response.data)
+        throw new Error(`Something went Wrong with getProducts API Call!`)
       // Return the data in the expected format
       return {
         data: response.data,

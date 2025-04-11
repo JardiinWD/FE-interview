@@ -17,5 +17,8 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths(), svgr(), ViteMinifyPlugin({})],
   server: {
     port: 4005,
+    watch: {
+      usePolling: true
+    }
   },
 })

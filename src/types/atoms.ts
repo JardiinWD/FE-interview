@@ -146,3 +146,19 @@ export interface IButtonProps {
   buttonId?: string
   disabled?: boolean
 }
+
+// -------------
+// ------------- MODALS
+// -------------
+
+export interface IModalProps {
+  hasModalHeader: boolean
+  hasModalFooter: boolean
+  hasModalCloseButton: boolean
+  hasModalOverlay: boolean
+  modalId?: string
+  modalTitle?: string
+  modalHeader?: React.ReactNode
+  modalFooter?: React.ReactNode
+  modalBody: React.ReactNode
+}

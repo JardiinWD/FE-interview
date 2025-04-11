@@ -1,9 +1,10 @@
 import { ProductApi } from '@/api'
-import { DataLoop, FlexContainer, Typography } from '@/components/atoms'
+import { DataLoop, FlexContainer, Modal } from '@/components/atoms'
 import { ProductCard } from '@/components/molecules'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX, useState } from 'react'
 import { IProductQueryParams } from '@/api/types'
+import { useModalStore } from '@/store'
 
 // -------------- INTERFACES
 interface IState {
@@ -21,6 +22,9 @@ const Home: React.FC = (): JSX.Element => {
     order: 'asc',
     sortBy: 'id'
   })
+
+  // -------------- ZUSTAND STORE
+  const { openProductModal } = useModalStore()
 
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
@@ -40,8 +44,7 @@ const Home: React.FC = (): JSX.Element => {
         error: error,
         status: status
       }
-    },
-    
+    }
   })
 
   return (
@@ -54,13 +57,13 @@ const Home: React.FC = (): JSX.Element => {
       gap={2}
       className="h-screen"
     >
-      <Typography
+      {/* <Typography
         tagAs="h1"
         text={`${isPending ? 'Loading...' : 'Hello World'}`}
         textColor="text-primary_blue_400"
         weight="bold"
         className="text-center"
-      />
+      /> */}
       {/* PRODUCT IMAGES */}
       {/* TODO: Update with GridContainer */}
       <FlexContainer
@@ -78,9 +81,11 @@ const Home: React.FC = (): JSX.Element => {
                 title={item.title}
                 description={item.description}
                 imageSrc={item.images[0]}
-                price={item.price}
-                rating={item.rating}
-                onAddToCart={() => console.log(`Adding ${item.title} to cart`)}
+                onAddToCart={() => {
+                  console.log(`Adding ${item.title} to cart`)
+                  // Pass the item to the modal
+                  openProductModal(item)
+                }}
                 onViewDetails={() =>
                   console.log(`Viewing details for ${item.title}`)
                 }
@@ -90,6 +95,17 @@ const Home: React.FC = (): JSX.Element => {
           eachData={apiData?.data?.products}
         />
       </FlexContainer>
+      {/* MODAL */}
+      <Modal
+        hasModalHeader={false}
+        hasModalFooter={false}
+        hasModalCloseButton={true}
+        hasModalOverlay={true}
+        modalId="product-modal"
+        modalBody={<div>Product Modal</div>}
+        modalHeader={<div>Product Header</div>}
+        modalFooter={<div>Product Footer</div>}
+      />
     </FlexContainer>
   )
 }
