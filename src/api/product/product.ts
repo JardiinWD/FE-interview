@@ -12,32 +12,37 @@ const productApi = axios.create({
 
 // ------------ API LAYER
 export const ProductApi: IProductApi = {
-  handleProductErrors: async (error: TPromiseError, context: TProductApiContext) => {
-    console.error(`An error occured in ${context} --> ${error}`);
+  handleProductErrors: async (
+    error: TPromiseError,
+    context: TProductApiContext
+  ) => {
+    console.error(`An error occured in ${context} --> ${error}`)
     return {
-      data: [],
       error: error,
-      status: 'error',
-    };
+      status: 'error'
+    }
   },
   getProducts: async () => {
     try {
       // Retrieve the necessary Data from the API
       const response = await productApi.get('/')
       // Check if the response is valid
-      if (response.statusText !== 'OK' || !response.data) throw new Error(`Something went Wrong with getProducts API Call!`);
+      if (response.statusText !== 'OK' || !response.data)
+        throw new Error(`Something went Wrong with getProducts API Call!`)
       // Return the data in the expected format
       return {
-        data: response.data.products,
+        data: response.data,
         error: null,
-        status: 'success',
-      };
+        status: 'success'
+      }
     } catch (error) {
       // Handle the error using the handleProductError method
       return await ProductApi.handleProductErrors(
-        error instanceof Error ? error.message : 'An error occurred while fetching the data',
-        'getProducts',
-      );
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while fetching the data',
+        'getProducts'
+      )
     }
   }
 }

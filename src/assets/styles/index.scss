@@ -1,0 +1,23 @@
+@use './fonts.module.scss' as fonts;
+
+/* ====== COLOR PALETTE ======= */
+:root {
+  /* PRIMARY BLUE */
+  --primary_blue_100: #e5e5ff;
+  --primary_blue_200: #b2b2ff;
+  --primary_blue_400: #4d4dff;
+  --primary_blue_500: #1a1aff;
+  --primary_blue_600: #0000e6;
+  /* PRIMARY WHITE */
+  --primary_white_100: #f2f2f2;
+  --primary_white_200: #e6e6e6;
+  /* PRIMARY GRAY */
+  --primary_gray_100: #d9d9d9;
+  --primary_gray_200: #cccccc;
+  --primary_gray_300: #bfbfbf;
+  --primary_gray_400: #b3b3b3;
+  /* PRIMARY BLACK */
+  --primary_black_500: #4d4d4d;
+  --primary_black_600: #333333;
+  --primary_black_700: #1a1a1a;
+}

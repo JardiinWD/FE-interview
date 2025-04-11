@@ -8,7 +8,10 @@ const Layout = () => {
   // ------------- HOOKS
   const location = useLocation()
   // ------------- DATA
-  const metadataHelmetInfo = React.useMemo(() => retrieveHelmetData(location.pathname), [location.pathname])
+  const metadataHelmetInfo = React.useMemo(
+    () => retrieveHelmetData(location.pathname),
+    [location.pathname]
+  )
 
   return (
     <React.Fragment>

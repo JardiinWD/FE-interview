@@ -1,0 +1,106 @@
+/* FONT WEIGHT VARIABLES */
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-regular: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+/* FONT SIZES */
+$h1-max-text: 3rem;
+$h1-min-text: 2rem;
+$h1-preferred-text: calc(1.648rem + 1.502vw);
+
+$h2-max-text: 2.25rem;
+$h2-min-text: 1.75rem;
+$h2-preferred-text: calc(1.574rem + 0.751vw);
+
+$h3-max-text: 1.75rem;
+$h3-min-text: 1.5rem;
+$h3-preferred-text: calc(1.412rem + 0.376vw);
+
+$h4-max-text: 1.5rem;
+$h4-min-text: 1.25rem;
+$h4-preferred-text: calc(1.162rem + 0.376vw);
+
+$h5-max-text: 1.25rem;
+$h5-min-text: 1.125rem;
+$h5-preferred-text: calc(1.081rem + 0.188vw);
+
+$h6-max-text: 1.125rem;
+$h6-min-text: 1rem;
+$h6-preferred-text: calc(1.091rem + 0.038vw);
+
+$p-max-text: 1rem;
+$p-min-text: 0.875rem;
+$p-preferred-text: calc(0.831rem + 0.188vw);
+
+$span-max-text: 1rem;
+$span-min-text: 0.875rem;
+$span-preferred-text: calc(0.831rem + 0.188vw);
+
+$label-max-text: 0.875rem;
+$label-min-text: 0.75rem;
+$label-preferred-text: calc(0.706rem + 0.188vw);
+
+/* TYPOGRAPHY - TEXT */
+
+@mixin setFont($min, $preferred, $max) {
+  font-size: clamp($min, $preferred, $max);
+}
+
+.h1_font_size {
+  @include setFont($h1-min-text, $h1-preferred-text, $h1-max-text);
+}
+
+.h2_font_size {
+  @include setFont($h2-min-text, $h2-preferred-text, $h2-max-text);
+}
+
+.h3_font_size {
+  @include setFont($h3-min-text, $h3-preferred-text, $h3-max-text);
+}
+
+.h4_font_size {
+  @include setFont($h4-min-text, $h4-preferred-text, $h4-max-text);
+}
+
+.h5_font_size {
+  @include setFont($h5-min-text, $h5-preferred-text, $h5-max-text);
+}
+
+.h6_font_size {
+  @include setFont($h6-min-text, $h6-preferred-text, $h6-max-text);
+}
+
+.p_font_size {
+  @include setFont($p-min-text, $p-preferred-text, $p-max-text);
+}
+
+.span_font_size {
+  @include setFont($span-min-text, $span-preferred-text, $span-max-text);
+}
+
+/* FONT WEIGHTS */
+@mixin setFontWeight($weight) {
+  font-weight: $weight;
+}
+
+.font_weight_light {
+  @include setFontWeight($font-weight-light);
+}
+
+.font_weight_normal {
+  @include setFontWeight($font-weight-normal);
+}
+
+.font_weight_regular {
+  @include setFontWeight($font-weight-regular);
+}
+
+.font_weight_semibold {
+  @include setFontWeight($font-weight-semibold);
+}
+
+.font_weight_bold {
+  @include setFontWeight($font-weight-bold);
+}

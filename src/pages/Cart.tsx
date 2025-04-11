@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { JSX } from 'react'
 
 // --> First definition of Cart component
-const Cart = () => {
+const Cart: React.FC = (): JSX.Element => {
   return <div>Cart</div>
 }
 

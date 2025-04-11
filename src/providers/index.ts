@@ -6,10 +6,13 @@ import { ErrorBoundaryProvider } from './ErrorBoundaryProvider'
 import { HelmetProvider } from './HelmetProvider'
 // --> React Router Provider
 import { ReactRouterProvider } from './ReactRouterProvider'
+// --> Chakra UI Provider
+import { ChakraProvider } from './ChakraProvider'
 
 export {
   QueryProvider,
   ErrorBoundaryProvider,
   HelmetProvider,
-  ReactRouterProvider
+  ReactRouterProvider,
+  ChakraProvider
 }
