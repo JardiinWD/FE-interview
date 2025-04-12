@@ -34,8 +34,15 @@ export const ProductApi: IProductApi = {
       if (queryParams) {
         // Destructure the query params
         const { limit, skip, order, sortBy } = queryParams
+        // Define Params Object and simplify the URL pattern
+        const qParams = {
+          limit: limit || 0,
+          skip: skip || 0,
+          order: order || 'asc',
+          sortBy: sortBy || 'id'
+        }
         // Set the URL with the query params
-        productUrl = `/?limit=${limit || 0}&skip=${skip || 0}&order=${order || 'asc'}&sortBy=${sortBy || 'id'}`
+        productUrl = `/?limit=${qParams.limit}&skip=${qParams.skip}&order=${qParams.order}&sortBy=${qParams.sortBy}`
       }
       // Retrieve the necessary Data from the API
       const response = await productApi.get(productUrl)

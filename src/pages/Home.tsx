@@ -12,6 +12,7 @@ interface IState {
   skip: IProductQueryParams['skip']
   order: IProductQueryParams['order']
   sortBy: IProductQueryParams['sortBy']
+  currentPage?: number
 }
 
 const Home: React.FC = (): JSX.Element => {
@@ -20,21 +21,24 @@ const Home: React.FC = (): JSX.Element => {
     limit: 10,
     skip: 0,
     order: 'asc',
-    sortBy: 'id'
+    sortBy: 'id',
+    currentPage: 1
   })
+    const itemsPerPage = state.limit ?? 10; // Default to 10 if state.limit is undefined
 
   // -------------- ZUSTAND STORE
   const { openProductModal } = useModalStore()
+    const isProductModalOpen = useModalStore.getState().isProductModalOpen
 
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
-    queryKey: [''],
-    staleTime: 5000, // Keeps previous data for 5 seconds
+    queryKey: [state.currentPage, state.limit, state.order, state.sortBy], // Keeps previous data for 5 seconds
+    staleTime: 5000,
     queryFn: async () => {
       // Call the API to get the products and destructure the response
       const { data, error, status } = await ProductApi.getProducts({
         limit: state.limit,
-        skip: state.skip,
+        skip: (state.currentPage! - 1) * (state.limit ?? 10),
         order: state.order,
         sortBy: state.sortBy
       })
@@ -46,6 +50,8 @@ const Home: React.FC = (): JSX.Element => {
       }
     }
   })
+
+  const totalPages = Math.ceil((apiData?.data?.total || 0) / itemsPerPage);
 
   return (
     <FlexContainer
@@ -95,17 +101,42 @@ const Home: React.FC = (): JSX.Element => {
           eachData={apiData?.data?.products}
         />
       </FlexContainer>
+      {/* Pagination Buttons */}
+      <FlexContainer
+        flexContainerId="pagination-buttons"
+        direction="row"
+        justify="center"
+        align="center"
+        gap={2}
+      >
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => setState({ ...state, currentPage: index + 1 })}
+            className={`px-4 py-2 ${
+              state.currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </FlexContainer>
       {/* MODAL */}
       <Modal
-        hasModalHeader={false}
-        hasModalFooter={false}
-        hasModalCloseButton={true}
-        hasModalOverlay={true}
         modalId="product-modal"
-        modalBody={<div>Product Modal</div>}
-        modalHeader={<div>Product Header</div>}
-        modalFooter={<div>Product Footer</div>}
-      />
+        isModalOpen={isProductModalOpen}
+      >
+        <FlexContainer
+          flexContainerId="modal-content"
+          direction="column"
+          justify="center"
+          align="center"
+          gap={2}
+        >
+          <h1>Product Modal</h1>
+          <p>Product details go here</p>
+        </FlexContainer>
+      </Modal>
     </FlexContainer>
   )
 }
