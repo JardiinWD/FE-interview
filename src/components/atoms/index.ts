@@ -5,6 +5,8 @@ import Image from './Image'
 import Button from './Button'
 import DataLoop from './DataLoop'
 import Modal from './Modal'
+import ProductCard from './ProductCard'
+import Pagination from './Pagination'
 
 export {
   Typography,
@@ -13,5 +15,7 @@ export {
   Image,
   Button,
   DataLoop,
-  Modal
+  Modal,
+  ProductCard,
+  Pagination
 }

@@ -1,7 +1,7 @@
 import React, { JSX } from 'react'
 import { IModalProps } from '@/types/atoms'
 import { useModalStore } from '@/store'
-import ReactModal from 'react-modal';
+import ReactModal from 'react-modal'
 
 const customStyles = {
   content: {
@@ -10,11 +10,11 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+    transform: 'translate(-50%, -50%)'
+  }
+}
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement('#root')
 
 /**
  * @description Modal component for displaying content in a dialog box.
@@ -30,7 +30,13 @@ const Modal: React.FC<IModalProps> = ({
   const { closeProductModal } = useModalStore()
 
   return (
-    <ReactModal className={className} contentLabel={modalId} isOpen={isModalOpen} onRequestClose={closeProductModal} style={customStyles}>
+    <ReactModal
+      className={className}
+      contentLabel={modalId}
+      isOpen={isModalOpen}
+      onRequestClose={closeProductModal}
+      style={customStyles}
+    >
       {children}
     </ReactModal>
   )

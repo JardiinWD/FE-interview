@@ -1,8 +1,6 @@
 // --> Carts
 import CartProductCard from './cart/CartProductCard'
-// --> Modals
-import ModalCartProductCard from './modals/ModalCartProductCard'
 // --> Products
-import ProductCard from './products/ProductCard'
+import ProductsList from './products/ProductsList'
 
-export { CartProductCard, ModalCartProductCard, ProductCard }
+export { CartProductCard, ProductsList }

@@ -122,7 +122,6 @@ export interface IProductCardProps {
   description?: IProduct['description']
   imageSrc?: IProduct['images'][0]
   onAddToCart?: () => void
-  onViewDetails?: () => void
 }
 
 // -------------
@@ -156,4 +155,13 @@ export interface IModalProps {
   children?: ReactNode
   className?: string
   isModalOpen?: boolean
+}
+
+// -------------
+// ------------- PAGINATION
+// -------------
+export interface IPaginationProps {
+  totalPages: number
+  currentPage: number
+  onPageChange: () => void
 }

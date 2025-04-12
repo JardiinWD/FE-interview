@@ -18,3 +18,12 @@ export const retrieveHelmetData = (pathname: string) => {
 
   return helmetData
 }
+
+export const truncateLongText = (text: string, maxLength: number) => {
+  // Check if the text is empty or null
+  if (!text) return ''
+  // Check if the text is already shorter than the maximum length
+  if (text.length > maxLength) return text.slice(0, maxLength) + '...'
+  // If the text is shorter than the maximum length, return it as is
+  return text
+}

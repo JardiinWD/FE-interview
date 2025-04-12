@@ -1,10 +1,10 @@
 import { ProductApi } from '@/api'
-import { DataLoop, FlexContainer, Modal } from '@/components/atoms'
-import { ProductCard } from '@/components/molecules'
+import { IProduct, IProductQueryParams } from '@/api/types'
+import { FlexContainer, Modal } from '@/components/atoms'
+import { ProductsList } from '@/components/molecules'
+import { useModalStore } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX, useState } from 'react'
-import { IProductQueryParams } from '@/api/types'
-import { useModalStore } from '@/store'
 
 // -------------- INTERFACES
 interface IState {
@@ -18,17 +18,17 @@ interface IState {
 const Home: React.FC = (): JSX.Element => {
   // -------------- STATE
   const [state, setState] = useState<IState>({
-    limit: 10,
+    limit: 9,
     skip: 0,
     order: 'asc',
     sortBy: 'id',
     currentPage: 1
   })
-    const itemsPerPage = state.limit ?? 10; // Default to 10 if state.limit is undefined
+  const itemsPerPage = state.limit ?? 9 // Default to 10 if state.limit is undefined
 
   // -------------- ZUSTAND STORE
   const { openProductModal } = useModalStore()
-    const isProductModalOpen = useModalStore.getState().isProductModalOpen
+  const isProductModalOpen = useModalStore.getState().isProductModalOpen
 
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
@@ -51,7 +51,9 @@ const Home: React.FC = (): JSX.Element => {
     }
   })
 
-  const totalPages = Math.ceil((apiData?.data?.total || 0) / itemsPerPage);
+  const totalPages = Math.ceil((apiData?.data?.total || 0) / itemsPerPage)
+
+  console.log('IsPending --> ? ', isPending)
 
   return (
     <FlexContainer
@@ -63,69 +65,22 @@ const Home: React.FC = (): JSX.Element => {
       gap={2}
       className="h-screen"
     >
-      {/* <Typography
-        tagAs="h1"
-        text={`${isPending ? 'Loading...' : 'Hello World'}`}
-        textColor="text-primary_blue_400"
-        weight="bold"
-        className="text-center"
-      /> */}
-      {/* PRODUCT IMAGES */}
-      {/* TODO: Update with GridContainer */}
-      <FlexContainer
-        flexContainerId="data-loop"
-        direction="row"
-        justify="center"
-        align="center"
-        gap={2}
-      >
-        <DataLoop
-          render={(index, item) => {
-            return (
-              <ProductCard
-                key={index}
-                title={item.title}
-                description={item.description}
-                imageSrc={item.images[0]}
-                onAddToCart={() => {
-                  console.log(`Adding ${item.title} to cart`)
-                  // Pass the item to the modal
-                  openProductModal(item)
-                }}
-                onViewDetails={() =>
-                  console.log(`Viewing details for ${item.title}`)
-                }
-              />
-            )
-          }}
-          eachData={apiData?.data?.products}
-        />
-      </FlexContainer>
-      {/* Pagination Buttons */}
-      <FlexContainer
-        flexContainerId="pagination-buttons"
-        direction="row"
-        justify="center"
-        align="center"
-        gap={2}
-      >
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => setState({ ...state, currentPage: index + 1 })}
-            className={`px-4 py-2 ${
-              state.currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </FlexContainer>
+      {/* PRODUCTS */}
+      <ProductsList
+        paginationParams={{
+          totalPages,
+          currentPage: state.currentPage as number,
+          onPageChange: () =>
+            setState({
+              ...state,
+              currentPage: (state.currentPage as number) + 1
+            })
+        }}
+        products={apiData?.data?.products as IProduct[]}
+      />
+
       {/* MODAL */}
-      <Modal
-        modalId="product-modal"
-        isModalOpen={isProductModalOpen}
-      >
+      <Modal modalId="product-modal" isModalOpen={isProductModalOpen}>
         <FlexContainer
           flexContainerId="modal-content"
           direction="column"
