@@ -17,7 +17,7 @@ interface IState {
 const Home: React.FC = (): JSX.Element => {
   // -------------- STATE
   const [state, setState] = useState<IState>({
-    limit: 9,
+    limit: 8,
     skip: 0,
     order: 'asc',
     sortBy: 'id',

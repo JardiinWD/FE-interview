@@ -11,7 +11,7 @@ const DiscountPill: React.FC<IDiscountPillProps> = ({
   discountPercentage = 0
 }): JSX.Element => {
   return (
-    <div className="bg-primary_blue_200 text-white p-1 rounded-lg">
+    <div className="bg-primary_yellow_400 text-primary_black_700 p-1 rounded-lg">
       <Typography
         textColor="text-primary_black_700"
         weight="bold"

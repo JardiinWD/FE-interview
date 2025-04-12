@@ -7,12 +7,15 @@ import {
   Button,
   ProductRating,
   FlexContainer,
-  DiscountPill
+  DiscountPill,
+  QuantityCounter,
+  CartAction
 } from '@/components/atoms'
 import { ICardProps } from '@/types/atoms'
 import { Link } from 'react-router'
 import { handleRouondedRatingValue, truncateLongText } from '@/utils/functions'
 import { Icons } from '@/assets/icons'
+import { IProduct } from '@/api/types'
 
 /**
  * @description Card component
@@ -153,7 +156,7 @@ const CardFooter: React.FC<ICardProps> = ({
       </FlexContainer>
       {/* FOOTER ACTION */}
       <FlexContainer
-        className="pb-4 pr-4"
+        className="p-4 pt-0 w-full"
         flexContainerId="footer-actions"
         align="center"
         justify="space-between"
@@ -167,15 +170,8 @@ const CardFooter: React.FC<ICardProps> = ({
         >
           <Icons.EyeIcon className="w-4 h-4 text-primary_black_500" />
         </Link>
-        {/* Add To Cart */}
-        <Button
-          variant="primary"
-          buttonId="add-to-cart"
-          buttonType="button"
-          onClick={onAddToCart}
-        >
-          Add to Cart
-        </Button>
+        {/* CART ACTIONS */}
+        <CartAction product={product as IProduct} />
       </FlexContainer>
     </FlexContainer>
   )

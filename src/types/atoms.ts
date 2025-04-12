@@ -113,10 +113,17 @@ export interface IDataLoopProps<T extends IProduct | ICart> {
 }
 
 // -------------
-// ------------- PRODUCT CARD
+// ------------- CART
 // -------------
 
-// --> Product card props
+export interface ICartActionProps {
+  product: IProduct
+}
+
+// -------------
+// ------------- PRODUCT
+// -------------
+
 export interface ICardProps {
   title?: IProduct['title']
   description?: IProduct['description']
@@ -125,18 +132,31 @@ export interface ICardProps {
   onAddToCart?: () => void
 }
 
-// --> Product card discount sales props
 export interface IDiscountPillProps {
   discountPercentage: number
 }
 
-// --> Product card rating props
 export interface IProductRatingProps {
   rating: number
   starsProps?: {
     width?: string
     height?: string
   }
+}
+
+export interface IAdditionalInfoProps {
+  info: keyof IProduct | string
+  label: string
+}
+
+export interface IQuantityCounterProps {
+  minValue?: number
+  maxValue?: number
+  step?: number
+  initialValue?: number
+  onIncrement?: (value: number) => void
+  onDecrement?: (value: number) => void
+  onChange?: (value: number) => void
 }
 
 // -------------
@@ -179,23 +199,4 @@ export interface IPaginationProps {
   totalPages: number
   currentPage: number
   onPageChange: (pageNumber: number) => void
-}
-
-// -------------
-// ------------- PRODUCTS PAGE ATOMS
-// -------------
-
-export interface IAdditionalInfoProps {
-  info: keyof IProduct | string
-  label: string
-}
-
-export interface IQuantityCounterProps {
-  minValue?: number
-  maxValue?: number
-  step?: number
-  initialValue?: number
-  onIncrement?: (value: number) => void
-  onDecrement?: (value: number) => void
-  onChange?: (value: number) => void
 }

@@ -1,11 +1,10 @@
 import {
-  Button,
-  FlexContainer,
   AdditionalInfo,
+  CartAction,
   DiscountPill,
+  FlexContainer,
   ProductRating,
-  Typography,
-  QuantityCounter
+  Typography
 } from '@/components/atoms'
 import { ISingleProductProps } from '@/types/organisms'
 import { handleRouondedRatingValue } from '@/utils/functions'
@@ -156,24 +155,6 @@ const ProductAdditionalInfo: React.FC<ISingleProductProps> = ({
 const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
   product
 }): JSX.Element => {
-  const counterValues = {
-    // Initial Value Logic -> If minimum order quantity is greater than stock, set initial value to stock
-    initialValue:
-      product.minimumOrderQuantity > product.stock
-        ? product.stock
-        : product.minimumOrderQuantity,
-    // Min Value Logic -> If minimum order quantity is greater than stock, set min value to stock
-    minValue:
-      product.minimumOrderQuantity > product.stock
-        ? product.stock
-        : product.minimumOrderQuantity,
-    // Max Value Logic -> If minimum order quantity is greater than stock, set max value to stock
-    maxValue:
-      product.stock < product.minimumOrderQuantity
-        ? product.stock
-        : product.minimumOrderQuantity
-  }
-
   return (
     <FlexContainer
       flexContainerId="product-price"
@@ -207,29 +188,7 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
         </FlexContainer>
       )}
       {/* CART ACTIONS */}
-      <FlexContainer
-        flexContainerId="add-to-cart"
-        align="center"
-        justify="space-between"
-        gap={2}
-      >
-        {/* Add To Cart */}
-        <Button
-          variant="primary"
-          buttonId="add-to-cart"
-          buttonType="button"
-          onClick={() => {}}
-        >
-          Add to Cart
-        </Button>
-        {/* Quantity Counter */}
-        <QuantityCounter
-          initialValue={counterValues.initialValue}
-          minValue={counterValues.minValue}
-          maxValue={counterValues.maxValue}
-          step={1}
-        />
-      </FlexContainer>
+      <CartAction product={product} />
     </FlexContainer>
   )
 }

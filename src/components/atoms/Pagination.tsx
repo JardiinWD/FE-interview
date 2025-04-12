@@ -32,7 +32,7 @@ const Pagination: React.FC<IPaginationProps> = ({
               key={pageNumber}
               variant="primary"
               onClick={() => onPageChange(pageNumber as number)}
-              className={`px-4 py-2 ${currentPage === pageNumber ? 'bg-primary_blue_500 text-white' : 'bg-primary_blue_100'}`}
+              className={`px-4 py-2 ${currentPage === pageNumber ? 'bg-primary_yellow_500 text-primary_black_600' : '!text-primary_black_600 !bg-primary_gray_200'}`}
             >
               {pageNumber}
             </Button>

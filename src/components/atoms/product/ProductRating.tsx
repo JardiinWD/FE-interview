@@ -24,7 +24,7 @@ const ProductRating: React.FC<IProductRatingProps> = ({
       return (
         <svg
           key={index}
-          className={`${starsProps.width} ${starsProps.height} text-primary_blue_400`}
+          className={`${starsProps.width} ${starsProps.height} text-primary_yellow_500`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -38,7 +38,7 @@ const ProductRating: React.FC<IProductRatingProps> = ({
       return (
         <svg
           key={index}
-          className={`${starsProps.width} ${starsProps.height} text-primary_blue_400`}
+          className={`${starsProps.width} ${starsProps.height} text-primary_yellow_500`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -46,7 +46,7 @@ const ProductRating: React.FC<IProductRatingProps> = ({
         >
           <defs>
             <linearGradient id={`half-star-${index}`}>
-              <stop offset="50%" stopColor="#4d4dff" />
+              <stop offset="50%" stopColor="#ffd966" />
               <stop offset="50%" stopColor="#e5e7eb" />
             </linearGradient>
           </defs>

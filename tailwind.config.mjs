@@ -9,11 +9,11 @@ export default {
                 primary_white_100: 'var(--primary_white_100)',
                 primary_white_200: 'var(--primary_white_200)',
                 /* PRIMARY BLUE */
-                primary_blue_100: 'var(--primary_blue_100)',
-                primary_blue_200: 'var(--primary_blue_200)',
-                primary_blue_400: 'var(--primary_blue_400)',
-                primary_blue_500: 'var(--primary_blue_500)',
-                primary_blue_600: 'var(--primary_blue_600)',
+                primary_yellow_100: 'var(--primary_yellow_100)',
+                primary_yellow_200: 'var(--primary_yellow_200)',
+                primary_yellow_400: 'var(--primary_yellow_400)',
+                primary_yellow_500: 'var(--primary_yellow_500)',
+                primary_yellow_600: 'var(--primary_yellow_600)',
                 /* PRIMARY GRAY */
                 primary_gray_100: 'var(--primary_gray_100)',
                 primary_gray_200: 'var(--primary_gray_200)',

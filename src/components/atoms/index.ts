@@ -15,6 +15,9 @@ import AdditionalInfo from './product/AdditionalInfo'
 import DiscountPill from './product/DiscountPill'
 import QuantityCounter from './product/QuantityCounter'
 
+// ------------------ CART ATOMS
+import CartAction from './cart/CartAction'
+
 export {
   Typography,
   GridContainer,
@@ -28,5 +31,6 @@ export {
   ProductRating,
   DiscountPill,
   AdditionalInfo,
-  QuantityCounter
+  QuantityCounter,
+  CartAction
 }
