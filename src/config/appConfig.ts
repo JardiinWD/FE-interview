@@ -49,6 +49,12 @@ export const appConfig: TAppConfig = {
       keywords: ['home', 'products', 'cart', 'services'],
       route: '/'
     },
+    product: {
+      title: 'Single Product',
+      description: 'Discover the properties of our product',
+      keywords: ['product', 'details', 'cart'],
+      route: '/product/:id'
+    },
     cart: {
       title: 'Cart',
       description: 'Your shopping cart',

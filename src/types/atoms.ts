@@ -121,7 +121,18 @@ export interface IProductCardProps {
   title?: IProduct['title']
   description?: IProduct['description']
   imageSrc?: IProduct['images'][0]
+  product?: IProduct
   onAddToCart?: () => void
+}
+
+// --> Product card discount sales props
+export interface IProductDiscountProps {
+  discountPercentage: number
+}
+
+// --> Product card rating props
+export interface IProductRatingProps {
+  rating: number
 }
 
 // -------------
@@ -163,5 +174,5 @@ export interface IModalProps {
 export interface IPaginationProps {
   totalPages: number
   currentPage: number
-  onPageChange: () => void
+  onPageChange: (pageNumber: number) => void
 }

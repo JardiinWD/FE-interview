@@ -7,6 +7,7 @@ import DataLoop from './DataLoop'
 import Modal from './Modal'
 import ProductCard from './ProductCard'
 import Pagination from './Pagination'
+import ProductRating from './ProductRating'
 
 export {
   Typography,
@@ -17,5 +18,6 @@ export {
   DataLoop,
   Modal,
   ProductCard,
-  Pagination
+  Pagination,
+  ProductRating
 }

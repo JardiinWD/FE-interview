@@ -8,4 +8,5 @@ import { IPaginationProps } from './atoms'
 export interface IProductsListProps {
   products: IProduct[]
   paginationParams: IPaginationProps
+  isLoadingList: boolean
 }

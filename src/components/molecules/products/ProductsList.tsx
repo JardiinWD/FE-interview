@@ -1,3 +1,6 @@
+/* Per risolvere bug paginazione dando un buon loading e mantenendo i bottoni dove sono */
+/* https://codesandbox.io/p/sandbox/react-query-paging-trxxk?file=%2Fsrc%2FApp.tsx%3A49%2C30 */
+
 import {
   DataLoop,
   FlexContainer,
@@ -23,35 +26,34 @@ const ProductsList: React.FC<IProductsListProps> = ({
 
     <React.Fragment>
       {/* Product List */}
-      <FlexContainer
-        flexContainerId="product-list"
-        direction="row"
-        justify="center"
-        align="center"
-        gap={2}
-      >
-        <DataLoop
-          render={(index, item) => {
-            return (
-              <ProductCard
-                key={index}
-                title={item.title}
-                description={item.description}
-                imageSrc={item.images[0]}
-                onAddToCart={() => {
-                  // Pass the item to the modal
-                  console.log(`Adding ${item.title} to cart`)
-                }}
-              />
-            )
-          }}
-          eachData={products}
-        />
-      </FlexContainer>
+      {
+        <FlexContainer
+          flexContainerId="product-list"
+          direction="row"
+          justify="center"
+          align="center"
+          gap={2}
+        >
+          <DataLoop
+            render={(index, item) => {
+              return (
+                <ProductCard
+                  product={item}
+                  key={index}
+                  title={item.title}
+                  description={item.description}
+                  imageSrc={item.images[0]}
+                />
+              )
+            }}
+            eachData={products}
+          />
+        </FlexContainer>
+      }
       {/* Pagination */}
       <Pagination
-        totalPages={paginationParams.totalPages} // Assuming 10 items per page
-        currentPage={paginationParams.currentPage} // Replace with your current page state
+        totalPages={paginationParams.totalPages}
+        currentPage={paginationParams.currentPage}
         onPageChange={paginationParams.onPageChange}
       />
     </React.Fragment>

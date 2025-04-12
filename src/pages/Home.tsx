@@ -1,8 +1,7 @@
 import { ProductApi } from '@/api'
 import { IProduct, IProductQueryParams } from '@/api/types'
-import { FlexContainer, Modal } from '@/components/atoms'
+import { FlexContainer } from '@/components/atoms'
 import { ProductsList } from '@/components/molecules'
-import { useModalStore } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX, useState } from 'react'
 
@@ -25,10 +24,6 @@ const Home: React.FC = (): JSX.Element => {
     currentPage: 1
   })
   const itemsPerPage = state.limit ?? 9 // Default to 10 if state.limit is undefined
-
-  // -------------- ZUSTAND STORE
-  const { openProductModal } = useModalStore()
-  const isProductModalOpen = useModalStore.getState().isProductModalOpen
 
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
@@ -53,8 +48,6 @@ const Home: React.FC = (): JSX.Element => {
 
   const totalPages = Math.ceil((apiData?.data?.total || 0) / itemsPerPage)
 
-  console.log('IsPending --> ? ', isPending)
-
   return (
     <FlexContainer
       flexContainerId="homepage"
@@ -70,28 +63,15 @@ const Home: React.FC = (): JSX.Element => {
         paginationParams={{
           totalPages,
           currentPage: state.currentPage as number,
-          onPageChange: () =>
+          onPageChange: (pageNumber) =>
             setState({
               ...state,
-              currentPage: (state.currentPage as number) + 1
+              currentPage: pageNumber
             })
         }}
+        isLoadingList={isPending}
         products={apiData?.data?.products as IProduct[]}
       />
-
-      {/* MODAL */}
-      <Modal modalId="product-modal" isModalOpen={isProductModalOpen}>
-        <FlexContainer
-          flexContainerId="modal-content"
-          direction="column"
-          justify="center"
-          align="center"
-          gap={2}
-        >
-          <h1>Product Modal</h1>
-          <p>Product details go here</p>
-        </FlexContainer>
-      </Modal>
     </FlexContainer>
   )
 }

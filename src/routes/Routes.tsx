@@ -1,4 +1,4 @@
-import { Home, Error as ErrorPage, Cart } from '@/pages'
+import { Home, Error as ErrorPage, Cart, Product } from '@/pages'
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '@/layout/Layout'
 
@@ -17,6 +17,12 @@ const router = createBrowserRouter([
         path: '/home',
         caseSensitive: true,
         element: <Home />,
+        errorElement: <ErrorPage />
+      },
+      {
+        path: '/product/:id',
+        caseSensitive: true,
+        element: <Product />,
         errorElement: <ErrorPage />
       },
       {

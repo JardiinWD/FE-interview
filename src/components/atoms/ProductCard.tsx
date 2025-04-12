@@ -1,8 +1,174 @@
 import React, { JSX } from 'react'
-import { Typography, Image, Button } from '@/components/atoms'
-import { IProductCardProps } from '@/types/atoms'
+import {
+  Typography,
+  Image,
+  Button,
+  ProductRating,
+  FlexContainer
+} from '@/components/atoms'
+import { IProductCardProps, IProductDiscountProps } from '@/types/atoms'
 import { Link } from 'react-router'
-import { truncateLongText } from '@/utils/functions'
+import { handleRouondedRatingValue, truncateLongText } from '@/utils/functions'
+import { Icons } from '@/assets/icons'
+
+// ------------------ PRODUCT CARD DISCOUNT PRICE
+const ProductDiscount: React.FC<IProductDiscountProps> = ({
+  discountPercentage = 0
+}) => {
+  return (
+    <div className="bg-red-300 text-white p-1 rounded-lg">
+      <Typography
+        textColor="text-primary_black_700"
+        weight="bold"
+        tagAs="span"
+        text={`${discountPercentage}%`}
+        className="tracking-tight"
+      />
+    </div>
+  )
+}
+
+// ------------------ PRODUCT CARD IMAGE
+const ProductCardImage: React.FC<IProductCardProps> = ({
+  imageSrc = 'https://via.placeholder.com/300',
+  title = 'Product'
+}): JSX.Element => {
+  return (
+    <FlexContainer
+      flexContainerId="card-image"
+      direction="row"
+      justify="center"
+      align="center"
+    >
+      <Image
+        className="rounded-t-lg h-48 self-center"
+        src={imageSrc}
+        alt={title}
+        fit="contain"
+      />
+    </FlexContainer>
+  )
+}
+
+// ------------------ PRODUCT CARD BODY
+const ProductCardBody: React.FC<IProductCardProps> = ({
+  title = 'Product',
+  description = 'Product Description',
+  product
+}) => {
+  return (
+    <FlexContainer
+      flexContainerId="card-body"
+      direction="column"
+      justify="center"
+      align="flex-start"
+      className="p-5"
+    >
+      {/* TITLE */}
+      <Typography
+        textColor="text-primary_black_700"
+        weight="bold"
+        tagAs="h4"
+        text={title}
+        className="mb-2 truncate tracking-tight"
+      />
+      {/* DESCRIPTION */}
+      <Typography
+        textColor="text-primary_black_500"
+        weight="regular"
+        tagAs="p"
+        text={truncateLongText(description, 70)}
+        className="mb-3 font-normal "
+      />
+      {/* RATING + STARS */}
+      {product && product?.rating && (
+        <div
+          id="rating"
+          className="flex mb-3 items-center space-x-1.5 rtl:space-x-reverse"
+        >
+          <Typography
+            weight="bold"
+            tagAs="span"
+            textColor="text-primary_black_700"
+            text={handleRouondedRatingValue(
+              product?.rating as number
+            ).toString()}
+            className="tracking-tight"
+          />
+          <ProductRating rating={product?.rating as number} />
+        </div>
+      )}
+    </FlexContainer>
+  )
+}
+
+// ------------------ PRODUCT CARD FOOTER
+const ProductCardFooter: React.FC<IProductCardProps> = ({
+  product,
+  onAddToCart = () => {}
+}) => {
+  return (
+    <FlexContainer
+      flexContainerId="card-footer"
+      justify="space-between"
+      align="center"
+      direction="row"
+      gap={2}
+    >
+      {/* PRODUCT PRICE */}
+      <FlexContainer
+        className="pb-4 pl-4"
+        flexContainerId="footer-actions"
+        align="center"
+        justify="space-between"
+        gap={2}
+      >
+        {product?.price && (
+          <React.Fragment>
+            <Typography
+              textColor="text-primary_black_700"
+              weight="bold"
+              tagAs="h5"
+              text={`$${product?.price}`}
+              className="tracking-tight "
+            />
+            {product?.discountPercentage && (
+              <ProductDiscount
+                discountPercentage={product?.discountPercentage as number}
+              />
+            )}
+          </React.Fragment>
+        )}
+      </FlexContainer>
+      {/* FOOTER ACTION */}
+      <FlexContainer
+        className="pb-4 pr-4"
+        flexContainerId="footer-actions"
+        align="center"
+        justify="space-between"
+        gap={2}
+      >
+        {/* Check Eye Icon */}
+        <Link
+          to={`/product/${product?.id}`}
+          state={{ product: product }}
+          className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
+        >
+          <Icons.EyeIcon className="w-4 h-4 text-primary_black_500" />
+        </Link>
+        {/* Add To Cart */}
+        <Button
+          variant="primary"
+          buttonId="add-to-cart"
+          buttonType="button"
+          onClick={onAddToCart}
+        >
+          Add to Cart
+        </Button>
+      </FlexContainer>
+    </FlexContainer>
+  )
+}
 
 /**
  * @description ProductCard component
@@ -10,91 +176,27 @@ import { truncateLongText } from '@/utils/functions'
  * @param {string} description - The description of the product.
  * @param {string} imageSrc - The source URL of the product image.
  * @param {function} onAddToCart - The function to call when the "Add to Cart" button is clicked.
+ * @param {IProduct} product - The product object.
  * @returns {JSX.Element}
  */
 const ProductCard: React.FC<IProductCardProps> = ({
   title = 'Product',
   description = 'Product Description',
   imageSrc = 'https://via.placeholder.com/300',
-  onAddToCart = () => {}
+  onAddToCart = () => {},
+  product
 }): JSX.Element => {
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      {/* PRODUCT IMAGE */}
-      <Link to="#" className="flex items-center justify-center">
-        <Image
-          className="rounded-t-lg h-48 self-center"
-          src={imageSrc}
-          alt={title}
-          fit="contain"
-        />
-      </Link>
-      {/* CARD BODY */}
-      <div id="card-body" className="p-5">
-        <Typography
-          weight="regular"
-          tagAs="h5"
-          text={title}
-          className="mb-2 text-2xl truncate font-bold tracking-tight text-gray-900 dark:text-white"
-        />
-        <Typography
-          weight="regular"
-          tagAs="p"
-          text={truncateLongText(description, 70)}
-          className="mb-3 font-normal text-gray-700 dark:text-gray-400"
-        />
-        <Button
-          variant="primary"
-          buttonId="read-more"
-          buttonType="button"
-          onClick={onAddToCart}
-        >
-          Add to Cart
-        </Button>
-      </div>
+      <ProductCardImage title={title} imageSrc={imageSrc} />
+      <ProductCardBody
+        title={title}
+        product={product}
+        description={description}
+      />
+      <ProductCardFooter product={product} onAddToCart={onAddToCart} />
     </div>
   )
 }
 
 export default ProductCard
-
-/* 
-<Card.Body gap="2">
-        
-        <Typography
-          tagAs="h3"
-          text={title}
-          textColor="text-primary_blue_400"
-          weight="bold"
-          className="text-left"
-        />
-        
-        <Typography
-          tagAs="p"
-          text={description}
-          textColor="text-primary_blue_400"
-          weight="regular"
-          className="text-left"
-        />
-        
-        <Card.Footer gap="2" margin={0} padding={0}>
-          <Button
-            buttonId="product-info"
-            buttonType="button"
-            onClick={onViewDetails}
-            variant="secondary"
-          >
-            Other Info
-          </Button>
-          <Button
-            buttonId="add-to-cart"
-            buttonType="button"
-            onClick={onAddToCart}
-            variant="primary"
-          >
-            Add to cart
-          </Button>
-        </Card.Footer>
-      </Card.Body>
-
-*/
