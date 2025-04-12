@@ -1,21 +1,19 @@
 // TODO: Add Skeletons
 
-import React, { JSX } from 'react'
+import { IProduct } from '@/api/types'
+import { Icons } from '@/assets/icons'
 import {
-  Typography,
-  Image,
-  Button,
-  ProductRating,
-  FlexContainer,
+  CartAction,
   DiscountPill,
-  QuantityCounter,
-  CartAction
+  FlexContainer,
+  Image,
+  ProductRating,
+  Typography
 } from '@/components/atoms'
 import { ICardProps } from '@/types/atoms'
-import { Link } from 'react-router'
 import { handleRouondedRatingValue, truncateLongText } from '@/utils/functions'
-import { Icons } from '@/assets/icons'
-import { IProduct } from '@/api/types'
+import React, { JSX } from 'react'
+import { Link } from 'react-router'
 
 /**
  * @description Card component

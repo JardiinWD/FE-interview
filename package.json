@@ -21,6 +21,7 @@
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "framer-motion": "^12.6.5",
+    "lottie-react": "^2.4.1",
     "postcss": "8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

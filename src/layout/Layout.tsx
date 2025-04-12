@@ -3,6 +3,7 @@ import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { appConfig } from '@/config/appConfig'
+import { Header } from '@/components/molecules'
 
 const Layout = () => {
   // ------------- HOOKS
@@ -36,6 +37,8 @@ const Layout = () => {
           </React.Fragment>
         )}
       </Helmet>
+      {/* HEADER */}
+      <Header />
       {/* OUTLET COMPONENT */}
       <Outlet />
     </React.Fragment>
