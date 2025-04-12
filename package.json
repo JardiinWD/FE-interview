@@ -2,7 +2,7 @@
   "name": "sikuro-group-fe-interview",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

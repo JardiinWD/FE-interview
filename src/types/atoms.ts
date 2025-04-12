@@ -117,7 +117,7 @@ export interface IDataLoopProps<T extends IProduct | ICart> {
 // -------------
 
 // --> Product card props
-export interface IProductCardProps {
+export interface ICardProps {
   title?: IProduct['title']
   description?: IProduct['description']
   imageSrc?: IProduct['images'][0]
@@ -126,13 +126,17 @@ export interface IProductCardProps {
 }
 
 // --> Product card discount sales props
-export interface IProductDiscountProps {
+export interface IDiscountPillProps {
   discountPercentage: number
 }
 
 // --> Product card rating props
 export interface IProductRatingProps {
   rating: number
+  starsProps?: {
+    width?: string
+    height?: string
+  }
 }
 
 // -------------
@@ -175,4 +179,23 @@ export interface IPaginationProps {
   totalPages: number
   currentPage: number
   onPageChange: (pageNumber: number) => void
+}
+
+// -------------
+// ------------- PRODUCTS PAGE ATOMS
+// -------------
+
+export interface IAdditionalInfoProps {
+  info: keyof IProduct | string
+  label: string
+}
+
+export interface IQuantityCounterProps {
+  minValue?: number
+  maxValue?: number
+  step?: number
+  initialValue?: number
+  onIncrement?: (value: number) => void
+  onDecrement?: (value: number) => void
+  onChange?: (value: number) => void
 }

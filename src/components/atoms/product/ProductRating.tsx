@@ -6,7 +6,11 @@ import React, { JSX } from 'react'
  * @param {number} rating - The rating of the product (0 to 5).
  */
 const ProductRating: React.FC<IProductRatingProps> = ({
-  rating = 0
+  rating = 0,
+  starsProps = {
+    width: 'w-4',
+    height: 'h-4'
+  }
 }): JSX.Element => {
   // Round the rating to the nearest half
   const roundedRating = Math.round(rating * 2) / 2
@@ -20,7 +24,7 @@ const ProductRating: React.FC<IProductRatingProps> = ({
       return (
         <svg
           key={index}
-          className="w-4 h-4 text-primary_blue_400"
+          className={`${starsProps.width} ${starsProps.height} text-primary_blue_400`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -34,7 +38,7 @@ const ProductRating: React.FC<IProductRatingProps> = ({
       return (
         <svg
           key={index}
-          className="w-4 h-4 text-primary-blue"
+          className={`${starsProps.width} ${starsProps.height} text-primary_blue_400`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -57,7 +61,7 @@ const ProductRating: React.FC<IProductRatingProps> = ({
       return (
         <svg
           key={index}
-          className="w-4 h-4 text-gray-200 dark:text-gray-600"
+          className={`${starsProps.width} ${starsProps.height}  text-gray-200 dark:text-gray-600`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"

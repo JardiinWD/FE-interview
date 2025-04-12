@@ -1,3 +1,4 @@
+// ------------------ COMMON ATOMS
 import Typography from './Typography'
 import GridContainer from './GridContainer'
 import FlexContainer from './FlexContainer'
@@ -5,9 +6,14 @@ import Image from './Image'
 import Button from './Button'
 import DataLoop from './DataLoop'
 import Modal from './Modal'
-import ProductCard from './ProductCard'
 import Pagination from './Pagination'
-import ProductRating from './ProductRating'
+
+// ------------------ PRODUCT ATOMS
+import Card from './product/Card'
+import ProductRating from './product/ProductRating'
+import AdditionalInfo from './product/AdditionalInfo'
+import DiscountPill from './product/DiscountPill'
+import QuantityCounter from './product/QuantityCounter'
 
 export {
   Typography,
@@ -17,7 +23,10 @@ export {
   Button,
   DataLoop,
   Modal,
-  ProductCard,
+  Card,
   Pagination,
-  ProductRating
+  ProductRating,
+  DiscountPill,
+  AdditionalInfo,
+  QuantityCounter
 }

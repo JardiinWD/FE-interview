@@ -1,12 +1,7 @@
 /* Per risolvere bug paginazione dando un buon loading e mantenendo i bottoni dove sono */
 /* https://codesandbox.io/p/sandbox/react-query-paging-trxxk?file=%2Fsrc%2FApp.tsx%3A49%2C30 */
 
-import {
-  DataLoop,
-  FlexContainer,
-  Pagination,
-  ProductCard
-} from '@/components/atoms'
+import { DataLoop, FlexContainer, Pagination, Card } from '@/components/atoms'
 import { IProductsListProps } from '@/types/molecules'
 import React from 'react'
 
@@ -25,31 +20,26 @@ const ProductsList: React.FC<IProductsListProps> = ({
     // Aggiungere qua onAddToCart
 
     <React.Fragment>
-      {/* Product List */}
-      {
-        <FlexContainer
-          flexContainerId="product-list"
-          direction="row"
-          justify="center"
-          align="center"
-          gap={2}
-        >
-          <DataLoop
-            render={(index, item) => {
-              return (
-                <ProductCard
-                  product={item}
-                  key={index}
-                  title={item.title}
-                  description={item.description}
-                  imageSrc={item.images[0]}
-                />
-              )
-            }}
-            eachData={products}
-          />
-        </FlexContainer>
-      }
+      <FlexContainer
+        flexContainerId="product-list"
+        direction="row"
+        justify="center"
+        align="center"
+        gap={2}
+      >
+        <DataLoop
+          render={(index, item) => (
+            <Card
+              product={item}
+              key={index}
+              title={item.title}
+              description={item.description}
+              imageSrc={item.images[0]}
+            />
+          )}
+          eachData={products}
+        />
+      </FlexContainer>
       {/* Pagination */}
       <Pagination
         totalPages={paginationParams.totalPages}

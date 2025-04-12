@@ -1,35 +1,46 @@
+// TODO: Add Skeletons
+
 import React, { JSX } from 'react'
 import {
   Typography,
   Image,
   Button,
   ProductRating,
-  FlexContainer
+  FlexContainer,
+  DiscountPill
 } from '@/components/atoms'
-import { IProductCardProps, IProductDiscountProps } from '@/types/atoms'
+import { ICardProps } from '@/types/atoms'
 import { Link } from 'react-router'
 import { handleRouondedRatingValue, truncateLongText } from '@/utils/functions'
 import { Icons } from '@/assets/icons'
 
-// ------------------ PRODUCT CARD DISCOUNT PRICE
-const ProductDiscount: React.FC<IProductDiscountProps> = ({
-  discountPercentage = 0
-}) => {
+/**
+ * @description Card component
+ * @param {string} title - The title of the product.
+ * @param {string} description - The description of the product.
+ * @param {string} imageSrc - The source URL of the product image.
+ * @param {function} onAddToCart - The function to call when the "Add to Cart" button is clicked.
+ * @param {IProduct} product - The product object.
+ * @returns {JSX.Element}
+ */
+const Card: React.FC<ICardProps> = ({
+  title = 'Product',
+  description = 'Product Description',
+  imageSrc = 'https://via.placeholder.com/300',
+  onAddToCart = () => {},
+  product
+}): JSX.Element => {
   return (
-    <div className="bg-red-300 text-white p-1 rounded-lg">
-      <Typography
-        textColor="text-primary_black_700"
-        weight="bold"
-        tagAs="span"
-        text={`${discountPercentage}%`}
-        className="tracking-tight"
-      />
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <CardImage title={title} imageSrc={imageSrc} />
+      <CardBody title={title} product={product} description={description} />
+      <CardFooter product={product} onAddToCart={onAddToCart} />
     </div>
   )
 }
 
 // ------------------ PRODUCT CARD IMAGE
-const ProductCardImage: React.FC<IProductCardProps> = ({
+const CardImage: React.FC<ICardProps> = ({
   imageSrc = 'https://via.placeholder.com/300',
   title = 'Product'
 }): JSX.Element => {
@@ -51,7 +62,7 @@ const ProductCardImage: React.FC<IProductCardProps> = ({
 }
 
 // ------------------ PRODUCT CARD BODY
-const ProductCardBody: React.FC<IProductCardProps> = ({
+const CardBody: React.FC<ICardProps> = ({
   title = 'Product',
   description = 'Product Description',
   product
@@ -103,7 +114,7 @@ const ProductCardBody: React.FC<IProductCardProps> = ({
 }
 
 // ------------------ PRODUCT CARD FOOTER
-const ProductCardFooter: React.FC<IProductCardProps> = ({
+const CardFooter: React.FC<ICardProps> = ({
   product,
   onAddToCart = () => {}
 }) => {
@@ -133,7 +144,7 @@ const ProductCardFooter: React.FC<IProductCardProps> = ({
               className="tracking-tight "
             />
             {product?.discountPercentage && (
-              <ProductDiscount
+              <DiscountPill
                 discountPercentage={product?.discountPercentage as number}
               />
             )}
@@ -170,33 +181,4 @@ const ProductCardFooter: React.FC<IProductCardProps> = ({
   )
 }
 
-/**
- * @description ProductCard component
- * @param {string} title - The title of the product.
- * @param {string} description - The description of the product.
- * @param {string} imageSrc - The source URL of the product image.
- * @param {function} onAddToCart - The function to call when the "Add to Cart" button is clicked.
- * @param {IProduct} product - The product object.
- * @returns {JSX.Element}
- */
-const ProductCard: React.FC<IProductCardProps> = ({
-  title = 'Product',
-  description = 'Product Description',
-  imageSrc = 'https://via.placeholder.com/300',
-  onAddToCart = () => {},
-  product
-}): JSX.Element => {
-  return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      <ProductCardImage title={title} imageSrc={imageSrc} />
-      <ProductCardBody
-        title={title}
-        product={product}
-        description={description}
-      />
-      <ProductCardFooter product={product} onAddToCart={onAddToCart} />
-    </div>
-  )
-}
-
-export default ProductCard
+export default Card
