@@ -1,10 +1,13 @@
-// --> Carts
+// ------------------ CART MOLECULES
 import CartSummarySingleProduct from './cart/CartSummarySingleProduct'
 import CartSummary from './cart/CartSummary'
 import EmptyCart from './cart/EmptyCart'
-// --> Products
+import CartTabs from './cart/CartTabs'
+
+// ------------------ PRODUCT MOLECULES
 import ProductsList from './products/ProductsList'
-// --> Commons
+
+// ------------------ COMMON MOLECULES
 import Header from './Header'
 
 export {
@@ -12,5 +15,6 @@ export {
   CartSummary,
   ProductsList,
   Header,
-  EmptyCart
+  EmptyCart,
+  CartTabs
 }

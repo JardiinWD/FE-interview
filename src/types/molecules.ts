@@ -1,4 +1,4 @@
-import { IProduct } from '@/api/types'
+import { ICart, IProduct } from '@/api/types'
 import { IPaginationProps } from './atoms'
 
 // -------------
@@ -12,18 +12,28 @@ export interface IProductsListProps {
 }
 
 // -------------
+// ------------- CART TABS
+// -------------
+
+export interface ICartTabsProps {
+  cartData: ICart[]
+  activeTab: number
+  onClickHandler: (index: number) => void
+}
+
+// -------------
 // ------------- CART SUMMARY
 // -------------
 
 export interface ICartSummarySingleProductProps {
-  discountPercentage: number
-  discountedTotal: number
-  id: number
-  price: number
-  quantity: number
-  thumbnail: string
-  title: string
-  total: number
+  discountPercentage: ICart['discountPercentage']
+  discountedTotal: ICart['discountedTotal']
+  id: ICart['id']
+  price: ICart['price']
+  quantity: ICart['quantity']
+  thumbnail: IProduct['thumbnail']
+  title: IProduct['title']
+  total: ICart['total']
 }
 
 export interface ICartSummaryProps {

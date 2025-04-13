@@ -1,10 +1,11 @@
 import { CartApi } from '@/api'
-import React, { JSX } from 'react'
-import { FlexContainer, Typography } from '@/components/atoms'
-import { useQuery } from '@tanstack/react-query'
-import { CartSummary, EmptyCart } from '@/components/molecules'
-import { IProduct } from '@/api/types'
+import { ICart } from '@/api/types'
+import { FlexContainer } from '@/components/atoms'
+import { CartTabs, EmptyCart } from '@/components/molecules'
+import { SingleCart } from '@/components/organisms'
 import { ICartSummarySingleProductProps } from '@/types/molecules'
+import { useQuery } from '@tanstack/react-query'
+import React, { JSX } from 'react'
 
 // -------------- INTERFACES
 
@@ -71,6 +72,7 @@ const Cart: React.FC = (): JSX.Element => {
         gap={2}
         className="h-[80dvh] w-full"
       >
+        {/* TODO: USE LOADER ATOM INSTEAD */}
         Loading...
       </FlexContainer>
     )
@@ -86,75 +88,23 @@ const Cart: React.FC = (): JSX.Element => {
       gap={2}
       className="h-[80dvh] w-full"
     >
-      {/* EMPTY CART */}
-
-      {/* CART TABS (must become an Atom) */}
-      <FlexContainer
-        flexContainerId="cart-tabs"
-        direction="row"
-        justify="center"
-        align="center"
-        gap={2}
-        className="w-full  p-2"
-      >
-        {apiData?.data?.carts.map((_, index: number) => (
-          <button
-            key={index}
-            onClick={() =>
-              setState((prevState) => ({
-                ...prevState,
-                activeTab: index
-              }))
-            }
-            className={`px-4 py-2 ${
-              state.activeTab === index
-                ? 'bg-primary_yellow_500 text-primary_black_500'
-                : 'bg-gray-200 text-primary_black_500'
-            } rounded-lg`}
-          >
-            <Typography
-              tagAs="span"
-              weight="regular"
-              textColor="text-primary_black_500"
-              text={`Cart ${index + 1}`}
-            />
-          </button>
-        ))}
-      </FlexContainer>
-      {/* SINGOLA TAB (Organismo CartTab) */}
-      <FlexContainer
-        flexContainerId="cart-content"
-        direction="row"
-        justify="space-between"
-        align="flex-start"
-        gap={4}
-        wrap="nowrap"
-        className="w-full p-4"
-      >
-        {/* CART SUMMARY */}
-        <CartSummary
-          cartId={1}
-          cartProducts={
-            apiData?.data?.carts[state.activeTab]
-              ?.products as ICartSummarySingleProductProps[]
-          }
-        />
-        {/* CART CHECKOUT */}
-        <FlexContainer
-          flexContainerId="cart-checkout"
-          direction="row"
-          justify="flex-start"
-          align="flex-start"
-          wrap="nowrap"
-          className="h-fit w-[30%] relative z-10 bg-white shadow-lg rounded-lg p-6"
-          style={{
-            boxShadow:
-              '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
-          }}
-        >
-          LEFT SIDE
-        </FlexContainer>
-      </FlexContainer>
+      <CartTabs
+        cartData={apiData?.data?.carts as ICart[]}
+        activeTab={state.activeTab}
+        onClickHandler={(index: number) =>
+          setState((prevState) => ({
+            ...prevState,
+            activeTab: index
+          }))
+        }
+      />
+      <SingleCart
+        cartProducts={
+          apiData?.data?.carts[state.activeTab]
+            ?.products as ICartSummarySingleProductProps[]
+        }
+        cartId={1}
+      />
     </FlexContainer>
   )
 }

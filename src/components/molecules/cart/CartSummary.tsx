@@ -1,4 +1,3 @@
-import { ICart, IProduct } from '@/api/types'
 import {
   CartAction,
   DiscountPill,

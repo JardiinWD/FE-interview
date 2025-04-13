@@ -1,3 +1,7 @@
+// ------------------ PRODUCT ORGANISMS
 import SingleProduct from './product/SingleProduct'
 
-export { SingleProduct }
+// ------------------ CART ORGANISMS
+import SingleCart from './cart/SingleCart'
+
+export { SingleProduct, SingleCart }
