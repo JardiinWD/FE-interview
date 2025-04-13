@@ -1,6 +1,6 @@
 // --> Documentation : https://dummyjson.com/docs/carts
 import axios from 'axios'
-import { ICartApi, TPromiseError, TCartApiContext } from '@/api/types'
+import { ICartApi, TPromiseError, TCartApiContext, ICart } from '@/api/types'
 
 // ----------- API ISTANCE
 const cartApi = axios.create({
@@ -15,7 +15,6 @@ export const CartApi: ICartApi = {
   handleCartErrors: async (error: TPromiseError, context: TCartApiContext) => {
     console.error(`An error occured in ${context} --> ${error}`)
     return {
-      data: [],
       error: error,
       status: 'error'
     }
@@ -40,6 +39,29 @@ export const CartApi: ICartApi = {
           ? error.message
           : 'An error occurred while fetching the data',
         'getCarts'
+      )
+    }
+  },
+
+  getCartByUserId: async (userId: number) => {
+    try {
+      // Retrieve the necessary Data from the API
+      const userCartData = await cartApi.get(`/user/${userId}`)
+      // Check if there's not any cart for the user
+      if (userCartData.statusText !== 'OK' || !userCartData.data)
+        throw new Error(`Something went wrong with getCartByUserId API Call!`)
+      // Return the proper Data format
+      return {
+        data: userCartData.data,
+        error: null,
+        status: 'success'
+      }
+    } catch (error) {
+      return CartApi.handleCartErrors(
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while fetching the user id cart data',
+        'getCartByUserId'
       )
     }
   }

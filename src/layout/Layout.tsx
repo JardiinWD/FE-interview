@@ -1,9 +1,10 @@
 import { retrieveHelmetData } from '@/utils/functions'
 import React from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { appConfig } from '@/config/appConfig'
 import { Header } from '@/components/molecules'
+import { Button, FlexContainer } from '@/components/atoms'
 
 const Layout = () => {
   // ------------- HOOKS
@@ -15,7 +16,12 @@ const Layout = () => {
   )
 
   return (
-    <React.Fragment>
+    <FlexContainer
+      gap={3}
+      direction="column"
+      justify="flex-start"
+      align="flex-start"
+    >
       {/* HELMET DATA */}
       <Helmet>
         <meta charSet="utf-8" />
@@ -39,9 +45,22 @@ const Layout = () => {
       </Helmet>
       {/* HEADER */}
       <Header />
+      {/* GO Back Button */}
+      {!['/'].includes(location.pathname) && (
+        <Link to="/">
+          <Button
+            variant="primary"
+            buttonId="go-back-button"
+            buttonType="button"
+            onClick={() => {}}
+          >
+            Go Back
+          </Button>
+        </Link>
+      )}
       {/* OUTLET COMPONENT */}
       <Outlet />
-    </React.Fragment>
+    </FlexContainer>
   )
 }
 

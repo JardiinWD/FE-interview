@@ -3,6 +3,16 @@ import { DEFAULT_LANG, DEFAULT_SUPPORTED_LANGUAGE } from '@/utils/constants'
 // --> Possible Application Locales
 export type TLocales = 'en' | 'it' | 'de'
 
+// --> Application Helmets type
+export type THelmet = {
+  [key: string]: {
+    title: string
+    description: string
+    keywords: string[]
+    route?: string
+  }
+}
+
 // --> Application Metadata and Configuration
 export type TAppConfig = {
   appName: string
@@ -12,14 +22,7 @@ export type TAppConfig = {
   appVersion: string
   defaultLanguage: TLocales
   supportedLanguages: string[]
-  helmets: {
-    [key: string]: {
-      title: string
-      description: string
-      keywords: string[]
-      route?: string
-    }
-  }
+  helmets: THelmet
 }
 
 export const appConfig: TAppConfig = {

@@ -25,7 +25,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
         direction="row"
         justify="center"
         align="center"
-        gap={2}
+        gap={4}
       >
         <DataLoop
           render={(index, item) => (

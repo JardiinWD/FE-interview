@@ -1,7 +1,7 @@
-import { Button, FlexContainer } from '@/components/atoms'
+import { FlexContainer } from '@/components/atoms'
 import { SingleProduct } from '@/components/organisms'
 import React, { JSX } from 'react'
-import { Link, Navigate, useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
 const Product: React.FC = (): JSX.Element => {
   // -------------- CUSTOM HOOK
@@ -23,16 +23,6 @@ const Product: React.FC = (): JSX.Element => {
       justify="center"
       align="flex-start"
     >
-      <Link to="/">
-        <Button
-          variant="primary"
-          buttonId="go-back-button"
-          buttonType="button"
-          onClick={() => {}}
-        >
-          Go Back
-        </Button>
-      </Link>
       <SingleProduct product={product} />
     </FlexContainer>
   )

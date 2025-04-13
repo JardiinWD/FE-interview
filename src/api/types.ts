@@ -29,9 +29,9 @@ export interface ICartData {
 
 // ------------ CART PROMISE
 export interface ICartPromise {
-  data: ICartData | []
-  error: TPromiseError
-  status: TPromiseStatus
+  data?: ICartData
+  error?: TPromiseError
+  status?: TPromiseStatus
 }
 
 // ------------ CART API CALL CONTEXT
@@ -48,8 +48,8 @@ export interface ICartApi {
   getCarts: () => Promise<ICartPromise>
   // TODO : Remove optional cases, now for developing purpose
   getCartById?: (id: number) => Promise<ICartPromise>
-  getCartByUserId?: (userId: number) => Promise<ICartPromise>
-  addCart?: (cart: Partial<ICart>) => Promise<ICartPromise>
+  getCartByUserId: (userId: number) => Promise<ICartPromise>
+  addNewCartToUser?: (userId: number) => Promise<ICartPromise>
   updateCart?: (id: number, cart: Partial<ICart>) => Promise<ICartPromise>
   deleteCart?: (id: number) => Promise<ICartPromise>
   handleCartErrors: (
