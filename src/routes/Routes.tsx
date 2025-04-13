@@ -30,6 +30,12 @@ const router = createBrowserRouter([
         caseSensitive: true,
         element: <Cart />,
         errorElement: <ErrorPage />
+      },
+      {
+        path: '*',
+        caseSensitive: true,
+        element: <ErrorPage />,
+        errorElement: <ErrorPage />
       }
     ],
     errorElement: <ErrorPage />

@@ -52,7 +52,10 @@ export interface ICartApi {
   // TODO : Remove optional cases, now for developing purpose
   getCartById?: (id: number) => Promise<ICartPromise>
   getCartByUserId: (userId: number) => Promise<ICartPromise>
-  addNewCartToUser?: (userId: number) => Promise<ICartPromise>
+  addNewCart: (
+    userId: number,
+    product: Partial<IProduct>
+  ) => Promise<ICartPromise>
   updateCart?: (id: number, cart: Partial<ICart>) => Promise<ICartPromise>
   deleteCart?: (id: number) => Promise<ICartPromise>
   handleCartErrors: (

@@ -1,4 +1,6 @@
-import { JSX, Suspense } from 'react'
+import { FlexContainer } from '@/components/atoms'
+import { EmptyCard } from '@/components/molecules'
+import { JSX } from 'react'
 import { useRouteError } from 'react-router-dom'
 
 interface IErrorProps {
@@ -25,13 +27,21 @@ const Error: React.FC<IErrorProps> = ({
   // ---------- PROPS
   if (message || status || statusText) {
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="error-page">
-          <h1>{status ? status : 404}</h1>
-          <p>{message ? message : 'Something Went Wrong'}</p>
-          <p>{statusText ? statusText : '404'}</p>
-        </div>
-      </Suspense>
+      <FlexContainer
+        flexContainerId="product-page"
+        wrap="nowrap"
+        direction="column"
+        justify="center"
+        align="center"
+        gap={2}
+        className="h-[80dvh] w-full"
+      >
+        <EmptyCard
+          cardError={error as string}
+          cardMessage={message as string}
+          buttonText="Try Again"
+        />
+      </FlexContainer>
     )
   } else {
     const errorMessage =
@@ -39,7 +49,23 @@ const Error: React.FC<IErrorProps> = ({
         ? (error as { message: string }).message
         : 'Unknown error occurred'
 
-    return <Suspense fallback={<div>Loading...</div>}>{errorMessage}</Suspense>
+    return (
+      <FlexContainer
+        flexContainerId="product-page"
+        wrap="nowrap"
+        direction="column"
+        justify="center"
+        align="center"
+        gap={2}
+        className="h-[80dvh] w-full"
+      >
+        <EmptyCard
+          cardError={errorMessage as string}
+          cardMessage={'Ops! Something went wrong'}
+          buttonText="Try Again"
+        />
+      </FlexContainer>
+    )
   }
 }
 

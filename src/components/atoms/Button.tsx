@@ -14,7 +14,7 @@ import React, { JSX } from 'react'
 const Button: React.FC<IButtonProps> = ({
   children,
   variant = 'primary',
-  onClick,
+  onClick = () => {},
   className = '',
   style = {},
   buttonType = 'button',

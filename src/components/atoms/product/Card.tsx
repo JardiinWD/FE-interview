@@ -1,6 +1,7 @@
 // TODO: Add Skeletons
 
-import { IProduct } from '@/api/types'
+import { CartApi } from '@/api'
+import { ICart, IProduct } from '@/api/types'
 import { Icons } from '@/assets/icons'
 import {
   CartAction,
@@ -10,14 +11,20 @@ import {
   ProductRating,
   Typography
 } from '@/components/atoms'
+import { useAuthStore } from '@/store'
 import { ICardProps } from '@/types/atoms'
 import {
   handleRouondedRatingValue,
   transformNumberToCurrency,
   truncateLongText
 } from '@/utils/functions'
-import React, { JSX } from 'react'
+import React, { JSX, useState } from 'react'
 import { Link } from 'react-router'
+
+// ------------ INTERFACES
+interface ICardFooterState {
+  currentQuantity: number
+}
 
 /**
  * @description Card component
@@ -32,14 +39,13 @@ const Card: React.FC<ICardProps> = ({
   title = 'Product',
   description = 'Product Description',
   imageSrc = 'https://via.placeholder.com/300',
-  onAddToCart = () => {},
   product
 }): JSX.Element => {
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <CardImage title={title} imageSrc={imageSrc} />
       <CardBody title={title} product={product} description={description} />
-      <CardFooter product={product} onAddToCart={onAddToCart} />
+      <CardFooter product={product} />
     </div>
   )
 }
@@ -119,10 +125,47 @@ const CardBody: React.FC<ICardProps> = ({
 }
 
 // ------------------ PRODUCT CARD FOOTER
-const CardFooter: React.FC<ICardProps> = ({
-  product,
-  onAddToCart = () => {}
-}) => {
+const CardFooter: React.FC<ICardProps> = ({ product }) => {
+  // ------------ STATES
+  const [state, setState] = useState<ICardFooterState>({
+    currentQuantity: product?.minimumOrderQuantity as number
+  })
+
+  // ------------ ZUSTAND STORE
+  const userId = useAuthStore((state) => state.userId)
+
+  // ------------ HANDLER
+
+  /**
+   * @description Function to retrieve the current quantity of the product in the cart
+   * @param {number} quantity - The current quantity of the product
+   */
+  const retrieveCurrentQuantity = (quantity: number) => {
+    setState((prevState) => ({
+      ...prevState,
+      currentQuantity: quantity
+    }))
+  }
+
+  /**
+   * @description Function to handle the "Add to Cart" action
+   * @param {Partial<IProduct>} product - The product to add to the cart
+   * @param {number} userId - The ID of the user
+   */
+  const onAddToCart = async (product: Partial<ICart>, userId: number) => {
+    console.log('product', product)
+    console.log('userId', userId)
+    console.log('currentQuantity', state.currentQuantity)
+
+    const { data, error, status } = await CartApi.addNewCart(
+      userId,
+      product as IProduct
+    )
+    console.log('data', data)
+    console.log('error', error)
+    console.log('status', status)
+  }
+
   return (
     <FlexContainer
       flexContainerId="card-footer"
@@ -173,7 +216,19 @@ const CardFooter: React.FC<ICardProps> = ({
           <Icons.EyeIcon className="w-4 h-4 text-primary_black_500" />
         </Link>
         {/* CART ACTIONS */}
-        <CartAction product={product as IProduct} />
+        <CartAction
+          onAddToCart={() =>
+            onAddToCart(
+              {
+                quantity: state.currentQuantity,
+                id: product?.id
+              },
+              userId as number
+            )
+          }
+          product={product as IProduct}
+          onRetrieveCurrentQuantity={retrieveCurrentQuantity}
+        />
       </FlexContainer>
     </FlexContainer>
   )

@@ -2,6 +2,7 @@ import { ProductApi } from '@/api'
 import { IProduct, IProductQueryParams } from '@/api/types'
 import { FlexContainer, Spinner } from '@/components/atoms'
 import { EmptyCard, ProductsList } from '@/components/molecules'
+import { useAuthStore } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX, useState } from 'react'
 
@@ -24,6 +25,10 @@ const Home: React.FC = (): JSX.Element => {
     currentPage: 1
   })
   const itemsPerPage = state.limit ?? 9 // Default to 10 if state.limit is undefined
+
+  // -------------- ZUSTAND STORE
+  // TODO : For now it's hardcoded, later it will be dynamic with authentication and stored within zustand persist context (and it won't be a state variables)
+  useAuthStore.getState().setUserId(34)
 
   // -------------- API CALL
   const {

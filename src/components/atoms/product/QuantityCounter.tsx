@@ -1,5 +1,5 @@
 import { IQuantityCounterProps } from '@/types/atoms'
-import React, { JSX, useState } from 'react'
+import React, { JSX, useEffect, useState } from 'react'
 import Button from '../Button'
 
 interface IState {
@@ -15,6 +15,7 @@ interface IState {
  * @param {function} onIncrement - Callback function for incrementing the quantity
  * @param {function} onDecrement - Callback function for decrementing the quantity
  * @param {function} onChange - Callback function for handling input change
+ * @param {function} onRetrieveCurrentQuantity - Callback function for retrieving the current quantity
  */
 const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   minValue = 0,
@@ -23,12 +24,18 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   initialValue = 0,
   onIncrement,
   onDecrement,
-  onChange
+  onChange,
+  onRetrieveCurrentQuantity
 }): JSX.Element => {
   // ---------- STATE
   const [state, setState] = useState<IState>({
     value: initialValue
   })
+
+  // ---------- USE EFFECTS
+  useEffect(() => {
+    setState({ value: initialValue })
+  }, [initialValue])
 
   // ---------- METHODS
 
@@ -42,6 +49,8 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
     onDecrement?.(newValue)
     // 4. Call the onChange function
     onChange?.(newValue)
+    // 5. Call the onRetrieveCurrentQuantity function
+    onRetrieveCurrentQuantity?.(newValue)
   }
 
   const handleIncrement = () => {
@@ -53,6 +62,8 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
     onIncrement?.(newValue)
     // 4. Call the onChange function
     onChange?.(newValue)
+    // 5. Call the onRetrieveCurrentQuantity function
+    onRetrieveCurrentQuantity?.(newValue)
   }
 
   /**
@@ -72,6 +83,8 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
       setState((prevState) => ({ ...prevState, value: inputValue }))
       // 4. Call the onChange function
       onChange?.(inputValue)
+      // 5. Call the onRetrieveCurrentQuantity function
+      onRetrieveCurrentQuantity?.(inputValue)
     }
   }
 

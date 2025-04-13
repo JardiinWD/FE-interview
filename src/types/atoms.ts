@@ -123,6 +123,8 @@ export interface ICartActionProps {
   product?: Partial<IProduct>
   isAddToCartVisible?: boolean
   cart?: Partial<ICart>
+  onAddToCart?: (product: Partial<IProduct>, userId: number) => void
+  onRetrieveCurrentQuantity?: (quantity: number) => void
 }
 
 // -------------
@@ -134,7 +136,7 @@ export interface ICardProps {
   description?: IProduct['description']
   imageSrc?: IProduct['images'][0]
   product?: IProduct
-  onAddToCart?: () => void
+  onAddToCart?: (product: Partial<IProduct>, userId: number) => void
 }
 
 export interface IDiscountPillProps {
@@ -162,6 +164,7 @@ export interface IQuantityCounterProps {
   onIncrement?: (value: number) => void
   onDecrement?: (value: number) => void
   onChange?: (value: number) => void
+  onRetrieveCurrentQuantity?: (quantity: number) => void
 }
 
 // -------------
