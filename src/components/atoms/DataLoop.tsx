@@ -2,6 +2,7 @@ import { JSX } from 'react'
 import { For } from '@chakra-ui/react'
 import { IDataLoopProps } from '@/types/atoms'
 import { ICart, IProduct } from '@/api/types'
+import { ICartSummarySingleProductProps } from '@/types/molecules'
 
 /**
  * @description DataLoop component is a generic component that takes an array of data and a render function to display each item in the array.
@@ -10,7 +11,7 @@ import { ICart, IProduct } from '@/api/types'
  * @param {ReactNode} fallback - A fallback element to be displayed when the array is empty.
  * @returns
  */
-const DataLoop = <T extends IProduct | ICart>({
+const DataLoop = <T extends IProduct | ICart | ICartSummarySingleProductProps>({
   eachData = [],
   render,
   fallback

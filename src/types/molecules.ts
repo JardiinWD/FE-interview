@@ -36,6 +36,14 @@ export interface ICartSummarySingleProductProps {
   total: ICart['total']
 }
 
+export interface ICartSummaryProductInfoProps {
+  item: ICartSummarySingleProductProps
+  index: number
+}
+
+export interface ICartSummaryProductPriceProps
+  extends ICartSummaryProductInfoProps {}
+
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[]
   cartId: number

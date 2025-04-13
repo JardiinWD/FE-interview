@@ -1,5 +1,6 @@
 import { ICart, IProduct } from '@/api/types'
 import { JSX, ReactNode } from 'react'
+import { ICartSummarySingleProductProps } from '@/types/molecules'
 
 // -------------
 // ------------- TYPOGRAPHY
@@ -106,7 +107,9 @@ export interface IImageProps {
 // ------------- LOOP
 // -------------
 
-export interface IDataLoopProps<T extends IProduct | ICart> {
+export interface IDataLoopProps<
+  T extends IProduct | ICart | ICartSummarySingleProductProps
+> {
   render?: (index: number, item: T) => ReactNode
   eachData?: T[]
   fallback?: ReactNode

@@ -3,10 +3,18 @@ import { CartSummary } from '@/components/molecules'
 import { ISingleCartProps } from '@/types/organisms'
 import React, { JSX } from 'react'
 
+/**
+ * @description SingleCart component
+ * @param { ICartSummarySingleProductProps[]} cartProducts - Array of cart products
+ * @param {number} cartId - Cart ID
+ * @returns
+ */
 const SingleCart: React.FC<ISingleCartProps> = ({
   cartProducts,
   cartId
 }): JSX.Element => {
+  console.log('cartProducts', cartProducts)
+
   return (
     <FlexContainer
       flexContainerId="cart-content"
