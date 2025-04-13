@@ -205,3 +205,11 @@ export interface IPaginationProps {
   currentPage: number
   onPageChange: (pageNumber: number) => void
 }
+
+// -------------
+// ------------- ATOMS
+// -------------
+export interface ISpinnerProps {
+  width?: string
+  height?: string
+}

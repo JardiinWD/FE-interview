@@ -1,7 +1,7 @@
 // ------------------ CART MOLECULES
 import CartSummarySingleProduct from './cart/CartSummarySingleProduct'
 import CartSummary from './cart/CartSummary'
-import EmptyCart from './cart/EmptyCart'
+import EmptyCard from './cart/EmptyCard'
 import CartTabs from './cart/CartTabs'
 import CartSummaryProductInfo from './cart/CartSummaryProductInfo'
 import CartSummaryProductPrice from './cart/CartSummaryProductPrice'
@@ -17,7 +17,7 @@ export {
   CartSummary,
   ProductsList,
   Header,
-  EmptyCart,
+  EmptyCard,
   CartTabs,
   CartSummaryProductInfo,
   CartSummaryProductPrice

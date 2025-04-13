@@ -8,7 +8,6 @@ import fonts from '@/assets/styles/fonts.module.scss'
  * @param {string} className - Additional CSS class names for the component.
  * @param {string} htmlString - The HTML string to render. If provided, the component will render as a `TagName` with the HTML string.
  * @param {boolean} uppercase - Whether to render the text in uppercase.
- * @param {string} textAlign - The text alignment. Can be 'left', 'center', or 'right'.
  * @param {Object} style - Additional inline styles for the component.
  * @param {keyof Pick<JSX.IntrinsicElements, 'p' | 'span'>} tagAs - The HTML tag to render the component as.
  * @param {string} text - The text to render. If `htmlString` is provided, this prop is ignored.

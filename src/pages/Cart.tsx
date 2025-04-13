@@ -1,7 +1,7 @@
 import { CartApi } from '@/api'
 import { ICart } from '@/api/types'
-import { FlexContainer } from '@/components/atoms'
-import { CartTabs, EmptyCart } from '@/components/molecules'
+import { FlexContainer, Spinner } from '@/components/atoms'
+import { CartTabs, EmptyCard } from '@/components/molecules'
 import { SingleCart } from '@/components/organisms'
 import { ICartSummarySingleProductProps } from '@/types/molecules'
 import { useQuery } from '@tanstack/react-query'
@@ -17,7 +17,7 @@ interface IState {
 const Cart: React.FC = (): JSX.Element => {
   // -------------- STATE
   const [state, setState] = React.useState<IState>({
-    userId: 33, // TODO : For now it's hardcoded, later it will be dynamic with authentication and stored within zustand persist context (and it won't be a state variables)
+    userId: 34, // TODO : For now it's hardcoded, later it will be dynamic with authentication and stored within zustand persist context (and it won't be a state variables)
     activeTab: 0
   })
 
@@ -53,9 +53,9 @@ const Cart: React.FC = (): JSX.Element => {
         gap={2}
         className="h-[80dvh] w-full"
       >
-        <EmptyCart
-          cartError={apiData?.error as string}
-          cartMessage="Your cart is empty"
+        <EmptyCard
+          cardError={apiData?.error as string}
+          cardMessage="Your cart is empty"
         />
       </FlexContainer>
     )
@@ -72,8 +72,7 @@ const Cart: React.FC = (): JSX.Element => {
         gap={2}
         className="h-[80dvh] w-full"
       >
-        {/* TODO: USE LOADER ATOM INSTEAD */}
-        Loading...
+        <Spinner />
       </FlexContainer>
     )
   }

@@ -1,5 +1,5 @@
 import { ICart, IProduct } from '@/api/types'
-import { IPaginationProps } from './atoms'
+import { IPaginationProps } from '@/types/atoms'
 
 // -------------
 // ------------- PRODUCT LIST
@@ -53,7 +53,9 @@ export interface ICartSummaryProps {
 // ------------- EMPTY CART
 // -------------
 
-export interface IEmptyCartProps {
-  cartMessage?: string
-  cartError?: string
+export interface IEmptyCardProps {
+  cardMessage?: string
+  cardError?: string
+  buttonText?: string
+  onClickHandler?: () => void
 }

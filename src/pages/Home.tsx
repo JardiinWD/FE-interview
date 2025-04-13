@@ -1,7 +1,7 @@
 import { ProductApi } from '@/api'
 import { IProduct, IProductQueryParams } from '@/api/types'
-import { FlexContainer } from '@/components/atoms'
-import { ProductsList } from '@/components/molecules'
+import { FlexContainer, Spinner } from '@/components/atoms'
+import { EmptyCard, ProductsList } from '@/components/molecules'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX, useState } from 'react'
 
@@ -26,7 +26,11 @@ const Home: React.FC = (): JSX.Element => {
   const itemsPerPage = state.limit ?? 9 // Default to 10 if state.limit is undefined
 
   // -------------- API CALL
-  const { isPending, data: apiData } = useQuery({
+  const {
+    isPending,
+    data: apiData,
+    refetch
+  } = useQuery({
     queryKey: [state.currentPage, state.limit, state.order, state.sortBy], // Keeps previous data for 5 seconds
     staleTime: 5000,
     queryFn: async () => {
@@ -45,6 +49,44 @@ const Home: React.FC = (): JSX.Element => {
       }
     }
   })
+
+  // -------------- LOADING HANDLING
+  if (isPending) {
+    return (
+      <FlexContainer
+        flexContainerId="product-page"
+        wrap="nowrap"
+        direction="column"
+        justify="center"
+        align="center"
+        gap={2}
+        className="h-[80dvh] w-full"
+      >
+        <Spinner />
+      </FlexContainer>
+    )
+  }
+
+  // -------------- ERROR HANDLING
+  if (apiData?.error && apiData?.error !== null)
+    return (
+      <FlexContainer
+        flexContainerId="product-page"
+        wrap="nowrap"
+        direction="column"
+        justify="center"
+        align="center"
+        gap={2}
+        className="h-[80dvh] w-full"
+      >
+        <EmptyCard
+          onClickHandler={refetch}
+          cardError={apiData?.error as string}
+          cardMessage="Ops! Something went wrong"
+          buttonText="Try Again"
+        />
+      </FlexContainer>
+    )
 
   const totalPages = Math.ceil((apiData?.data?.total || 0) / itemsPerPage)
 

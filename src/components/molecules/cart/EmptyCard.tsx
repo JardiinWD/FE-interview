@@ -1,17 +1,19 @@
 import { Button, FlexContainer, Typography } from '@/components/atoms'
-import { IEmptyCartProps } from '@/types/molecules'
+import { IEmptyCardProps } from '@/types/molecules'
 
 import React, { JSX } from 'react'
 import { Link } from 'react-router-dom'
 
 /**
- * @description EmptyCart component to display when the cart is empty or there was an error loading the cart.
- * @param {string} cartMessage - Message to display when the cart is empty
- * @param {string} cartError - Message to display when there was an error loading the cart
+ * @description EmptyCard component to display when the cart is empty or there was an error loading the cart.
+ * @param {string} cardMessage - Message to display when the cart is empty
+ * @param {string} cardError - Message to display when there was an error loading the cart
  */
-const EmptyCart: React.FC<IEmptyCartProps> = ({
-  cartMessage = 'Your cart is empty',
-  cartError = 'There was an error loading your cart'
+const EmptyCard: React.FC<IEmptyCardProps> = ({
+  cardMessage = 'Your cart is empty',
+  cardError = 'There was an error loading your cart',
+  buttonText = 'Start Shopping',
+  onClickHandler = () => {}
 }): JSX.Element => {
   return (
     <FlexContainer
@@ -29,24 +31,30 @@ const EmptyCart: React.FC<IEmptyCartProps> = ({
       <Typography
         tagAs="h3"
         weight="bold"
-        text={cartMessage}
+        text={cardMessage}
         textColor="text-primary_black_500"
       />
       {process.env.NODE_ENV === 'development' && (
         <Typography
           tagAs="p"
+          className="text-center"
           weight="bold"
-          text={`DEV MESSAGE -> ${cartError}`}
+          text={`DEV MESSAGE -> ${cardError}`}
           textColor="text-red-500"
         />
       )}
-
-      <Button variant="primary" buttonId="purchase-button" buttonType="button">
+      {/* BUTTON */}
+      <Button
+        onClick={onClickHandler}
+        variant="primary"
+        buttonId="purchase-button"
+        buttonType="button"
+      >
         <Link to="/">
           <Typography
             tagAs="p"
             weight="bold"
-            text="Start Shopping"
+            text={buttonText}
             textColor="text-primary_black_500"
           />
         </Link>
@@ -55,4 +63,4 @@ const EmptyCart: React.FC<IEmptyCartProps> = ({
   )
 }
 
-export default EmptyCart
+export default EmptyCard

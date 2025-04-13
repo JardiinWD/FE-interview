@@ -7,6 +7,7 @@ import Button from './Button'
 import DataLoop from './DataLoop'
 import Modal from './Modal'
 import Pagination from './Pagination'
+import Spinner from './Spinner'
 
 // ------------------ PRODUCT ATOMS
 import Card from './product/Card'
@@ -32,5 +33,6 @@ export {
   DiscountPill,
   AdditionalInfo,
   QuantityCounter,
-  CartAction
+  CartAction,
+  Spinner
 }

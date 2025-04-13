@@ -40,7 +40,7 @@ const Header: React.FC = (): JSX.Element => {
       {!['/cart'].includes(location.pathname) && (
         <Link className="absolute right-2" to="/cart">
           <Button
-            variant="primary"
+            variant="secondary"
             buttonType="button"
             className="bg-white"
             buttonId="cart-button"
