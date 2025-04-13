@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import { appConfig } from '@/config/appConfig'
 import { Header } from '@/components/molecules'
 import { Button, FlexContainer } from '@/components/atoms'
+import { Icons } from '@/assets/icons'
 
 const Layout = () => {
   // ------------- HOOKS
@@ -19,8 +20,9 @@ const Layout = () => {
     <FlexContainer
       gap={3}
       direction="column"
-      justify="flex-start"
+      justify="center"
       align="flex-start"
+      className="relative w-full "
     >
       {/* HELMET DATA */}
       <Helmet>
@@ -47,14 +49,13 @@ const Layout = () => {
       <Header />
       {/* GO Back Button */}
       {!['/'].includes(location.pathname) && (
-        <Link to="/">
+        <Link className="absolute top-[7.5rem] left-2 p-2" to="/">
           <Button
             variant="primary"
             buttonId="go-back-button"
             buttonType="button"
-            onClick={() => {}}
           >
-            Go Back
+            <Icons.LeftArrow className="w-4 h-4" />
           </Button>
         </Link>
       )}

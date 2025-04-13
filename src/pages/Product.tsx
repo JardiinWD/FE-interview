@@ -12,18 +12,17 @@ const Product: React.FC = (): JSX.Element => {
   // TODO : Update this logic with Error boundaries
   if (!product) return <Navigate to="/" replace />
 
-  console.log('Product Received:', product)
-
   return (
     <FlexContainer
-      className="p-4"
+      className="p-4 pt-[4rem]"
       gap={5}
       flexContainerId="product-page"
       direction="column"
       justify="center"
-      align="flex-start"
+      align="center"
     >
       <SingleProduct product={product} />
+      {/* TODO: Pensare di mettere le reviews qua sotto nel caso ci fossero (SingleProductReviews) */}
     </FlexContainer>
   )
 }

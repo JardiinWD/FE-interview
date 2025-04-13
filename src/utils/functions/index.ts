@@ -47,3 +47,20 @@ export const handleRouondedRatingValue = (rating: number) => {
   // Check if the rounded rating is greater than 5
   return roundedRating
 }
+
+/**
+ * @description Transforms a number to a currency string.
+ * @param {number} number - The number to be transformed.
+ * @returns {string} - The formatted currency string.
+ */
+export const transformNumberToCurrency = (number: number) => {
+  // Check if the number is a valid number
+  if (isNaN(number)) return ''
+  // Format the number to a currency string
+  const formattedNumber = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(number)
+  // Return the formatted number
+  return formattedNumber
+}

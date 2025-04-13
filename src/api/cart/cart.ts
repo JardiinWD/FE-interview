@@ -1,6 +1,6 @@
 // --> Documentation : https://dummyjson.com/docs/carts
 import axios from 'axios'
-import { ICartApi, TPromiseError, TCartApiContext, ICart } from '@/api/types'
+import { ICartApi, TPromiseError, TCartApiContext } from '@/api/types'
 
 // ----------- API ISTANCE
 const cartApi = axios.create({
@@ -42,7 +42,6 @@ export const CartApi: ICartApi = {
       )
     }
   },
-
   getCartByUserId: async (userId: number) => {
     try {
       // Retrieve the necessary Data from the API
@@ -50,6 +49,9 @@ export const CartApi: ICartApi = {
       // Check if there's not any cart for the user
       if (userCartData.statusText !== 'OK' || !userCartData.data)
         throw new Error(`Something went wrong with getCartByUserId API Call!`)
+      // Check if the user cart data is empty
+      if (userCartData.data.carts.length === 0)
+        throw new Error(`No cart found for user with id ${userId}`)
       // Return the proper Data format
       return {
         data: userCartData.data,
@@ -57,6 +59,8 @@ export const CartApi: ICartApi = {
         status: 'success'
       }
     } catch (error) {
+      console.log('ERROR RETRIEVED IN GET CART BY USER ID API CALL', error)
+
       return CartApi.handleCartErrors(
         error instanceof Error
           ? error.message

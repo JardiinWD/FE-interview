@@ -11,7 +11,11 @@ import {
   Typography
 } from '@/components/atoms'
 import { ICardProps } from '@/types/atoms'
-import { handleRouondedRatingValue, truncateLongText } from '@/utils/functions'
+import {
+  handleRouondedRatingValue,
+  transformNumberToCurrency,
+  truncateLongText
+} from '@/utils/functions'
 import React, { JSX } from 'react'
 import { Link } from 'react-router'
 
@@ -141,7 +145,7 @@ const CardFooter: React.FC<ICardProps> = ({
               textColor="text-primary_black_700"
               weight="bold"
               tagAs="h5"
-              text={`$${product?.price}`}
+              text={transformNumberToCurrency(product?.price)}
               className="tracking-tight "
             />
             {product?.discountPercentage && (

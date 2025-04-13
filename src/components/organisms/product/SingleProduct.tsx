@@ -7,7 +7,10 @@ import {
   Typography
 } from '@/components/atoms'
 import { ISingleProductProps } from '@/types/organisms'
-import { handleRouondedRatingValue } from '@/utils/functions'
+import {
+  handleRouondedRatingValue,
+  transformNumberToCurrency
+} from '@/utils/functions'
 import { For, Image } from '@chakra-ui/react'
 import React, { JSX } from 'react'
 
@@ -177,7 +180,7 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
             textColor="text-primary_black_700"
             weight="bold"
             tagAs="h4"
-            text={`$${product?.price}`}
+            text={transformNumberToCurrency(product?.price)}
             className="tracking-tight "
           />
           {product?.discountPercentage && (

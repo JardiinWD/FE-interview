@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Images } from '@/assets/images'
 import Lottie from 'lottie-react'
 import { Lotties } from '@/assets/lotties'
-import { appConfig, THelmet } from '@/config/appConfig'
+import { appConfig } from '@/config/appConfig'
 
 appConfig
 

@@ -17,7 +17,10 @@ export interface ICart {
   totalProducts: number
   totalQuantity: number
   isDeleted: boolean
-  deletedOn: string // ISO date string
+  deletedOn: string
+  quantity: number
+  discountPercentage: number
+  price: number
 }
 
 export interface ICartData {

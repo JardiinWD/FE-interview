@@ -117,7 +117,9 @@ export interface IDataLoopProps<T extends IProduct | ICart> {
 // -------------
 
 export interface ICartActionProps {
-  product: IProduct
+  product?: Partial<IProduct>
+  isAddToCartVisible?: boolean
+  cart?: Partial<ICart>
 }
 
 // -------------
