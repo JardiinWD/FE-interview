@@ -10,8 +10,17 @@ interface QueryProviderProps {
  * @param {QueryProviderProps} children - Represents the content to be rendered within the QueryClientProvider.
  */
 export function QueryProvider({ children }: QueryProviderProps) {
-  // --> Create a new QueryClient instance and store it in state
-  const [queryClient] = useState(() => new QueryClient())
+  // --> Create a new QueryClient instance with default options
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60 * 5
+          }
+        }
+      })
+  )
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

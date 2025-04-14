@@ -72,16 +72,14 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
         </FlexContainer>
       </Box>
       {isModalOpen && (
-        <LogoutModal modalId="logout-modal" isModalOpen={isModalOpen} />
+        <LogoutModal
+          aria-modal="true"
+          modalId="logout-modal"
+          isModalOpen={isModalOpen}
+        />
       )}
     </React.Fragment>
   )
 }
 
 export default SingleUserInfo
-
-/* useAuthStore.setState({
-                allUserData: null,
-                token: null,
-                userId: null
-             }) */

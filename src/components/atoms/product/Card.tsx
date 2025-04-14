@@ -24,6 +24,7 @@ import { Link } from 'react-router'
 // ------------ INTERFACES
 interface ICardFooterState {
   currentQuantity: number
+  isLoading: boolean
 }
 
 /**
@@ -128,7 +129,8 @@ const CardBody: React.FC<ICardProps> = ({
 const CardFooter: React.FC<ICardProps> = ({ product }) => {
   // ------------ STATES
   const [state, setState] = useState<ICardFooterState>({
-    currentQuantity: product?.minimumOrderQuantity as number
+    currentQuantity: product?.minimumOrderQuantity as number,
+    isLoading: false
   })
 
   // ------------ ZUSTAND STORE
@@ -153,6 +155,20 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
    * @param {number} userId - The ID of the user
    */
   const onAddToCart = async (product: Partial<ICart>, userId: number) => {
+    try {
+      // Invoke the API Call
+      const { data, error, status } = await CartApi.addNewCart(
+        userId,
+        product as IProduct
+      )
+      console.log('data', data)
+      console.log('error', error)
+      console.log('status', status)
+    } catch (error) {
+      // Add toaster with the error message
+    } finally {
+    }
+
     const { data, error, status } = await CartApi.addNewCart(
       userId,
       product as IProduct
