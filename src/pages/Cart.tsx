@@ -1,7 +1,7 @@
 import { CartApi } from '@/api'
 import { ICart } from '@/api/types'
-import { FlexContainer, Spinner } from '@/components/atoms'
-import { CartTabs, EmptyCard } from '@/components/molecules'
+import { FlexContainer } from '@/components/atoms'
+import { CartTabs, ErrorState, LoadingState } from '@/components/molecules'
 import { SingleCart } from '@/components/organisms'
 import { useAuthStore } from '@/store'
 import { ICartSummarySingleProductProps } from '@/types/molecules'
@@ -43,43 +43,20 @@ const Cart: React.FC = (): JSX.Element => {
     }
   })
 
-  console.log('apiData', apiData)
-
   // -------------- ERROR HANDLING
-  if (apiData?.error && apiData?.error !== null)
+  if (apiData?.error && apiData?.error !== null) {
     return (
-      <FlexContainer
-        flexContainerId="cart-page"
-        wrap="nowrap"
-        direction="column"
-        justify="center"
-        align="center"
-        gap={2}
-        className="h-[80dvh] w-full"
-      >
-        <EmptyCard
-          cardError={apiData?.error as string}
-          cardMessage="Your cart is empty"
-        />
-      </FlexContainer>
-    )
-
-  // -------------- LOADING HANDLING
-  if (isPending) {
-    return (
-      <FlexContainer
-        flexContainerId="cart-page"
-        wrap="nowrap"
-        direction="column"
-        justify="center"
-        align="center"
-        gap={2}
-        className="h-[80dvh] w-full"
-      >
-        <Spinner />
-      </FlexContainer>
+      <ErrorState
+        containerId="cart"
+        errorDevMessage={apiData?.error as string}
+        errorMessage="Your cart is empty!"
+        buttonText="Start Shopping"
+      />
     )
   }
+
+  // -------------- LOADING HANDLING
+  if (isPending) return <LoadingState containerId="cart" />
 
   return (
     <FlexContainer

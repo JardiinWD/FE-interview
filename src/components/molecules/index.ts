@@ -13,6 +13,10 @@ import LoginForm from './forms/LoginForm'
 // ------------------ PRODUCT MOLECULES
 import ProductsList from './products/ProductsList'
 
+// ------------------ STATE MOLECULES
+import LoadingState from './state/LoadingState'
+import ErrorState from './state/ErrorState'
+
 // ------------------ COMMON MOLECULES
 import Header from './Header'
 
@@ -26,5 +30,7 @@ export {
   CartSummaryProductInfo,
   CartSummaryProductPrice,
   CartCheckout,
-  LoginForm
+  LoginForm,
+  LoadingState,
+  ErrorState
 }

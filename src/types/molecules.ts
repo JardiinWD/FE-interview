@@ -60,13 +60,27 @@ export interface ICartCheckoutProps {
   cartCheckoutData: ICart
 }
 
-// -------------
-// ------------- EMPTY CART
-// -------------
-
 export interface IEmptyCardProps {
   cardMessage?: string
   cardError?: string
   buttonText?: string
   onClickHandler?: () => void
+}
+
+// -------------
+// ------------- STATE
+// -------------
+
+export interface ILoadingStateProps {
+  containerClassName?: string
+  containerId?: string
+}
+
+export interface IErrorStateProps {
+  errorMessage: string
+  buttonText?: string
+  onClickHandler?: () => void
+  containerClassName?: string
+  errorDevMessage?: string
+  containerId?: string
 }

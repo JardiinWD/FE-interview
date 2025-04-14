@@ -1,7 +1,7 @@
 import { ProductApi } from '@/api'
 import { IProduct, IProductQueryParams } from '@/api/types'
-import { FlexContainer, Spinner } from '@/components/atoms'
-import { EmptyCard, ProductsList } from '@/components/molecules'
+import { FlexContainer } from '@/components/atoms'
+import { ErrorState, LoadingState, ProductsList } from '@/components/molecules'
 import { useAuthStore } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX, useState } from 'react'
@@ -56,41 +56,18 @@ const Home: React.FC = (): JSX.Element => {
   })
 
   // -------------- LOADING HANDLING
-  if (isPending) {
-    return (
-      <FlexContainer
-        flexContainerId="product-page"
-        wrap="nowrap"
-        direction="column"
-        justify="center"
-        align="center"
-        gap={2}
-        className="h-[80dvh] w-full"
-      >
-        <Spinner />
-      </FlexContainer>
-    )
-  }
+  if (isPending) return <LoadingState containerId="home" />
 
   // -------------- ERROR HANDLING
   if (apiData?.error && apiData?.error !== null)
     return (
-      <FlexContainer
-        flexContainerId="product-page"
-        wrap="nowrap"
-        direction="column"
-        justify="center"
-        align="center"
-        gap={2}
-        className="h-[80dvh] w-full"
-      >
-        <EmptyCard
-          onClickHandler={refetch}
-          cardError={apiData?.error as string}
-          cardMessage="Ops! Something went wrong"
-          buttonText="Try Again"
-        />
-      </FlexContainer>
+      <ErrorState
+        containerId="home"
+        errorDevMessage={apiData?.error as string}
+        onClickHandler={refetch}
+        errorMessage="Ops! Something went wrong"
+        buttonText="Try Again"
+      />
     )
 
   const totalPages = Math.ceil((apiData?.data?.total || 0) / itemsPerPage)
