@@ -1,15 +1,19 @@
-import { IAuthData, ICart, IProduct } from '@/api/types'
+import { IAuthData, ICart, IProduct, IProductReview } from '@/api/types'
 import { ICartSummarySingleProductProps } from './molecules'
 
 // -------------
-// ------------- SINGLE PRODUCT
+// ------------- PRODUCT
 // -------------
 export interface ISingleProductProps {
   product: IProduct
 }
 
+export interface IReviewsCarouselProps {
+  reviews: IProductReview[]
+}
+
 // -------------
-// ------------- SINGLE CART CARD
+// -------------  CART
 // -------------
 export interface ISingleCartProps {
   cartProducts: ICartSummarySingleProductProps[]
@@ -18,7 +22,7 @@ export interface ISingleCartProps {
 }
 
 // -------------
-// ------------- SINGLE USER CARD
+// -------------  USER
 // -------------
 
 export interface ISingleUserInfo {

@@ -11,8 +11,6 @@ export const retrieveHelmetData = (pathname: string) => {
     pathname === '/'
       ? 'homepage'
       : pathname.split('/').filter((path) => path !== '')[0]
-  console.log('path', path)
-
   // Retrieve the helmet data based on the path
   const helmetData = appConfig.helmets[path] || appConfig.helmets.default
 
@@ -63,6 +61,31 @@ export const transformNumberToCurrency = (number: number) => {
   }).format(number)
   // Return the formatted number
   return formattedNumber
+}
+
+/**
+ * @description Formats a date string or Date object into a readable format.
+ * @param {string | Date} date - The date to be formatted.
+ * @param {string} locale - The locale to use for formatting (default is 'en-US').
+ * @param {object} options - Additional Intl.DateTimeFormat options.
+ * @returns {string} - The formatted date string.
+ */
+export const dateFormatter = (
+  date: string | Date,
+  locale: string = 'en-US',
+  options: Intl.DateTimeFormatOptions = {}
+): string => {
+  // Convert the input to a Date object if it's a string
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  // Check if the date is valid
+  if (isNaN(dateObj.getTime())) return ''
+  // Format the date using Intl.DateTimeFormat
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    ...options
+  }).format(dateObj)
 }
 
 /**

@@ -1,9 +1,9 @@
 import { FlexContainer } from '@/components/atoms'
 import { ErrorState, LoadingState } from '@/components/molecules'
-import { SingleProduct } from '@/components/organisms'
+import { ReviewsCarousel, SingleProduct } from '@/components/organisms'
 import { useLoadingDelay } from '@/hooks'
 import React, { JSX } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const Product: React.FC = (): JSX.Element => {
   // -------------- CUSTOM HOOK
@@ -17,7 +17,7 @@ const Product: React.FC = (): JSX.Element => {
   if (!location || !location.state) {
     return (
       <ErrorState
-        containerId="product"
+        containerId="product-location-state"
         errorDevMessage={`Something went Wrong with the product, this is the current location.state : ${location.state}`}
         errorMessage="This product is not available!"
         buttonText="Start Shopping"
@@ -27,11 +27,19 @@ const Product: React.FC = (): JSX.Element => {
   // -------------- DATA
   const { product } = location.state
 
-  if (!product) return <Navigate to="/" replace />
+  if (!product)
+    return (
+      <ErrorState
+        containerId="product-not-available"
+        errorDevMessage={`Something went Wrong with this product!`}
+        errorMessage="This product is not available!"
+        buttonText="Try Again"
+      />
+    )
 
   return (
     <FlexContainer
-      className="p-4 pt-[4rem]"
+      className="p-4 pt-[4rem] max-w-full "
       gap={5}
       flexContainerId="product-page"
       direction="column"
@@ -39,7 +47,7 @@ const Product: React.FC = (): JSX.Element => {
       align="center"
     >
       <SingleProduct product={product} />
-      {/* TODO: Pensare di mettere le reviews qua sotto nel caso ci fossero (SingleProductReviews) */}
+      {product.reviews && <ReviewsCarousel reviews={product.reviews} />}
     </FlexContainer>
   )
 }

@@ -110,6 +110,21 @@ export interface ICartApi {
 // ------------
 // ------------ PRODUCT DATA
 // ------------
+
+export interface IProductDimensions {
+  width: number
+  height: number
+  depth: number
+}
+
+export interface IProductReview {
+  rating: number
+  comment: string
+  date: string // ISO date string
+  reviewerName: string
+  reviewerEmail: string
+}
+
 export interface IProduct {
   id: number
   title: string
@@ -123,21 +138,11 @@ export interface IProduct {
   brand: string
   sku: string
   weight: number
-  dimensions: {
-    width: number
-    height: number
-    depth: number
-  }
+  dimensions: IProductDimensions
   warrantyInformation: string
   shippingInformation: string
   availabilityStatus: string
-  reviews: {
-    rating: number
-    comment: string
-    date: string // ISO date string
-    reviewerName: string
-    reviewerEmail: string
-  }[]
+  reviews: IProductReview[]
   returnPolicy: string
   minimumOrderQuantity: number
   meta: {

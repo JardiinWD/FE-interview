@@ -23,6 +23,7 @@ const Header: React.FC = (): JSX.Element => {
       direction="row"
       justify="center"
       align="center"
+      flexContainerId="header"
       className="w-full relative h-28 bg-primary_yellow_500 text:primary_white_200"
     >
       {/* LOGO */}
@@ -44,6 +45,7 @@ const Header: React.FC = (): JSX.Element => {
       </Link>
       <FlexContainer
         direction="row"
+        flexContainerId="header-cart-and-user-pill"
         justify="center"
         align="center"
         gap={4}

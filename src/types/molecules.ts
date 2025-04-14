@@ -1,4 +1,4 @@
-import { IAuthData, ICart, IProduct } from '@/api/types'
+import { IAuthData, ICart, IProduct, IProductReview } from '@/api/types'
 import { IPaginationProps } from '@/types/atoms'
 import { TLoginFormValues } from '@/types/schema'
 
@@ -13,13 +13,17 @@ export interface ILoginFormProps {
 }
 
 // -------------
-// ------------- PRODUCT LIST
+// ------------- PRODUCT
 // -------------
 
 export interface IProductsListProps {
   products: IProduct[]
   paginationParams: IPaginationProps
   isLoadingList: boolean
+}
+
+export interface ISingleReviewProps {
+  review: IProductReview
 }
 
 // -------------
@@ -49,7 +53,7 @@ export interface ICartSummaryProductInfoProps {
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps { }
+  extends ICartSummaryProductInfoProps {}
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[]

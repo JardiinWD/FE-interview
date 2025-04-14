@@ -22,7 +22,7 @@ import React, { JSX } from 'react'
 const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
   return (
     <FlexContainer
-      flexContainerId="product-page"
+      flexContainerId="single-product-card"
       direction="row"
       justify="flex-start"
       align="flex-start"

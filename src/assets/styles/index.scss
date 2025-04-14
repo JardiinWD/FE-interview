@@ -2,7 +2,7 @@
 
 /* ====== COLOR PALETTE ======= */
 :root {
-  /* PRIMARY BLUE */
+  /* PRIMARY YELLOW */
   --primary_yellow_100: #fff9e6;
   --primary_yellow_200: #fff2cc;
   --primary_yellow_400: #ffe599;
@@ -20,4 +20,8 @@
   --primary_black_500: #4d4d4d;
   --primary_black_600: #333333;
   --primary_black_700: #1a1a1a;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
 }
