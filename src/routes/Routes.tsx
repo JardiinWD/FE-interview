@@ -1,6 +1,7 @@
 import { Home, Error as ErrorPage, Cart, Product, Login } from '@/pages'
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '@/layout/Layout'
+import ProtectedRoute from '@/routes/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -16,34 +17,49 @@ const router = createBrowserRouter([
       {
         path: '/',
         caseSensitive: true,
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />
       },
       {
         path: '/home',
         caseSensitive: true,
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />
       },
       {
         path: '/product/:id',
         caseSensitive: true,
-        element: <Product />,
+        element: (
+          <ProtectedRoute>
+            <Product />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />
       },
       {
         path: '/cart',
         caseSensitive: true,
-        element: <Cart />,
-        errorElement: <ErrorPage />
-      },
-      {
-        path: '*',
-        caseSensitive: true,
-        element: <ErrorPage />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />
       }
-    ],
+    ]
+  },
+  {
+    path: '*',
+    caseSensitive: true,
+    element: <ErrorPage />,
     errorElement: <ErrorPage />
   }
 ])

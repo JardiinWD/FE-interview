@@ -9,6 +9,7 @@ import { TLoginFormValues } from '@/types/schema'
 export interface ILoginFormProps {
   onSubmit: (data: TLoginFormValues) => void
   formId?: string
+  authenticationError?: string
 }
 
 // -------------

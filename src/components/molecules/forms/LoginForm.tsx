@@ -11,10 +11,12 @@ import { useForm } from 'react-hook-form'
  * @description LoginForm component
  * @param {(data: TLoginFormValues) => void} onSubmit - Function to handle form submission
  * @param {string} formId - Optional form ID for the form element
+ * @param {string} authenticationError - Optional error message for authentication
  */
 const LoginForm: React.FC<ILoginFormProps> = ({
   onSubmit,
-  formId
+  formId,
+  authenticationError
 }): JSX.Element => {
   // -------------- REACT HOOK FORM
   const {
@@ -24,8 +26,6 @@ const LoginForm: React.FC<ILoginFormProps> = ({
   } = useForm<TLoginFormValues>({
     resolver: zodResolver(loginSchema)
   })
-
-  console.log('IS SUBMITTING ?', isSubmitting)
 
   return (
     <Box
@@ -54,7 +54,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       />
       {/* SUBMIT BUTTON */}
       <Button
-        className="w-full mt-2"
+        className="w-full mt-2 relative"
         variant="primary"
         buttonType="submit"
         isLoading={isSubmitting}
@@ -67,6 +67,15 @@ const LoginForm: React.FC<ILoginFormProps> = ({
           className="mt-1"
           weight="regular"
         />
+        {authenticationError && (
+          <Typography
+            tagAs="span"
+            text={authenticationError}
+            textColor="text-red-500"
+            className="absolute left-0 right-0 inset-x-0 -bottom-8"
+            weight="regular"
+          />
+        )}
       </Button>
     </Box>
   )

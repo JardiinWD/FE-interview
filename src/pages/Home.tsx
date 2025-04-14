@@ -27,8 +27,8 @@ const Home: React.FC = (): JSX.Element => {
   const itemsPerPage = state.limit ?? 9 // Default to 10 if state.limit is undefined
 
   // -------------- ZUSTAND STORE
-  // TODO : For now it's hardcoded, later it will be dynamic with authentication and stored within zustand persist context (and it won't be a state variables)
-  useAuthStore.getState().setUserId(34)
+
+  const { userId } = useAuthStore()
 
   // -------------- API CALL
   const {

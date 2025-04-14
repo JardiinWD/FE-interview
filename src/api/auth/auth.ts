@@ -34,6 +34,7 @@ export const AuthApi: IAuthApi = {
         password: password,
         expiresIn: 30
       })
+
       // Retrieve the necessary Data from the API
       const response = await authApi.post('/login', requestBody)
       // Check if the response is valid
