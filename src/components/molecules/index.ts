@@ -6,6 +6,9 @@ import CartTabs from './cart/CartTabs'
 import CartSummaryProductInfo from './cart/CartSummaryProductInfo'
 import CartSummaryProductPrice from './cart/CartSummaryProductPrice'
 
+// ------------------ FORM MOLECULES
+import LoginForm from './forms/LoginForm'
+
 // ------------------ PRODUCT MOLECULES
 import ProductsList from './products/ProductsList'
 
@@ -20,5 +23,6 @@ export {
   EmptyCard,
   CartTabs,
   CartSummaryProductInfo,
-  CartSummaryProductPrice
+  CartSummaryProductPrice,
+  LoginForm
 }

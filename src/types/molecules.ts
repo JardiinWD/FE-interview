@@ -1,5 +1,15 @@
 import { ICart, IProduct } from '@/api/types'
 import { IPaginationProps } from '@/types/atoms'
+import { TLoginFormValues } from '@/types/schema'
+
+// -------------
+// ------------- LOGIN FORM
+// -------------
+
+export interface ILoginFormProps {
+  onSubmit: (data: TLoginFormValues) => void
+  formId?: string
+}
 
 // -------------
 // ------------- PRODUCT LIST

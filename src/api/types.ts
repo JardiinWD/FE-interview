@@ -5,9 +5,51 @@ export type TPromiseError = string | unknown | null | Error
 export type TPromiseStatus = 'success' | 'error'
 
 // ------------
-// ------------ CART DATA
+// ------------ AUTHENTICATION
 // ------------
 
+// ------------ AUTHENTICATION DATA
+export interface IAuthData {
+  id: number
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+  gender: string
+  image: string
+  accessToken: string
+  refreshToken: string
+}
+
+// ------------ AUTHENTICATION PROMISE
+export interface IAuthPromise {
+  data?: IAuthData
+  error?: TPromiseError
+  status?: TPromiseStatus
+}
+
+// ------------ AUTHENTICATION API CALL CONTEXT
+export type TAuthApiContext =
+  | 'handleLogin'
+  | 'getCurrentUser'
+  | 'getRefreshToken'
+
+// ------------ AUTHENTICATION API LAYER
+export interface IAuthApi {
+  handleAuthenticationErrors: (
+    error: TPromiseError,
+    context: TAuthApiContext
+  ) => Promise<IAuthPromise>
+  handleLogin: (username: string, password: string) => Promise<IAuthPromise>
+  getCurrentUser?: () => Promise<IAuthPromise>
+  getRefreshToken?: (refreshToken: string) => Promise<IAuthPromise>
+}
+
+// ------------
+// ------------ CART
+// ------------
+
+// ------------ SINGLE CART
 export interface ICart {
   id: number
   products: Partial<IProduct>[]
@@ -23,6 +65,7 @@ export interface ICart {
   price: number
 }
 
+// ------------ CART DATA
 export interface ICartData {
   carts: ICart[]
   total: number
@@ -121,11 +164,13 @@ export interface IProductPromise {
   status?: TPromiseStatus
 }
 
-// ------------ CART API CALL CONTEXT
-export type TProductApiContext = 'getProducts'
+// ------------ PRODUCT API CALL CONTEXT
+export type TProductApiContext =
+  | 'getProducts'
+  | 'getProductById'
+  | 'getProductsByCategory'
 
-// ------------ PRODUCT API LAYER
-
+// ------------ PRODUCT API QUERY PARAMS
 export interface IProductQueryParams {
   limit?: number
   skip?: number
@@ -133,6 +178,7 @@ export interface IProductQueryParams {
   order?: 'asc' | 'desc'
 }
 
+// ------------ PRODUCT API LAYER
 export interface IProductApi {
   getProducts: (queryParams?: IProductQueryParams) => Promise<IProductPromise>
   handleProductErrors: (

@@ -9,7 +9,7 @@ import { ICartSummarySingleProductProps } from '@/types/molecules'
 // --> Possible tag names
 export type TTypographyTagName = keyof Pick<
   JSX.IntrinsicElements,
-  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
+  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'label'
 >
 
 // --> Possible font weights
@@ -32,6 +32,7 @@ export interface ITypographyProps {
   uppercase?: boolean
   htmlString?: string
   whiteSpace?: boolean
+  htmlFor?: string
 }
 
 // -------------
@@ -187,6 +188,7 @@ export interface IButtonProps {
   formId?: string
   buttonId?: string
   disabled?: boolean
+  isLoading?: boolean
 }
 
 // -------------
@@ -210,9 +212,26 @@ export interface IPaginationProps {
 }
 
 // -------------
-// ------------- ATOMS
+// ------------- SPINNER
 // -------------
 export interface ISpinnerProps {
   width?: string
   height?: string
+  customColor?: string
+}
+
+// -------------
+// ------------- FORM INPUT
+// -------------
+
+type TFormInputType = 'text' | 'email' | 'password'
+
+export interface IFormInputProps {
+  id: string
+  label: string
+  type?: TFormInputType
+  placeholder?: string
+  error?: string
+  register: ReturnType<any>
+  className?: string
 }

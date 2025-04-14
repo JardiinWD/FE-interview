@@ -80,6 +80,10 @@ $label-preferred-text: calc(0.706rem + 0.188vw);
   @include setFont($span-min-text, $span-preferred-text, $span-max-text);
 }
 
+.label_font_size {
+  @include setFont($label-min-text, $label-preferred-text, $label-max-text);
+}
+
 /* FONT WEIGHTS */
 @mixin setFontWeight($weight) {
   font-weight: $weight;

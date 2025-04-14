@@ -1,5 +1,6 @@
 import { IButtonProps } from '@/types/atoms'
 import React, { JSX } from 'react'
+import { Spinner } from '@/components/atoms'
 
 /**
  * @description A reusable Button component that supports various styles and behaviors.
@@ -20,7 +21,8 @@ const Button: React.FC<IButtonProps> = ({
   buttonType = 'button',
   formId = `generic-form-id`,
   buttonId = `generic-button-id`,
-  disabled = false
+  disabled = false,
+  isLoading = false
 }): JSX.Element => {
   // ------------- VARIANTS
   const buttonVariants: Record<IButtonProps['variant'], string> = {
@@ -38,7 +40,15 @@ const Button: React.FC<IButtonProps> = ({
       type={buttonType}
       id={buttonId}
     >
-      {children}
+      {isLoading ? (
+        <Spinner
+          customColor="fill-primary_black_600"
+          width="1.5rem"
+          height="1.5rem"
+        />
+      ) : (
+        children
+      )}
     </button>
   )
 }

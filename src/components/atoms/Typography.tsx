@@ -13,6 +13,8 @@ import fonts from '@/assets/styles/fonts.module.scss'
  * @param {string} text - The text to render. If `htmlString` is provided, this prop is ignored.
  * @param {boolean} whiteSpace - Whether to enable whitespace breaking.
  * @param {string} textColor - The color of the text.
+ * @param {string} textLineHeight - The line height of the text.
+ * @param {string} htmlFor - The HTML for attribute for the label tag.
  * @return {JSX.Element} The rendered text component.
  */
 const Typography: React.FC<ITypographyProps> = ({
@@ -25,7 +27,8 @@ const Typography: React.FC<ITypographyProps> = ({
   uppercase = false,
   htmlString = '',
   style = {},
-  whiteSpace = false
+  whiteSpace = false,
+  htmlFor
 }): JSX.Element => {
   // ------------- TAG Fonts Size
   const typographyVariant: Record<ITypographyProps['tagAs'], string> = {
@@ -36,7 +39,8 @@ const Typography: React.FC<ITypographyProps> = ({
     h5: `${fonts.h5_font_size}`,
     h6: `${fonts.h6_font_size}`,
     p: `${fonts.p_font_size}`,
-    span: `${fonts.span_font_size}`
+    span: `${fonts.span_font_size}`,
+    label: `${fonts.label_font_size}`
   }
 
   // ------------- TAG Fonts Weight
@@ -53,6 +57,7 @@ const Typography: React.FC<ITypographyProps> = ({
 
   return htmlString ? (
     <TagAs
+      htmlFor={htmlFor}
       className={`${textColor && `${textColor}`} ${
         textLineHeight && `${textLineHeight}`
       } ${typographyVariant[tagAs]} ${
@@ -63,6 +68,7 @@ const Typography: React.FC<ITypographyProps> = ({
     />
   ) : (
     <TagAs
+      htmlFor={htmlFor}
       className={`${textColor && `${textColor}`} ${
         textLineHeight && `${textLineHeight}`
       } ${typographyVariant[tagAs]} ${

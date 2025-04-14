@@ -19,6 +19,9 @@ import QuantityCounter from './product/QuantityCounter'
 // ------------------ CART ATOMS
 import CartAction from './cart/CartAction'
 
+// ------------------ FORM ATOMS
+import FormInput from './forms/FormInput'
+
 export {
   Typography,
   GridContainer,
@@ -34,5 +37,6 @@ export {
   AdditionalInfo,
   QuantityCounter,
   CartAction,
-  Spinner
+  Spinner,
+  FormInput
 }

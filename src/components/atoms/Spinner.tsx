@@ -5,16 +5,18 @@ import React, { JSX } from 'react'
  * @description Spinner component for loading state
  * @param {string} width - Width of the spinner (default: '2rem')
  * @param {string} height - Height of the spinner (default: '2rem')
+ * @param {string} customColor - Custom color for the spinner (default: 'fill-primary_yellow_600')
  */
 const Spinner: React.FC<ISpinnerProps> = ({
   width = '4rem',
-  height = '4rem'
+  height = '4rem',
+  customColor = 'fill-primary_yellow_600'
 }): JSX.Element => {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className="inline animate-spin text-gray-200 dark:text-gray-600 fill-primary_yellow_600"
+        className={`inline animate-spin text-gray-200 dark:text-gray-600 ${customColor}`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
