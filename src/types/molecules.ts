@@ -20,6 +20,7 @@ export interface IProductsListProps {
   products: IProduct[]
   paginationParams: IPaginationProps
   isLoadingList: boolean
+  allCategories: IProduct['category'][]
 }
 
 export interface ISingleReviewProps {
@@ -104,4 +105,13 @@ export interface IUserAdditionalInfo {
 export interface ILogoutModalProps {
   modalId?: string
   isModalOpen?: boolean
+}
+
+// -------------
+// ------------- FILTERS
+// -------------
+export interface IFiltersProps {
+  onSearchProduct: (value: string) => void
+  onCategorySelect?: (category: string) => void
+  categories: IProduct['category'][]
 }

@@ -266,3 +266,11 @@ export interface IInputProps {
   label?: string
   onChange?: (value: string) => void
 }
+
+// -------------
+// ------------- CATEGORIES DROPDOWN
+// -------------
+export interface ICategoryDropdownProps {
+  categories: IProduct['category'][]
+  onCategorySelect: (category: string) => void
+}

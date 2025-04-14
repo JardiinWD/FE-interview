@@ -36,7 +36,7 @@ const Input: React.FC<IInputProps> = ({
         id={id}
         type={type}
         placeholder={placeholder}
-        className="border-[1px] border-primary_black_500 rounded-md p-2"
+        className="border-[1px] border-primary_GRAY_500 rounded-md p-2"
         onChange={(e) => onChange?.(e.target.value)}
       />
     </Box>

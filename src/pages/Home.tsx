@@ -53,7 +53,7 @@ const Home: React.FC = (): JSX.Element => {
       />
     )
 
-  // -------------- PAGINAZIONE LOCALE
+  // -------------- LOCAL PAGINATION
   const startIndex = ((state?.currentPage ?? 1) - 1) * (state.limit ?? 10)
   const paginatedProducts = apiData?.data?.products.slice(
     startIndex,
@@ -62,6 +62,11 @@ const Home: React.FC = (): JSX.Element => {
   const totalPages = Math.ceil(
     (apiData?.data?.products?.length ?? 0) / (state.limit ?? 10)
   )
+
+  // -------------- CATEGORIES
+  const allCategories = [
+    ...new Set(apiData?.data?.products.map((p) => p.category))
+  ]
 
   return (
     <FlexContainer
@@ -75,6 +80,7 @@ const Home: React.FC = (): JSX.Element => {
     >
       {/* PRODUCTS */}
       <ProductsList
+        allCategories={allCategories}
         paginationParams={{
           totalPages,
           currentPage: state.currentPage as number,

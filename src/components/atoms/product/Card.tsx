@@ -168,7 +168,7 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         userId,
         product as IProduct
       )
-      if (data) throw new Error('Error while adding the product to the cart')
+      // TODO : Handle the API Response with ZUSTAND STORE
     } catch (error) {
       // Add toaster with the error message
       toast.error(error as string)

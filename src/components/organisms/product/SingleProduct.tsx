@@ -17,7 +17,6 @@ import React, { JSX } from 'react'
 /**
  * @description Single Product Component for Product Page
  * @param {IProduct} product - The product object containing product details
- * @returns
  */
 const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
   return (

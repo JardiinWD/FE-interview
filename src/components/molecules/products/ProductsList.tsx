@@ -9,6 +9,7 @@ import { Filters, LoadingState } from '@/components/molecules'
 // -------------- INTERFACES
 interface IState {
   searchProductName?: string
+  category?: string
 }
 
 /**
@@ -22,24 +23,38 @@ interface IState {
 const ProductsList: React.FC<IProductsListProps> = ({
   products,
   paginationParams,
-  isLoadingList = false
+  isLoadingList = false,
+  allCategories
 }) => {
   // -------------- STATE
   const [state, setState] = useState<IState>({
-    searchProductName: ''
+    searchProductName: '',
+    category: ''
   })
 
   // -------------- FILTERING
-  const filteredProducts = products.filter((product) =>
-    product.title
+  const filteredProducts = products.filter((product) => {
+    // Check if the product matches the search term and category
+    const matchesSearch = product.title
       .toLowerCase()
-      .includes(state.searchProductName?.toLowerCase() ?? '')
-  )
+      .includes((state?.searchProductName || '').toLowerCase())
+    // Check if the product matches the selected category
+    const matchesCategory =
+      state.category === '' || product.category === state.category
+    return matchesSearch && matchesCategory
+  })
 
   return (
     <React.Fragment>
       {/* FILTERS */}
       <Filters
+        onCategorySelect={(category) =>
+          setState((prevState) => ({
+            ...prevState,
+            category: category
+          }))
+        }
+        categories={allCategories}
         onSearchProduct={(searchTerm) =>
           setState((prevState) => ({
             ...prevState,
