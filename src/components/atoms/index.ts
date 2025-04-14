@@ -23,6 +23,9 @@ import CheckoutItem from './cart/CheckoutItem'
 // ------------------ FORM ATOMS
 import FormInput from './forms/FormInput'
 
+// ------------------ USER ATOMS
+import UserPill from './user/UserPill'
+
 export {
   Typography,
   GridContainer,
@@ -40,5 +43,6 @@ export {
   CartAction,
   CheckoutItem,
   Spinner,
-  FormInput
+  FormInput,
+  UserPill
 }

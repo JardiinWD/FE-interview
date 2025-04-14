@@ -1,3 +1,4 @@
+import { IAuthData } from '@/api/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -5,6 +6,7 @@ interface AuthState {
   // --> State
   userId: number | null
   token: string | null
+  allUserData: IAuthData | null
   // --> Actions
   setUserId: (id: number) => void
   setToken: (token: string) => void
@@ -16,6 +18,7 @@ const useAuthStore = create<AuthState>()(
     (set) => ({
       userId: null,
       token: null,
+      allUserData: null,
       setToken: (token: string) => set({ token }),
       setUserId: (id: number) => set({ userId: id }),
       clearUserId: () => set({ userId: null })

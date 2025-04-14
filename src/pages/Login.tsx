@@ -1,3 +1,5 @@
+// USER ID 6 HA UN CARRELLO
+
 import { AuthApi } from '@/api'
 import { Images } from '@/assets/images'
 import { FlexContainer, Image } from '@/components/atoms'
@@ -41,7 +43,8 @@ const Login: React.FC = (): JSX.Element => {
         // Set the proper accessToken
         useAuthStore.setState({
           token: authData.accessToken,
-          userId: authData.id
+          userId: authData.id,
+          allUserData: authData
         })
         // Navigate to Home
         navigate('/')

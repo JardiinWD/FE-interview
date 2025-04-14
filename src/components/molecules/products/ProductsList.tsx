@@ -33,8 +33,6 @@ const ProductsList: React.FC<IProductsListProps> = ({
     console.log('status', status); */
   }
 
-  console.log('products', products)
-
   return (
     <React.Fragment>
       <FlexContainer

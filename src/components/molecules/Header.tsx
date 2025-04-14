@@ -1,5 +1,11 @@
 import React, { JSX } from 'react'
-import { FlexContainer, Image, Typography, Button } from '@/components/atoms'
+import {
+  FlexContainer,
+  Image,
+  Typography,
+  Button,
+  UserPill
+} from '@/components/atoms'
 import { Link, useLocation } from 'react-router-dom'
 import { Images } from '@/assets/images'
 import Lottie from 'lottie-react'
@@ -36,24 +42,34 @@ const Header: React.FC = (): JSX.Element => {
           textColor={`${['/'].includes(location.pathname) ? 'text-white' : 'text-primary_black_600'}`}
         />
       </Link>
-      {/* CART BUTTON */}
-      {!['/cart'].includes(location.pathname) && (
-        <Link className="absolute right-2" to="/cart">
-          <Button
-            variant="secondary"
-            buttonType="button"
-            className="bg-white"
-            buttonId="cart-button"
-          >
-            <Lottie
-              className="h-[2rem] w-[2rem]"
-              animationData={Lotties.CartLottie}
-              loop
-              autoplay
-            />
-          </Button>
-        </Link>
-      )}
+      <FlexContainer
+        direction="row"
+        justify="center"
+        align="center"
+        gap={4}
+        className="absolute right-4"
+      >
+        {/* CART BUTTON */}
+        {!['/cart'].includes(location.pathname) && (
+          <Link to="/cart">
+            <Button
+              variant="secondary"
+              buttonType="button"
+              className="bg-white"
+              buttonId="cart-button"
+            >
+              <Lottie
+                className="h-[2rem] w-[2rem]"
+                animationData={Lotties.CartLottie}
+                loop
+                autoplay
+              />
+            </Button>
+          </Link>
+        )}
+        {/* USER PILL */}
+        <UserPill />
+      </FlexContainer>
     </FlexContainer>
   )
 }

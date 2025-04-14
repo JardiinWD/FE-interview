@@ -153,10 +153,6 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
    * @param {number} userId - The ID of the user
    */
   const onAddToCart = async (product: Partial<ICart>, userId: number) => {
-    console.log('product', product)
-    console.log('userId', userId)
-    console.log('currentQuantity', state.currentQuantity)
-
     const { data, error, status } = await CartApi.addNewCart(
       userId,
       product as IProduct
