@@ -49,7 +49,7 @@ export interface ICartSummaryProductInfoProps {
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps {}
+  extends ICartSummaryProductInfoProps { }
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[]
@@ -91,4 +91,13 @@ export interface IErrorStateProps {
 
 export interface IUserAdditionalInfo {
   userData: IAuthData
+}
+
+// -------------
+// ------------- MODALS
+// -------------
+
+export interface ILogoutModalProps {
+  modalId?: string
+  isModalOpen?: boolean
 }

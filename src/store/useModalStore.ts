@@ -3,21 +3,20 @@ import { create } from 'zustand'
 
 interface IModalStore {
   // --> State
-  isProductModalOpen: boolean
+  isModalOpen: boolean
   productData: IProduct | null
   // --> Actions
-  openProductModal: (productData: IProduct) => void
-  closeProductModal: () => void
+  openModal: () => void
+  closeModal: () => void
 }
 
 const useModalStore = create<IModalStore>((set) => ({
   // --> Initial state
-  isProductModalOpen: false,
+  isModalOpen: false,
   productData: null,
   // --> Actions
-  openProductModal: (productData: IProduct) =>
-    set({ isProductModalOpen: true, productData }),
-  closeProductModal: () => set({ isProductModalOpen: false, productData: null })
+  openModal: () => set({ isModalOpen: true }),
+  closeModal: () => set({ isModalOpen: false, productData: null })
 }))
 
 export default useModalStore

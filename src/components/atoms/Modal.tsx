@@ -27,14 +27,14 @@ const Modal: React.FC<IModalProps> = ({
   isModalOpen = false
 }): JSX.Element => {
   // -------------- ZUSTAND STORE
-  const { closeProductModal } = useModalStore()
+  const { closeModal } = useModalStore()
 
   return (
     <ReactModal
       className={className}
       contentLabel={modalId}
       isOpen={isModalOpen}
-      onRequestClose={closeProductModal}
+      onRequestClose={closeModal}
       style={customStyles}
     >
       {children}

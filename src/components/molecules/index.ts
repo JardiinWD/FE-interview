@@ -20,6 +20,9 @@ import UserAdditionalInfo from './user/UserAdditionalInfo'
 import LoadingState from './state/LoadingState'
 import ErrorState from './state/ErrorState'
 
+// ------------------ MODAL MOLECULES
+import LogoutModal from './modals/LogoutModal'
+
 // ------------------ COMMON MOLECULES
 import Header from './Header'
 
@@ -36,5 +39,6 @@ export {
   LoginForm,
   LoadingState,
   ErrorState,
-  UserAdditionalInfo
+  UserAdditionalInfo,
+  LogoutModal
 }

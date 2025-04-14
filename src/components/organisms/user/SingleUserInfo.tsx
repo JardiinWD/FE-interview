@@ -1,9 +1,9 @@
 import { Button, FlexContainer, Image, Typography } from '@/components/atoms'
-import { UserAdditionalInfo } from '@/components/molecules'
-import { useAuthStore } from '@/store'
+import { LogoutModal, UserAdditionalInfo } from '@/components/molecules'
+import { useModalStore } from '@/store'
 import { ISingleUserInfo } from '@/types/organisms'
 import { Box } from '@chakra-ui/react'
-import { JSX } from 'react'
+import React, { JSX } from 'react'
 
 /**
  * @description SingleUserInfo component to display single user information
@@ -12,67 +12,76 @@ import { JSX } from 'react'
 const SingleUserInfo: React.FC<ISingleUserInfo> = ({
   userData
 }): JSX.Element => {
+  // -------------- ZUSTAND STORE
+  const { openModal, isModalOpen } = useModalStore()
+
   return (
-    <Box
-      style={{
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
-      }}
-      className="bg-primary_white_100 p-4 shadow-lg z-10 flex flex-nowrap items-start justify-between"
-      rounded="lg"
-      height={'fit-content'}
-      width={['100%', '80%', '80%']}
-      id="user-info-box"
-    >
-      {/* LEFT SIDE */}
-      <FlexContainer
-        className="w-[25%]"
-        gap={5}
-        flexContainerId="user-info-left-side"
-        direction="column"
-        justify="center"
-        align="center"
+    <React.Fragment>
+      <Box
+        style={{
+          boxShadow:
+            '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
+        }}
+        className="bg-primary_white_100 p-4 shadow-lg flex flex-nowrap items-start justify-between"
+        rounded="lg"
+        height={'fit-content'}
+        width={['100%', '80%', '80%']}
+        id="user-info-box"
       >
-        <Image
-          className="bg-primary_white_200 rounded-full"
-          src={userData?.image as string}
-          alt="User Image"
-          htmlWidth={150}
-          htmlHeight={150}
-        />
-        <Button
-          variant="primary"
-          buttonId="logout-button"
-          buttonType="button"
-          className="w-full"
-          onClick={() => {
-            useAuthStore.setState({
-              allUserData: null,
-              token: null,
-              userId: null
-            })
-          }}
+        {/* LEFT SIDE */}
+        <FlexContainer
+          className="w-[25%]"
+          gap={5}
+          flexContainerId="user-info-left-side"
+          direction="column"
+          justify="center"
+          align="center"
         >
-          <Typography
-            className="text-primary_black_600"
-            tagAs="span"
-            weight="bold"
-            text="Logout"
+          <Image
+            className="bg-primary_white_200 rounded-full"
+            src={userData?.image as string}
+            alt="User Image"
+            htmlWidth={150}
+            htmlHeight={150}
           />
-        </Button>
-      </FlexContainer>
-      {/* RIGHT SIDE */}
-      <FlexContainer
-        className="w-[70%]"
-        gap={5}
-        flexContainerId="user-info-right-side"
-        direction="column"
-        justify="center"
-        align="center"
-      >
-        <UserAdditionalInfo userData={userData} />
-      </FlexContainer>
-    </Box>
+          <Button
+            variant="primary"
+            buttonId="logout-button"
+            buttonType="button"
+            className="w-full"
+            onClick={openModal}
+          >
+            <Typography
+              className="text-primary_black_600"
+              tagAs="span"
+              weight="bold"
+              text="Logout"
+            />
+          </Button>
+        </FlexContainer>
+        {/* RIGHT SIDE */}
+        <FlexContainer
+          className="w-[70%]"
+          gap={5}
+          flexContainerId="user-info-right-side"
+          direction="column"
+          justify="center"
+          align="center"
+        >
+          <UserAdditionalInfo userData={userData} />
+        </FlexContainer>
+      </Box>
+      {isModalOpen && (
+        <LogoutModal modalId="logout-modal" isModalOpen={isModalOpen} />
+      )}
+    </React.Fragment>
   )
 }
 
 export default SingleUserInfo
+
+/* useAuthStore.setState({
+                allUserData: null,
+                token: null,
+                userId: null
+             }) */

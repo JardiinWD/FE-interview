@@ -6,7 +6,6 @@ import React, { JSX } from 'react'
  * @description AdditionalInfo component to display additional information about the product
  * @param {string} info - information to display
  * @param {string} label - label for the information
- * @returns {JSX.Element}
  */
 const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   info = '---',
