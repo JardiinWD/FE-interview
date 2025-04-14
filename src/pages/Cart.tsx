@@ -43,6 +43,8 @@ const Cart: React.FC = (): JSX.Element => {
     }
   })
 
+  console.log('apiData', apiData)
+
   // -------------- ERROR HANDLING
   if (apiData?.error && apiData?.error !== null)
     return (
@@ -104,7 +106,8 @@ const Cart: React.FC = (): JSX.Element => {
           apiData?.data?.carts[state.activeTab]
             ?.products as ICartSummarySingleProductProps[]
         }
-        cartId={1}
+        cartId={apiData?.data?.carts[state.activeTab].id}
+        cartCheckoutData={apiData?.data?.carts[state.activeTab] as ICart}
       />
     </FlexContainer>
   )

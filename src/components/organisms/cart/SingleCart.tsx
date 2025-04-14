@@ -1,5 +1,5 @@
 import { FlexContainer } from '@/components/atoms'
-import { CartSummary } from '@/components/molecules'
+import { CartCheckout, CartSummary } from '@/components/molecules'
 import { ISingleCartProps } from '@/types/organisms'
 import React, { JSX } from 'react'
 
@@ -7,13 +7,17 @@ import React, { JSX } from 'react'
  * @description SingleCart component
  * @param { ICartSummarySingleProductProps[]} cartProducts - Array of cart products
  * @param {number} cartId - Cart ID
+ * @param {ICart} cartCheckoutData - Cart checkout data
  * @returns
  */
 const SingleCart: React.FC<ISingleCartProps> = ({
   cartProducts,
-  cartId
+  cartId,
+  cartCheckoutData
 }): JSX.Element => {
   console.log('cartProducts', cartProducts)
+  console.log('cartId', cartId)
+  console.log('cartCheckoutData', cartCheckoutData)
 
   return (
     <FlexContainer
@@ -27,22 +31,8 @@ const SingleCart: React.FC<ISingleCartProps> = ({
     >
       {/* CART SUMMARY */}
       <CartSummary cartId={cartId as number} cartProducts={cartProducts} />
-
       {/* CART CHECKOUT */}
-      <FlexContainer
-        flexContainerId="cart-checkout"
-        direction="row"
-        justify="flex-start"
-        align="flex-start"
-        wrap="nowrap"
-        className="h-fit w-[30%] relative z-10 bg-white shadow-lg rounded-lg p-6"
-        style={{
-          boxShadow:
-            '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
-        }}
-      >
-        'Checkout Section'
-      </FlexContainer>
+      <CartCheckout cartCheckoutData={cartCheckoutData} />
     </FlexContainer>
   )
 }

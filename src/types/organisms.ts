@@ -1,4 +1,4 @@
-import { IProduct } from '@/api/types'
+import { ICart, IProduct } from '@/api/types'
 import { ICartSummarySingleProductProps } from './molecules'
 
 // -------------
@@ -13,5 +13,6 @@ export interface ISingleProductProps {
 // -------------
 export interface ISingleCartProps {
   cartProducts: ICartSummarySingleProductProps[]
+  cartCheckoutData: ICart
   cartId?: number
 }

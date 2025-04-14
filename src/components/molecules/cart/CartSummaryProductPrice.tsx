@@ -24,6 +24,13 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
       className={`w-[20%] `}
       gap={1}
     >
+      {/* OLD PRICE */}
+      <Typography
+        textColor="text-primary_black_700 line-through"
+        weight="bold"
+        tagAs="h6"
+        text={transformNumberToCurrency(item.total) ?? '---'}
+      />
       {/* NEW PRICE */}
       <FlexContainer
         flexContainerId={`cart-summary-product-price-discounted-${index}`}
@@ -37,19 +44,12 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
         <Typography
           textColor="text-primary_yellow_600"
           weight="bold"
-          tagAs="h6"
+          tagAs="h5"
           text={transformNumberToCurrency(item.discountedTotal) ?? '---'}
         />
         {/* Discount Pill */}
         <DiscountPill discountPercentage={item.discountPercentage} />
       </FlexContainer>
-      {/* OLD PRICE */}
-      <Typography
-        textColor="text-primary_black_700 line-through"
-        weight="bold"
-        tagAs="h6"
-        text={transformNumberToCurrency(item.total) ?? '---'}
-      />
     </FlexContainer>
   )
 }

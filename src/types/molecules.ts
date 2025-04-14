@@ -23,7 +23,7 @@ export interface IProductsListProps {
 }
 
 // -------------
-// ------------- CART TABS
+// ------------- CART
 // -------------
 
 export interface ICartTabsProps {
@@ -31,10 +31,6 @@ export interface ICartTabsProps {
   activeTab: number
   onClickHandler: (index: number) => void
 }
-
-// -------------
-// ------------- CART SUMMARY
-// -------------
 
 export interface ICartSummarySingleProductProps {
   discountPercentage: ICart['discountPercentage']
@@ -58,6 +54,10 @@ export interface ICartSummaryProductPriceProps
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[]
   cartId: number
+}
+
+export interface ICartCheckoutProps {
+  cartCheckoutData: ICart
 }
 
 // -------------

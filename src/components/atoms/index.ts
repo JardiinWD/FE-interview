@@ -18,6 +18,7 @@ import QuantityCounter from './product/QuantityCounter'
 
 // ------------------ CART ATOMS
 import CartAction from './cart/CartAction'
+import CheckoutItem from './cart/CheckoutItem'
 
 // ------------------ FORM ATOMS
 import FormInput from './forms/FormInput'
@@ -37,6 +38,7 @@ export {
   AdditionalInfo,
   QuantityCounter,
   CartAction,
+  CheckoutItem,
   Spinner,
   FormInput
 }

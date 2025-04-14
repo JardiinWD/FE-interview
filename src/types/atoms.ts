@@ -128,6 +128,14 @@ export interface ICartActionProps {
   onRetrieveCurrentQuantity?: (quantity: number) => void
 }
 
+export interface ICartCheckoutItemProps {
+  label?: string
+  labelClassName?: string
+  property?: string
+  propertyClassName?: string
+  discountPill?: number
+}
+
 // -------------
 // ------------- PRODUCT
 // -------------

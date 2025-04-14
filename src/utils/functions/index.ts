@@ -64,3 +64,25 @@ export const transformNumberToCurrency = (number: number) => {
   // Return the formatted number
   return formattedNumber
 }
+
+/**
+ * @description Calculates the discounted price percentage based on the old and discounted prices.
+ * @param {number} oldPrice - The original price of the product.
+ * @param {number} discountedPrice - The discounted price of the product.
+ * @returns {number} - The discount percentage.
+ */
+export const calculateDiscountedPrice = (
+  oldPrice: number,
+  discountedPrice: number
+) => {
+  // Check if the old price is greater than the discounted price
+  if (oldPrice > discountedPrice) {
+    // Calculate the discount percentage
+    const discountPercentage =
+      Math.round(((oldPrice - discountedPrice) / oldPrice) * 100 * 100) / 100
+    // Return the discount percentage
+    return discountPercentage
+  }
+  // If the old price is not greater than the discounted price, return 0
+  return 0
+}

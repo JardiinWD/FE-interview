@@ -5,6 +5,7 @@ import EmptyCard from './cart/EmptyCard'
 import CartTabs from './cart/CartTabs'
 import CartSummaryProductInfo from './cart/CartSummaryProductInfo'
 import CartSummaryProductPrice from './cart/CartSummaryProductPrice'
+import CartCheckout from './cart/CartCheckout'
 
 // ------------------ FORM MOLECULES
 import LoginForm from './forms/LoginForm'
@@ -24,5 +25,6 @@ export {
   CartTabs,
   CartSummaryProductInfo,
   CartSummaryProductPrice,
+  CartCheckout,
   LoginForm
 }
