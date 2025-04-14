@@ -14,13 +14,15 @@ import { ICartActionProps } from '@/types/atoms'
  * @param {ICart} cart - The cart object containing cart details
  * @param {function} onAddToCart - Callback function to handle Add to Cart action
  * @param {function} onRetrieveCurrentQuantity - Callback function to retrieve current quantity
+ * @param {boolean} isLoading - Flag to show loading state
  */
 const CartAction: React.FC<ICartActionProps> = ({
   product,
   isAddToCartVisible = true,
   cart,
   onAddToCart = () => {},
-  onRetrieveCurrentQuantity = (quantity: number) => quantity
+  onRetrieveCurrentQuantity = (quantity: number) => quantity,
+  isLoading = false
 }): JSX.Element => {
   // ------------ COUNTER CART ACTION
   const counterValues = product
@@ -66,6 +68,8 @@ const CartAction: React.FC<ICartActionProps> = ({
           variant="primary"
           buttonId="add-to-cart"
           buttonType="button"
+          isLoading={isLoading}
+          className="w-[150px] min-w-[150px]"
           //@ts-expect-error - Something is wrong with the type of `onClick`
           onClick={onAddToCart}
         >
@@ -77,9 +81,6 @@ const CartAction: React.FC<ICartActionProps> = ({
           />
         </Button>
       )}
-
-      {/* RECUPERARE DA QUANTITY COUNTER IL VALORE CORRENTE */}
-
       {/* Quantity Counter */}
       <QuantityCounter
         initialValue={counterValues.initialValue}

@@ -13,6 +13,7 @@ import LoginForm from './forms/LoginForm'
 // ------------------ PRODUCT MOLECULES
 import ProductsList from './products/ProductsList'
 import SingleReview from './products/SingleReview'
+import Filters from './products/Filters'
 
 // ------------------ USER MOLECULES
 import UserAdditionalInfo from './user/UserAdditionalInfo'
@@ -42,5 +43,6 @@ export {
   ErrorState,
   UserAdditionalInfo,
   LogoutModal,
-  SingleReview
+  SingleReview,
+  Filters
 }

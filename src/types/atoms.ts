@@ -126,6 +126,7 @@ export interface ICartActionProps {
   cart?: Partial<ICart>
   onAddToCart?: (product: Partial<IProduct>, userId: number) => void
   onRetrieveCurrentQuantity?: (quantity: number) => void
+  isLoading?: boolean
 }
 
 export interface ICartCheckoutItemProps {
@@ -242,4 +243,26 @@ export interface IFormInputProps {
   error?: string
   register: ReturnType<any>
   className?: string
+}
+
+// -------------
+// ------------- CUSTOM TOAST
+// -------------
+
+export interface ICustomToastProps {
+  toastId: string
+  toastMessage: string
+}
+
+// -------------
+// ------------- COMMON INPUT
+// -------------
+
+export interface IInputProps {
+  id: string
+  type?: TFormInputType
+  placeholder?: string
+  boxClassName?: string
+  label?: string
+  onChange?: (value: string) => void
 }

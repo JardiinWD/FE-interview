@@ -3,8 +3,13 @@
 
 import { Card, DataLoop, FlexContainer, Pagination } from '@/components/atoms'
 import { IProductsListProps } from '@/types/molecules'
-import React from 'react'
-import { LoadingState } from '@/components/molecules'
+import React, { useState } from 'react'
+import { Filters, LoadingState } from '@/components/molecules'
+
+// -------------- INTERFACES
+interface IState {
+  searchProductName?: string
+}
 
 /**
  * @description display a list of products with pagination and add to cart functionality
@@ -19,8 +24,29 @@ const ProductsList: React.FC<IProductsListProps> = ({
   paginationParams,
   isLoadingList = false
 }) => {
+  // -------------- STATE
+  const [state, setState] = useState<IState>({
+    searchProductName: ''
+  })
+
+  // -------------- FILTERING
+  const filteredProducts = products.filter((product) =>
+    product.title
+      .toLowerCase()
+      .includes(state.searchProductName?.toLowerCase() ?? '')
+  )
+
   return (
     <React.Fragment>
+      {/* FILTERS */}
+      <Filters
+        onSearchProduct={(searchTerm) =>
+          setState((prevState) => ({
+            ...prevState,
+            searchProductName: searchTerm
+          }))
+        }
+      />
       <FlexContainer
         flexContainerId="product-list"
         direction="row"
@@ -28,6 +54,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
         align="center"
         gap={4}
       >
+        {/* FILTER AND RESEARCH */}
         {isLoadingList ? (
           <LoadingState containerId="home" />
         ) : (
@@ -41,7 +68,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
                 imageSrc={item.images[0]}
               />
             )}
-            eachData={products}
+            eachData={filteredProducts}
           />
         )}
       </FlexContainer>

@@ -14,7 +14,7 @@ interface IState {
 const Home: React.FC = (): JSX.Element => {
   // -------------- STATE
   const [state, setState] = useState<IState>({
-    limit: 8,
+    limit: 6,
     currentPage: 1
   })
 

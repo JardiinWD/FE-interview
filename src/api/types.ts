@@ -34,7 +34,6 @@ export type TAuthApiContext =
   | 'getCurrentUser'
   | 'getRefreshToken'
 
-
 // ------------ AUTHENTICATION API LAYER
 export interface IAuthApi {
   handleAuthenticationErrors: (

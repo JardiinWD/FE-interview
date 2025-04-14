@@ -8,6 +8,8 @@ import DataLoop from './DataLoop'
 import Modal from './Modal'
 import Pagination from './Pagination'
 import Spinner from './Spinner'
+import CustomToast from './CustomToast'
+import Input from './Input'
 
 // ------------------ PRODUCT ATOMS
 import Card from './product/Card'
@@ -44,5 +46,7 @@ export {
   CheckoutItem,
   Spinner,
   FormInput,
-  UserPill
+  UserPill,
+  CustomToast,
+  Input
 }

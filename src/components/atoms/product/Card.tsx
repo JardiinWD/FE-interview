@@ -20,6 +20,7 @@ import {
 } from '@/utils/functions'
 import React, { JSX, useState } from 'react'
 import { Link } from 'react-router'
+import { toast } from 'react-toastify'
 
 // ------------ INTERFACES
 interface ICardFooterState {
@@ -156,26 +157,27 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
    */
   const onAddToCart = async (product: Partial<ICart>, userId: number) => {
     try {
+      // Set Loading State
+      setState((prevState) => ({
+        ...prevState,
+        isLoading: true
+      }))
+
       // Invoke the API Call
       const { data, error, status } = await CartApi.addNewCart(
         userId,
         product as IProduct
       )
-      console.log('data', data)
-      console.log('error', error)
-      console.log('status', status)
+      if (data) throw new Error('Error while adding the product to the cart')
     } catch (error) {
       // Add toaster with the error message
+      toast.error(error as string)
     } finally {
+      setState((prevState) => ({
+        ...prevState,
+        isLoading: false
+      }))
     }
-
-    const { data, error, status } = await CartApi.addNewCart(
-      userId,
-      product as IProduct
-    )
-    console.log('data', data)
-    console.log('error', error)
-    console.log('status', status)
   }
 
   return (
@@ -229,6 +231,7 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         </Link>
         {/* CART ACTIONS */}
         <CartAction
+          isLoading={state.isLoading}
           onAddToCart={() =>
             onAddToCart(
               {
