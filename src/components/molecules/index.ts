@@ -13,6 +13,9 @@ import LoginForm from './forms/LoginForm'
 // ------------------ PRODUCT MOLECULES
 import ProductsList from './products/ProductsList'
 
+// ------------------ USER MOLECULES
+import UserAdditionalInfo from './user/UserAdditionalInfo'
+
 // ------------------ STATE MOLECULES
 import LoadingState from './state/LoadingState'
 import ErrorState from './state/ErrorState'
@@ -32,5 +35,6 @@ export {
   CartCheckout,
   LoginForm,
   LoadingState,
-  ErrorState
+  ErrorState,
+  UserAdditionalInfo
 }

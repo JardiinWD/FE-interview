@@ -1,4 +1,4 @@
-import { ICart, IProduct } from '@/api/types'
+import { IAuthData, ICart, IProduct } from '@/api/types'
 import { IPaginationProps } from '@/types/atoms'
 import { TLoginFormValues } from '@/types/schema'
 
@@ -83,4 +83,12 @@ export interface IErrorStateProps {
   containerClassName?: string
   errorDevMessage?: string
   containerId?: string
+}
+
+// -------------
+// ------------- USER INFO
+// -------------
+
+export interface IUserAdditionalInfo {
+  userData: IAuthData
 }

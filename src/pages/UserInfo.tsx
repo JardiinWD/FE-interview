@@ -1,4 +1,6 @@
+import { FlexContainer } from '@/components/atoms'
 import { ErrorState, LoadingState } from '@/components/molecules'
+import { SingleUserInfo } from '@/components/organisms'
 import { useLoadingDelay } from '@/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
 
@@ -24,10 +26,20 @@ const UserInfo = () => {
 
   // -------------- DATA
   const { userData } = location.state
-
   if (!userData) return <Navigate to="/" replace />
 
-  return <div>User Info</div>
+  return (
+    <FlexContainer
+      className="p-4 pt-[4rem] w-full"
+      gap={5}
+      flexContainerId="user-info-page"
+      direction="column"
+      justify="center"
+      align="center"
+    >
+      <SingleUserInfo userData={userData} />
+    </FlexContainer>
+  )
 }
 
 export default UserInfo

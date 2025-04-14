@@ -58,6 +58,18 @@ export const appConfig: TAppConfig = {
       keywords: ['product', 'details', 'cart'],
       route: '/product/:id'
     },
+    'user-info': {
+      title: `Your Information`,
+      description: 'Discover the user information',
+      keywords: ['user', 'authenticated-user', 'auth'],
+      route: '/user-info'
+    },
+    login: {
+      title: 'Login',
+      description: 'Discover Our fantastic Products and Services! Log in now!',
+      keywords: ['login', 'authenticatication', 'auth'],
+      route: '/login'
+    },
     cart: {
       title: 'Cart',
       description: 'Your shopping cart',

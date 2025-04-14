@@ -3,7 +3,7 @@ import React, { JSX } from 'react'
 import { Link } from 'react-router-dom'
 import Image from '../Image'
 
-const UserPill: React.FC = ({}): JSX.Element => {
+const UserPill: React.FC = (): JSX.Element => {
   // ------------ ZUSTAND STORE
   const allUserData = useAuthStore((state) => state.allUserData)
 

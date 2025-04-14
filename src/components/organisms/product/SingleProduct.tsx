@@ -27,14 +27,14 @@ const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
       justify="flex-start"
       align="flex-start"
       wrap="nowrap"
-      className="h-fit relative z-10 bg-white shadow-lg rounded-lg p-6"
+      className="h-fit relative z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
       style={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
       }}
     >
       {/* PRODUCT IMAGE */}
       <Image
-        className="rounded-lg h-[24rem] w-[24rem] bg-primary_white_200"
+        className="rounded-lg h-[24rem] w-[24rem] bg-primary_white_100"
         src={product.images[0]}
         alt={product.title}
         fit="contain"

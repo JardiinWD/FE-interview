@@ -21,7 +21,7 @@ const useAuthStore = create<AuthState>()(
       allUserData: null,
       setToken: (token: string) => set({ token }),
       setUserId: (id: number) => set({ userId: id }),
-      clearUserId: () => set({ userId: null })
+      clearUserId: () => set({ userId: null, token: null, allUserData: null })
     }),
     {
       name: 'Sikuro Group - FE Technical Interview'
