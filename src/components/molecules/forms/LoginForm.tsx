@@ -33,7 +33,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
       width={350}
       height={425}
-      className="bg-primary_white_100 rounded-lg p-5 flex flex-col justify-center items-center gap-3"
+      className="bg-white rounded-lg p-5 flex flex-col justify-center items-center gap-3"
     >
       <Image src={Images.Logo} alt="Logo" htmlWidth={75} htmlHeight={75} />
       {/* USERNAME BOX (this should be a component like FormInput) */}

@@ -29,7 +29,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
     >
       {/* PRODUCT IMAGE */}
       <Image
-        className="rounded-lg h-24 w-24 bg-primary_white_200"
+        className="rounded-lg hidden lg:flex lg:h-24 lg:w-24 bg-primary_white_200"
         src={item.thumbnail}
         alt={item.title}
         fit="fill"

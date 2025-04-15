@@ -25,7 +25,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
       justify="flex-start"
       align="flex-start"
       wrap="nowrap"
-      className="h-fit w-[30%] relative z-10 bg-white shadow-lg rounded-lg p-6"
+      className="h-fit w-full lg:w-[30%] relative z-10 bg-white shadow-lg rounded-lg p-6"
       style={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
       }}

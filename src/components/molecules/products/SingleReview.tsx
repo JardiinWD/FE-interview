@@ -10,8 +10,6 @@ import React, { JSX } from 'react'
 const SingleReview: React.FC<ISingleReviewProps> = ({
   review
 }): JSX.Element => {
-  console.log('SingleReview', review)
-
   return (
     <FlexContainer
       direction="column"

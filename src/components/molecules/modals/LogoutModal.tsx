@@ -25,7 +25,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
   return (
     <Modal isModalOpen={isModalOpen} modalId={modalId}>
       <FlexContainer
-        className="!w-96 h-fit"
+        className="w-full lg:w-96 h-fit p-8"
         gap={2}
         flexContainerId="user-logout-modal"
         direction="column"

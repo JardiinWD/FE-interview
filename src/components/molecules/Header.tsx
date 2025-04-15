@@ -35,7 +35,7 @@ const Header: React.FC = (): JSX.Element => {
         htmlHeight={100}
       />
       {/* LINKS */}
-      <Link to="/">
+      <Link className="lg:flex hidden" to="/">
         <Typography
           text="Products"
           tagAs="h4"

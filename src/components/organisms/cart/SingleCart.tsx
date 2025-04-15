@@ -27,7 +27,7 @@ const SingleCart: React.FC<ISingleCartProps> = ({
       align="flex-start"
       gap={4}
       wrap="nowrap"
-      className="w-full p-4"
+      className="w-full p-4 !flex-col lg:!flex-row"
     >
       {/* CART SUMMARY */}
       <CartSummary cartId={cartId as number} cartProducts={cartProducts} />

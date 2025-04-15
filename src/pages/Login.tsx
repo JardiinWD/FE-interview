@@ -42,7 +42,6 @@ const Login: React.FC = (): JSX.Element => {
       if (authData) {
         // Set the proper accessToken
         useAuthStore.setState({
-          token: authData.accessToken,
           userId: authData.id,
           allUserData: authData
         })

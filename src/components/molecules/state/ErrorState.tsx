@@ -13,7 +13,7 @@ import { EmptyCard } from '@/components/molecules'
  * @param {string} errorDevMessage - The error message to display in development mode.
  */
 const ErrorState: React.FC<IErrorStateProps> = ({
-  containerClassName = 'h-[80dvh] w-full',
+  containerClassName = 'h-[80dvh] w-full p-4',
   containerId = 'page',
   errorMessage = 'Something went wrong',
   buttonText = 'Try Again',

@@ -21,7 +21,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
       justify="flex-end"
       align="flex-end"
       wrap="nowrap"
-      className={`w-[20%] `}
+      className={`w-full lg:w-[20%] lg:!flex-nowrap !flex-wrap`}
       gap={1}
     >
       {/* OLD PRICE */}
