@@ -58,7 +58,9 @@ const Home: React.FC = (): JSX.Element => {
   const paginatedProducts = apiData?.data?.products.slice(
     startIndex,
     startIndex + (state.limit ?? 10)
-  ) // Slice dei prodotti per pagina
+  )
+
+  // -------------- TOTAL PAGES
   const totalPages = Math.ceil(
     (apiData?.data?.products?.length ?? 0) / (state.limit ?? 10)
   )

@@ -7,6 +7,8 @@ import { LoginForm } from '@/components/molecules'
 import { useAuthStore } from '@/store'
 import React, { JSX, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from "jwt-decode";
+import { transformJwtExpirationDate } from '@/utils/functions'
 
 interface IState {
   authenticationError: string | null
@@ -40,10 +42,15 @@ const Login: React.FC = (): JSX.Element => {
         throw new Error(`${authError as string}`)
       // Else if the response is valid then set the token and userId in the store
       if (authData) {
-        // Set the proper accessToken
+        // Decode the Received JWT Token in order to retrieve expiration date
+        const decodedToken = jwtDecode(authData.accessToken) 
+        // Set the proper variables to the Zustand Store
         useAuthStore.setState({
           userId: authData.id,
-          allUserData: authData
+          allUserData: authData,
+          expirationDate: transformJwtExpirationDate(
+            decodedToken.exp as number
+          )
         })
         // Navigate to Home
         navigate('/')

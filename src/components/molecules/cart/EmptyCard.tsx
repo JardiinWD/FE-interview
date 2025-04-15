@@ -32,7 +32,7 @@ const EmptyCard: React.FC<IEmptyCardProps> = ({
         tagAs="h3"
         weight="bold"
         text={cardMessage}
-        textColor="text-primary_black_500"
+        textColor="text-primary_black_500 text-center"
       />
       {process.env.NODE_ENV === 'development' && (
         <Typography

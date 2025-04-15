@@ -34,7 +34,7 @@ const Error: React.FC<IErrorProps> = ({
         justify="center"
         align="center"
         gap={2}
-        className="h-screen w-screen bg-primary_yellow_600"
+        className="h-screen w-screen bg-primary_yellow_600 lg:bg-primary_white_200"
       >
         <EmptyCard
           cardError={error as string}
@@ -57,7 +57,7 @@ const Error: React.FC<IErrorProps> = ({
         justify="center"
         align="center"
         gap={2}
-        className="h-screen w-screen p-4 bg-primary_yellow_600"
+        className="h-screen w-screen p-4 bg-primary_yellow_600 lg:bg-primary_white_200"
       >
         <EmptyCard
           cardError={errorMessage as string}

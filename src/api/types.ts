@@ -99,8 +99,6 @@ export interface ICartApi {
     userId: number,
     product: Partial<IProduct>
   ) => Promise<ICartPromise>
-  updateCart?: (id: number, cart: Partial<ICart>) => Promise<ICartPromise>
-  deleteCart?: (id: number) => Promise<ICartPromise>
   handleCartErrors: (
     error: TPromiseError,
     context: TCartApiContext

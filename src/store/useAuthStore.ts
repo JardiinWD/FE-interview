@@ -7,6 +7,7 @@ interface AuthState {
   userId: number | null
   token: string | null
   allUserData: IAuthData | null
+  expirationDate: Date | null
   // --> Actions
   setUserId: (id: number) => void
   setToken: (token: string) => void
@@ -16,9 +17,12 @@ interface AuthState {
 const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
+      // --> State
       userId: null,
       token: null,
       allUserData: null,
+      expirationDate: null,
+      // --> Actions
       setToken: (token: string) => set({ token }),
       setUserId: (id: number) => set({ userId: id }),
       clearUserId: () => set({ userId: null, token: null, allUserData: null })
