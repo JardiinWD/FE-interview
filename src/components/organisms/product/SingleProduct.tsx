@@ -33,7 +33,7 @@ const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
     >
       {/* PRODUCT IMAGE */}
       <Image
-        className="rounded-lg h-[24rem] w-[24rem] bg-primary_white_100"
+        className="rounded-lg hidden lg:flex lg:h-[24rem] lg:w-[24rem] bg-primary_white_100"
         src={product.images[0]}
         alt={product.title}
         fit="contain"
@@ -95,7 +95,7 @@ const ProductInfo: React.FC<ISingleProductProps> = ({
       )}
       {/* PRODUCT DESCRIPTION */}
       <Typography
-        textColor="text-primary_black_500"
+        textColor="text-primary_black_500 pb-4 lg:pb-0"
         weight="regular"
         tagAs="p"
         text={product.description ?? '---'}

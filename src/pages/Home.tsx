@@ -73,10 +73,10 @@ const Home: React.FC = (): JSX.Element => {
       flexContainerId="homepage"
       wrap="nowrap"
       direction="column"
-      justify="flex-start"
+      justify="center"
       align="center"
       gap={2}
-      className="h-screen"
+      className="h-screen w-[90%] max-w-[90%] mx-auto overflow-hidden"
     >
       {/* PRODUCTS */}
       <ProductsList

@@ -39,7 +39,7 @@ const Product: React.FC = (): JSX.Element => {
 
   return (
     <FlexContainer
-      className="p-4 pt-[4rem] max-w-full "
+      className="p-4 pt-[4rem] max-w-full w-full"
       gap={5}
       flexContainerId="product-page"
       direction="column"

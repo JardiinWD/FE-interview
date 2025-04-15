@@ -23,7 +23,7 @@ const EmptyCard: React.FC<IEmptyCardProps> = ({
       justify="center"
       align="center"
       gap={4}
-      className="h-[15rem] w-[30rem] self-center justify-self-center z-10 bg-white shadow-lg rounded-lg p-6"
+      className="h-[15rem] w-full md:w-[30rem] lg:w-[30rem] self-center justify-self-center z-10 bg-white shadow-lg rounded-lg p-6"
       style={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
       }}

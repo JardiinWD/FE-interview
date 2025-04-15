@@ -44,7 +44,7 @@ const Card: React.FC<ICardProps> = ({
   product
 }): JSX.Element => {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-xs bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <CardImage title={title} imageSrc={imageSrc} />
       <CardBody title={title} product={product} description={description} />
       <CardFooter product={product} />
@@ -65,7 +65,7 @@ const CardImage: React.FC<ICardProps> = ({
       align="center"
     >
       <Image
-        className="rounded-t-lg h-48 self-center"
+        className="rounded-t-lg h-40 self-center"
         src={imageSrc}
         alt={title}
         fit="contain"
@@ -86,13 +86,13 @@ const CardBody: React.FC<ICardProps> = ({
       direction="column"
       justify="center"
       align="flex-start"
-      className="p-5"
+      className="p-3"
     >
       {/* TITLE */}
       <Typography
         textColor="text-primary_black_700"
         weight="bold"
-        tagAs="h4"
+        tagAs="h5"
         text={title}
         className="mb-2 truncate tracking-tight"
       />
@@ -190,14 +190,21 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
     >
       {/* PRODUCT PRICE */}
       <FlexContainer
-        className="pb-4 pl-4"
+        className="pb-4 px-4 w-full"
         flexContainerId="footer-actions"
         align="center"
         justify="space-between"
+        direction="row"
         gap={2}
       >
         {product?.price && (
-          <React.Fragment>
+          <FlexContainer
+            flexContainerId="price-and-discount"
+            direction="row"
+            gap={1}
+            align="center"
+            justify="center"
+          >
             <Typography
               textColor="text-primary_black_700"
               weight="bold"
@@ -210,8 +217,16 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
                 discountPercentage={product?.discountPercentage as number}
               />
             )}
-          </React.Fragment>
+          </FlexContainer>
         )}
+        {/* Check Eye Icon */}
+        <Link
+          to={`/product/${product?.id}`}
+          state={{ product: product }}
+          className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
+        >
+          <Icons.EyeIcon className="w-4 h-4 text-primary_black_500" />
+        </Link>
       </FlexContainer>
       {/* FOOTER ACTION */}
       <FlexContainer
@@ -221,14 +236,6 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         justify="space-between"
         gap={2}
       >
-        {/* Check Eye Icon */}
-        <Link
-          to={`/product/${product?.id}`}
-          state={{ product: product }}
-          className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
-        >
-          <Icons.EyeIcon className="w-4 h-4 text-primary_black_500" />
-        </Link>
         {/* CART ACTIONS */}
         <CartAction
           isLoading={state.isLoading}

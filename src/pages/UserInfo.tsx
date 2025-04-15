@@ -30,7 +30,7 @@ const UserInfo = () => {
 
   return (
     <FlexContainer
-      className="p-4 pt-[4rem] w-full"
+      className="p-4 xs:h-[90dvh] sm:h-[95dvh] md:h-[90dvh] lg:h-auto xl:h-auto pt-4 w-full "
       gap={5}
       flexContainerId="user-info-page"
       direction="column"

@@ -1,4 +1,4 @@
-import { FlexContainer, Input, CategoryDropdown } from '@/components/atoms'
+import { FlexContainer, Input, CategoriesDropdown } from '@/components/atoms'
 import { IFiltersProps } from '@/types/molecules'
 import React, { JSX } from 'react'
 
@@ -20,7 +20,7 @@ const Filters: React.FC<IFiltersProps> = ({
       wrap="nowrap"
       justify="space-between"
       align="center"
-      className="w-[85.5%] h-40 mb-3"
+      className="w-[93.5%] h-20 mb-3"
       flexContainerId="filters"
     >
       <Input
@@ -31,7 +31,7 @@ const Filters: React.FC<IFiltersProps> = ({
         placeholder="Red Lipstick"
         label="Search for products"
       />
-      <CategoryDropdown
+      <CategoriesDropdown
         categories={categories}
         onCategorySelect={onCategorySelect || (() => {})}
       />

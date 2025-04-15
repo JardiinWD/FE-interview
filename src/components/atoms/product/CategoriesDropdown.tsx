@@ -10,7 +10,7 @@
 import React, { useState } from 'react'
 import { Button, FlexContainer, Typography } from '@/components/atoms'
 import { For } from '@chakra-ui/react'
-import { ICategoryDropdownProps } from '@/types/atoms'
+import { ICategoriesDropdownProps } from '@/types/atoms'
 
 // -------------- INTERFACES
 interface IState {
@@ -24,7 +24,7 @@ interface IState {
  * @param {(category: string) => void} onCategorySelect - Callback function to handle category selection
  * @returns
  */
-const CategoryDropdown: React.FC<ICategoryDropdownProps> = ({
+const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
   categories,
   onCategorySelect
 }) => {
@@ -34,10 +34,12 @@ const CategoryDropdown: React.FC<ICategoryDropdownProps> = ({
     selectedCategory: 'All Categories'
   })
 
-  console.log('CATEGORIES RECEIVED -->', categories)
-
   // -------------- HANDLERS
 
+  /**
+   * @description Handle category selection
+   * @param {string} category - The selected category
+   */
   const handleCategorySelect = (category: string) => {
     // Update the selected category in the state
     setState((prevState) => ({
@@ -46,7 +48,7 @@ const CategoryDropdown: React.FC<ICategoryDropdownProps> = ({
       isDropdownOpen: false
     }))
     // Pass the selected category to the parent component
-    onCategorySelect(category)
+    onCategorySelect(['All Categories'].includes(category) ? '' : category)
   }
 
   return (
@@ -100,14 +102,24 @@ const CategoryDropdown: React.FC<ICategoryDropdownProps> = ({
               '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
           }}
         >
+          {/* ALL CATEGORIES DEFAULT OPTION */}
+          <Button
+            variant="tertiary"
+            buttonType="button"
+            buttonId="category-dropdown-all-categories"
+            className="block w-full capitalize text-center"
+            onClick={() => handleCategorySelect('All Categories')}
+          >
+            <Typography text="All Categories" tagAs="span" weight="regular" />
+          </Button>
           <For each={categories}>
             {(category) => (
               <Button
                 key={category}
-                variant="secondary"
+                variant="tertiary"
                 buttonType="button"
                 buttonId="category-dropdown-button"
-                className="block w-full capitalize text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-center"
+                className="block w-full capitalize text-center"
                 onClick={() => handleCategorySelect(category)}
               >
                 <Typography text={category} tagAs="span" weight="regular" />
@@ -120,4 +132,4 @@ const CategoryDropdown: React.FC<ICategoryDropdownProps> = ({
   )
 }
 
-export default CategoryDropdown
+export default CategoriesDropdown

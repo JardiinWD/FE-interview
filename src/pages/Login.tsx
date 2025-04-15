@@ -72,7 +72,7 @@ const Login: React.FC = (): JSX.Element => {
         direction="row"
         justify="center"
         align="center"
-        className="!w-[50%] h-full"
+        className="!hidden lg:!flex h-full "
         flexContainerId="login-illustration-container"
       >
         <Image
@@ -87,7 +87,7 @@ const Login: React.FC = (): JSX.Element => {
         direction="row"
         justify="center"
         align="center"
-        className="!w-[50%] bg-primary_yellow_600 h-full"
+        className="w-full md:!w-[100%] lg:!w-[50%] bg-primary_yellow_600 h-full"
         flexContainerId="login-form-container"
       >
         <LoginForm

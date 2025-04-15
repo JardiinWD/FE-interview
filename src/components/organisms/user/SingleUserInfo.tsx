@@ -22,7 +22,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
           boxShadow:
             '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
         }}
-        className="bg-primary_white_100 p-4 shadow-lg flex flex-nowrap items-start justify-between"
+        className="bg-primary_white_100 lg:gap-2 gap-6 p-4 shadow-lg flex flex-col lg:flex-row flex-wrap lg:flex-nowrap xl:flex-nowrap  items-start justify-between"
         rounded="lg"
         height={'fit-content'}
         width={['100%', '80%', '80%']}
@@ -30,7 +30,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
       >
         {/* LEFT SIDE */}
         <FlexContainer
-          className="w-[25%]"
+          className="w-full lg:w-[25%]"
           gap={5}
           flexContainerId="user-info-left-side"
           direction="column"
@@ -61,7 +61,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
         </FlexContainer>
         {/* RIGHT SIDE */}
         <FlexContainer
-          className="w-[70%]"
+          className="w-full lg:w-[70%]"
           gap={5}
           flexContainerId="user-info-right-side"
           direction="column"

@@ -182,7 +182,7 @@ export interface IQuantityCounterProps {
 // -------------
 
 // --> Possible button variants
-export type TButtonVariant = 'primary' | 'secondary'
+export type TButtonVariant = 'primary' | 'secondary' | 'tertiary'
 // --> Possible button types
 export type TButtonType = 'button' | 'submit'
 
@@ -270,7 +270,7 @@ export interface IInputProps {
 // -------------
 // ------------- CATEGORIES DROPDOWN
 // -------------
-export interface ICategoryDropdownProps {
+export interface ICategoriesDropdownProps {
   categories: IProduct['category'][]
   onCategorySelect: (category: string) => void
 }

@@ -18,11 +18,11 @@ const Layout = () => {
 
   return (
     <FlexContainer
-      gap={3}
       direction="column"
-      justify="center"
+      justify="flex-start"
       align="flex-start"
-      className="relative w-full "
+      className="relative w-full min-h-[100dvh]"
+      flexContainerId="layout"
     >
       {/* HELMET DATA */}
       <Helmet>

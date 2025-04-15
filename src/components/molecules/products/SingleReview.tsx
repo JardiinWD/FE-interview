@@ -18,7 +18,7 @@ const SingleReview: React.FC<ISingleReviewProps> = ({
       justify="center"
       align="center"
       gap={3}
-      className="relative z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
+      className="relative lg:h-auto h-[14rem] z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
     >
       {review.reviewerName && (
         <Typography
@@ -40,7 +40,7 @@ const SingleReview: React.FC<ISingleReviewProps> = ({
       )}
       {review.comment && (
         <Typography
-          className="mt-1"
+          className="mt-1 text-center"
           weight="light"
           text={`"${truncateLongText(review.comment ?? '---', 50)}"`}
           tagAs="span"

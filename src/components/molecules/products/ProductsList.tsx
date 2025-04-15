@@ -4,7 +4,7 @@
 import { Card, DataLoop, FlexContainer, Pagination } from '@/components/atoms'
 import { IProductsListProps } from '@/types/molecules'
 import React, { useState } from 'react'
-import { Filters, LoadingState } from '@/components/molecules'
+import { EmptyCard, Filters, LoadingState } from '@/components/molecules'
 
 // -------------- INTERFACES
 interface IState {
@@ -44,6 +44,24 @@ const ProductsList: React.FC<IProductsListProps> = ({
     return matchesSearch && matchesCategory
   })
 
+  // -------------- PAGINATION UPDATES
+  const itemsPerPage = 10 // Numero di prodotti per pagina
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) // Calcola il numero totale di pagine
+  const startIndex = (paginationParams.currentPage - 1) * itemsPerPage
+  const paginatedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  )
+
+  // -------------- HANDLERS
+  const handleClearFilters = () => {
+    setState((prevState) => ({
+      ...prevState,
+      searchProductName: '',
+      category: ''
+    }))
+  }
+
   return (
     <React.Fragment>
       {/* FILTERS */}
@@ -65,10 +83,19 @@ const ProductsList: React.FC<IProductsListProps> = ({
       <FlexContainer
         flexContainerId="product-list"
         direction="row"
-        justify="center"
-        align="center"
+        justify={`center`}
+        align={`center`}
+        className="w-full min-h-[75vh] h-[75vh]"
         gap={4}
       >
+        {filteredProducts.length === 0 && !isLoadingList && (
+          <EmptyCard
+            onClickHandler={handleClearFilters}
+            buttonText="Ricomincia"
+            cardMessage="Prodotto non Trovato!"
+            cardError={`La ricerca non ha portato alcun risultato, questi sono i prodotti filtrati -> ${filteredProducts.length}`}
+          />
+        )}
         {/* FILTER AND RESEARCH */}
         {isLoadingList ? (
           <LoadingState containerId="home" />

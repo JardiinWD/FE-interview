@@ -17,7 +17,7 @@ import ProductRating from './product/ProductRating'
 import AdditionalInfo from './product/AdditionalInfo'
 import DiscountPill from './product/DiscountPill'
 import QuantityCounter from './product/QuantityCounter'
-import CategoryDropdown from './product/CategoryDropdown'
+import CategoriesDropdown from './product/CategoriesDropdown'
 
 // ------------------ CART ATOMS
 import CartAction from './cart/CartAction'
@@ -50,5 +50,5 @@ export {
   UserPill,
   CustomToast,
   Input,
-  CategoryDropdown
+  CategoriesDropdown
 }

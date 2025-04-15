@@ -27,7 +27,8 @@ const Button: React.FC<IButtonProps> = ({
   // ------------- VARIANTS
   const buttonVariants: Record<IButtonProps['variant'], string> = {
     primary: `bg-primary_yellow_600 text-primary_black_600 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:bg-primary_yellow_500`,
-    secondary: `bg-primary_yellow_400 text-primary_black_500 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:text-primary_white_100 hover:bg-primary_yellow_200`
+    secondary: `bg-primary_yellow_400 text-primary_black_500 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:text-primary_white_100 hover:bg-primary_yellow_200`,
+    tertiary: `bg-primary_white_200 text-primary_black_500 px-[1rem] py-[0.5rem] transition-colors duration-300 rounded-lg hover:bg-primary_yellow_500`
   }
 
   return (

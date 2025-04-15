@@ -28,13 +28,13 @@ const Error: React.FC<IErrorProps> = ({
   if (message || status || statusText) {
     return (
       <FlexContainer
-        flexContainerId="product-page"
+        flexContainerId="error-page"
         wrap="nowrap"
         direction="column"
         justify="center"
         align="center"
         gap={2}
-        className="h-[80dvh] w-full"
+        className="h-screen w-screen bg-primary_yellow_600"
       >
         <EmptyCard
           cardError={error as string}
@@ -51,13 +51,13 @@ const Error: React.FC<IErrorProps> = ({
 
     return (
       <FlexContainer
-        flexContainerId="product-page"
+        flexContainerId="error-page"
         wrap="nowrap"
         direction="column"
         justify="center"
         align="center"
         gap={2}
-        className="h-[80dvh] w-full"
+        className="h-screen w-screen p-4 bg-primary_yellow_600"
       >
         <EmptyCard
           cardError={errorMessage as string}
