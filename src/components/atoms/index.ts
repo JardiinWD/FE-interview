@@ -10,6 +10,7 @@ import Pagination from './Pagination'
 import Spinner from './Spinner'
 import CustomToast from './CustomToast'
 import Input from './Input'
+import LazyImage from './LazyImage'
 
 // ------------------ PRODUCT ATOMS
 import Card from './product/Card'
@@ -28,6 +29,7 @@ import FormInput from './forms/FormInput'
 
 // ------------------ USER ATOMS
 import UserPill from './user/UserPill'
+
 
 export {
   Typography,
@@ -50,5 +52,6 @@ export {
   UserPill,
   CustomToast,
   Input,
-  CategoriesDropdown
+  CategoriesDropdown,
+  LazyImage
 }

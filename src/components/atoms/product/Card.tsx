@@ -9,7 +9,9 @@ import {
   FlexContainer,
   Image,
   ProductRating,
-  Typography
+  Typography,
+  LazyImage,
+  Spinner
 } from '@/components/atoms'
 import { useAuthStore, useCartStore } from '@/store'
 import { ICardProps } from '@/types/atoms'
@@ -64,11 +66,11 @@ const CardImage: React.FC<ICardProps> = ({
       justify="center"
       align="center"
     >
-      <Image
-        className="rounded-t-lg h-40 self-center"
+      <LazyImage
+        placeholder={<Spinner width='2rem' height='2rem' />}
+        className="rounded-t-lg h-40 object-contain self-center"
         src={imageSrc}
         alt={title}
-        fit="contain"
       />
     </FlexContainer>
   )

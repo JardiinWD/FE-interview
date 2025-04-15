@@ -19,6 +19,8 @@ const SingleCart: React.FC<ISingleCartProps> = ({
   console.log('cartId', cartId)
   console.log('cartCheckoutData', cartCheckoutData)
 
+
+
   return (
     <FlexContainer
       flexContainerId="cart-content"

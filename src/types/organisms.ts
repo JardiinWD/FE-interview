@@ -16,7 +16,7 @@ export interface IReviewsCarouselProps {
 // -------------  CART
 // -------------
 export interface ISingleCartProps {
-  cartProducts: ICartSummarySingleProductProps[]
+  cartProducts: ICartSummarySingleProductProps[] | ICart[]
   cartCheckoutData: ICart
   cartId?: number
 }

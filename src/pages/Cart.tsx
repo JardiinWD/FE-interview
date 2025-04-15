@@ -3,7 +3,7 @@ import { ICart } from '@/api/types'
 import { FlexContainer } from '@/components/atoms'
 import { CartTabs, ErrorState, LoadingState } from '@/components/molecules'
 import { SingleCart } from '@/components/organisms'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useCartStore } from '@/store'
 import { ICartSummarySingleProductProps } from '@/types/molecules'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX } from 'react'
@@ -43,8 +43,12 @@ const Cart: React.FC = (): JSX.Element => {
     }
   })
 
+   // -------------- ZUSTAND STORE
+  const { cartData } = useCartStore()
+
+
   // -------------- ERROR HANDLING
-  if (apiData?.error && apiData?.error !== null) {
+  if (apiData?.error && apiData?.error !== null && !cartData?.[state.activeTab]?.products) {
     return (
       <ErrorState
         containerId="cart"
@@ -58,6 +62,15 @@ const Cart: React.FC = (): JSX.Element => {
   // -------------- LOADING HANDLING
   if (isPending) return <LoadingState containerId="cart" />
 
+ 
+  
+  const activeTabApiDataProducts = apiData?.data?.carts[state.activeTab]?.products
+  const activeTabApiCheckoutData = apiData?.data?.carts[state.activeTab] as ICart
+  const activeTabCartDataProducts = cartData?.[state.activeTab]?.products as ICart[]
+  const activeTabCartCheckoutData = cartData?.[state.activeTab]
+  
+
+
   return (
     <FlexContainer
       flexContainerId="cart-page"
@@ -68,7 +81,7 @@ const Cart: React.FC = (): JSX.Element => {
       gap={2}
       className="min-h-[100dvh] lg:min-h-[80dvh] lg:h-[80dvh] w-full max-w-full p-4"
     >
-      <CartTabs
+      {apiData?.data?.carts && <CartTabs
         cartData={apiData?.data?.carts as ICart[]}
         activeTab={state.activeTab}
         onClickHandler={(index: number) =>
@@ -77,14 +90,11 @@ const Cart: React.FC = (): JSX.Element => {
             activeTab: index
           }))
         }
-      />
+      />}
       <SingleCart
-        cartProducts={
-          apiData?.data?.carts[state.activeTab]
-            ?.products as ICartSummarySingleProductProps[]
-        }
+        cartProducts={!activeTabCartDataProducts ? activeTabApiDataProducts as ICartSummarySingleProductProps[] : activeTabCartDataProducts as ICart[]}
         cartId={apiData?.data?.carts[state.activeTab].id}
-        cartCheckoutData={apiData?.data?.carts[state.activeTab] as ICart}
+        cartCheckoutData={!activeTabCartCheckoutData ? activeTabApiCheckoutData : activeTabCartCheckoutData}
       />
     </FlexContainer>
   )

@@ -18,6 +18,10 @@ import React, { JSX } from 'react'
 const CartCheckout: React.FC<ICartCheckoutProps> = ({
   cartCheckoutData
 }): JSX.Element => {
+
+  console.log('cartCheckoutData', cartCheckoutData);
+  
+
   return (
     <FlexContainer
       flexContainerId="cart-checkout"

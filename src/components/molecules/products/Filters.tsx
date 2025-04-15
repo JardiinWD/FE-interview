@@ -20,7 +20,7 @@ const Filters: React.FC<IFiltersProps> = ({
       wrap="nowrap"
       justify="space-between"
       align="center"
-      className="w-[93.5%] h-20 mb-3"
+      className="w-full h-20 mb-3"
       flexContainerId="filters"
     >
       <Input

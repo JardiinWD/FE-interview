@@ -1,11 +1,11 @@
+import { Icons } from '@/assets/icons'
+import { Button, FlexContainer } from '@/components/atoms'
+import { Header } from '@/components/molecules'
+import { appConfig } from '@/config/appConfig'
 import { retrieveHelmetData } from '@/utils/functions'
 import React from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { appConfig } from '@/config/appConfig'
-import { Header } from '@/components/molecules'
-import { Button, FlexContainer } from '@/components/atoms'
-import { Icons } from '@/assets/icons'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const Layout = () => {
   // ------------- HOOKS

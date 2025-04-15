@@ -23,7 +23,7 @@ const Pagination: React.FC<IPaginationProps> = ({
       justify="center"
       align="center"
       gap={2}
-      className="pt-8 pb-8 max-w-[80%]"
+      className="pt-8 pb-8 w-full"
     >
       <For each={Array.from({ length: totalPages }, (_, i) => i + 1)}>
         {(index) => {

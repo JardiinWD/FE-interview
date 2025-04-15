@@ -78,7 +78,7 @@ const Home: React.FC = (): JSX.Element => {
       justify="center"
       align="center"
       gap={2}
-      className="h-screen w-[90%] max-w-[90%] mx-auto overflow-hidden"
+      className="min-h-screen w-[70%] mx-auto overflow-hidden"
     >
       {/* PRODUCTS */}
       <ProductsList
