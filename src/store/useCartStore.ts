@@ -1,111 +1,194 @@
-import { ICart } from '@/api/types'
+import { ICart, IProduct } from '@/api/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import useAuthStore from './useAuthStore' // Import the auth store to retrieve the userId
+import useAuthStore from './useAuthStore'
+
+interface IProductWithQuantity extends IProduct {
+  quantity?: number
+}
 
 interface ICartStore {
   // --> State
-  cartData: ICart[] | null // Holds the cart data, which can be null or an array of ICart objects
+  cartData: ICart[] | null
 
   // --> Actions
-  createNewCart: (cartData: ICart) => void // Action to create a new cart
-  updateCart: (cartId: number, cartData: ICart) => void // Action to update an existing cart
-  deleteCart: (cartId: number) => void // Action to delete a cart by its ID
-  clearCart: () => void // Action to clear the cart data
+  createNewCart: (cartData: ICart) => void
+  updateCartWithNewProducts: (cartId: number, products: ICart[]) => void
+  clearCart: () => void // New action to clear the cart
+  loadUserCart: () => void // New action to load user-specific cart
 }
 
 const useCartStore = create<ICartStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       // --> Initial state
-      cartData: null, // Initially, the cart data is null
+      cartData: null,
 
       // --> Actions
-
-      /**
-       * Creates a new cart and adds it to the existing cart data.
-       * If no cart data exists, it initializes the cart with the new cart.
-       */
       createNewCart: (cartData: ICart) =>
         set((state) => ({
           cartData: state.cartData ? [...state.cartData, cartData] : [cartData]
         })),
 
-      /**
-       * Updates an existing cart by its ID.
-       * If the cart ID matches, it replaces the cart with the new data.
-       */
-      updateCart: (cartId: number, cartData: ICart) =>
+      updateCartWithNewProducts: (cartId: number, newProducts: ICart[]) =>
         set((state) => {
-          const updatedCartData =
-            state.cartData?.map((cart) =>
-              cart.id === cartId ? cartData : cart
-            ) || []
-          return { cartData: updatedCartData }
+          // If state is null, return state without changes
+          if (!state.cartData) return state
+
+          console.log('Updating cart with new products:', {
+            cartId,
+            newProducts
+          })
+
+          // Create a deep copy of the cart array
+          const updatedCart = state.cartData.map((cart) => {
+            // If the cart ID matches, we update the products
+            if (cart.id === cartId) {
+              // Extract products from the new cart (should be in the "products" field)
+              const productsToAdd = newProducts.flatMap((newProd) => {
+                // If newProd is an ICart with a products array, take that
+                if (
+                  newProd &&
+                  newProd.products &&
+                  Array.isArray(newProd.products)
+                ) {
+                  return newProd.products
+                }
+                // If newProd is a product itself (not a cart), return it directly
+                return newProd
+              })
+
+              console.log('Products to add:', productsToAdd)
+
+              // Create a copy of existing products
+              const updatedProducts = [...cart.products]
+
+              // For each new product
+              productsToAdd.forEach((newProduct) => {
+                // Find the index of existing product with the same ID
+                const existingIndex = updatedProducts.findIndex(
+                  (p) => p.id === newProduct.id
+                )
+
+                if (existingIndex >= 0) {
+                  // If the product already exists, update its properties
+                  updatedProducts[existingIndex] = {
+                    ...updatedProducts[existingIndex],
+                    ...newProduct,
+                    // Update quantity by adding (if available)
+                    quantity:
+                      ((updatedProducts[existingIndex] as IProductWithQuantity)
+                        .quantity || 0) +
+                      ((newProduct as IProductWithQuantity).quantity || 1)
+                  }
+                } else {
+                  // If product does not exist, add it
+                  updatedProducts.push(newProduct)
+                }
+              })
+
+              // Calculate new totals
+              const totalProducts = updatedProducts.length
+              const totalQuantity = updatedProducts.reduce(
+                (sum, p) => sum + ((p as IProductWithQuantity).quantity || 1),
+                0
+              )
+              const total = updatedProducts.reduce(
+                (sum, p) =>
+                  sum +
+                  (p.price || 0) * ((p as IProductWithQuantity).quantity || 1),
+                0
+              )
+
+              // Create a new cart with updated products
+              return {
+                ...cart,
+                products: updatedProducts,
+                totalProducts,
+                totalQuantity,
+                total
+              }
+            }
+            // Return cart unchanged if IDs don't match
+            return cart
+          })
+
+          console.log('Updated cart:', updatedCart)
+
+          // Return updated state
+          return { cartData: updatedCart }
         }),
 
-      /**
-       * Deletes a cart by its ID.
-       * Filters out the cart with the specified ID from the cart data.
-       */
-      deleteCart: (cartId: number) =>
-        set((state) => {
-          const updatedCartData =
-            state.cartData?.filter((cart) => cart.id !== cartId) || []
-          return { cartData: updatedCartData }
-        }),
+      // Clear the cart (useful for logout)
+      clearCart: () => set({ cartData: null }),
 
-      /**
-       * Clears all cart data by setting it to null.
-       */
-      clearCart: () => set({ cartData: null })
+      // Load user-specific cart
+      loadUserCart: () => {
+        const userId = useAuthStore.getState().userId
+        if (!userId) {
+          // If no user is logged in, clear the cart
+          set({ cartData: null })
+          return
+        }
+
+        // Try to load the cart from localStorage
+        const storageKey = `sikuro-cart-store-${userId}`
+        const storedData = localStorage.getItem(storageKey)
+
+        if (storedData) {
+          try {
+            const parsedData = JSON.parse(storedData)
+            // Only set the cart if it has the expected format
+            if (parsedData && parsedData.state && parsedData.state.cartData) {
+              set({ cartData: parsedData.state.cartData })
+            } else {
+              set({ cartData: null })
+            }
+          } catch (e) {
+            console.error('Failed to parse cart data', e)
+            set({ cartData: null })
+          }
+        } else {
+          // No stored data for this user
+          set({ cartData: null })
+        }
+      }
     }),
     {
-      // --> Persistence Configuration
       name: 'sikuro-cart-store',
-
-      /**
-       * @description Specifies which parts of the state should be persisted.
-       * @param {ICartStore} state - The current state of the store
-       */
       partialize: (state) => ({
         cartData: state.cartData
       }),
-
-      // --> Custom Storage Definition (based on userId)
       storage: {
-        /**
-         * Retrieves the cart data from localStorage for the current user.
-         * The key is generated using the base name and the userId.
-         */
         getItem: (name) => {
-          // Retrieve the userId from the auth store
           const userId = useAuthStore.getState().userId
-          const value = localStorage.getItem(`${name}-${userId}`)
-          // Parse the JSON value or return null if not found
+          if (!userId) {
+            console.log('No user logged in, returning empty cart')
+            return null
+          }
+
+          const key = `${name}-${userId}`
+          console.log(`Loading cart for user ${userId} with key ${key}`)
+          const value = localStorage.getItem(key)
           return value ? JSON.parse(value) : null
         },
-
-        /**
-         * @description Saves the cart data to localStorage for the current user.
-         * @param {string} name - The name of the item to save
-         */
         setItem: (name, value) => {
-          // Retrieve the userId from the auth store
           const userId = useAuthStore.getState().userId
-          // Save the value as a JSON string
-          localStorage.setItem(`${name}-${userId}`, JSON.stringify(value))
-        },
+          if (!userId) {
+            console.log('No user logged in, not saving cart')
+            return
+          }
 
-        /**
-         * @description Removes the cart data from localStorage for the current user.
-         * @param {string} name - The name of the item to remove
-         */
+          const key = `${name}-${userId}`
+          console.log(`Saving cart for user ${userId} with key ${key}`)
+          localStorage.setItem(key, JSON.stringify(value))
+        },
         removeItem: (name) => {
-          // Retrieve the userId from the auth store
           const userId = useAuthStore.getState().userId
-          // Remove the item from localStorage
-          localStorage.removeItem(`${name}-${userId}`)
+          if (!userId) return
+
+          const key = `${name}-${userId}`
+          localStorage.removeItem(key)
         }
       }
     }

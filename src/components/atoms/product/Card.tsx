@@ -11,7 +11,7 @@ import {
   ProductRating,
   Typography
 } from '@/components/atoms'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useCartStore } from '@/store'
 import { ICardProps } from '@/types/atoms'
 import {
   handleRouondedRatingValue,
@@ -136,6 +136,8 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
 
   // ------------ ZUSTAND STORE
   const userId = useAuthStore((state) => state.userId)
+  const cartData = useCartStore((state) => state.cartData)
+  const { createNewCart, updateCartWithNewProducts } = useCartStore()
 
   // ------------ HANDLER
 
@@ -168,6 +170,25 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         userId,
         product as IProduct
       )
+      // Check if the API Call was successful
+      if (status !== 'success' || error) {
+        toast.error(error as string)
+        throw new Error(`Something went wrong with the API Call! --> ${error}`)
+      }
+      // Check if the Cart Data is empty
+      if (!cartData) {
+        // If the cart data is empty, create a new cart
+        // @ts-ignore - TODO: Quick Fix before release
+        createNewCart(data)
+        toast.success('Cart Created Successfully!')
+      } else {
+        // If the cart data is not empty, update the existing cart with new products
+        const cartId = cartData[0].id
+        // @ts-ignore - TODO: Quick Fix before release
+        updateCartWithNewProducts(cartId, [data])
+        toast.success('Cart Updated Successfully!')
+      }
+
       // TODO : Handle the API Response with ZUSTAND STORE
     } catch (error) {
       // Add toaster with the error message

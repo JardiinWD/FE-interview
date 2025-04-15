@@ -4,10 +4,10 @@ import { AuthApi } from '@/api'
 import { Images } from '@/assets/images'
 import { FlexContainer, Image } from '@/components/atoms'
 import { LoginForm } from '@/components/molecules'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useCartStore } from '@/store'
 import React, { JSX, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode'
 import { transformJwtExpirationDate } from '@/utils/functions'
 
 interface IState {
@@ -22,6 +22,9 @@ const Login: React.FC = (): JSX.Element => {
 
   // -------------- HOOKS
   const navigate = useNavigate()
+
+  // -------------- ZUSTAND STORE
+  const { loadUserCart } = useCartStore()
 
   // -------------- HANDLERS
 
@@ -43,15 +46,15 @@ const Login: React.FC = (): JSX.Element => {
       // Else if the response is valid then set the token and userId in the store
       if (authData) {
         // Decode the Received JWT Token in order to retrieve expiration date
-        const decodedToken = jwtDecode(authData.accessToken) 
+        const decodedToken = jwtDecode(authData.accessToken)
         // Set the proper variables to the Zustand Store
         useAuthStore.setState({
           userId: authData.id,
           allUserData: authData,
-          expirationDate: transformJwtExpirationDate(
-            decodedToken.exp as number
-          )
+          expirationDate: transformJwtExpirationDate(decodedToken.exp as number)
         })
+        // Carica il carrello dell'utente
+        loadUserCart()
         // Navigate to Home
         navigate('/')
       }

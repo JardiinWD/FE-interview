@@ -6,7 +6,7 @@ import {
   Modal,
   Typography
 } from '@/components/atoms'
-import { useAuthStore, useModalStore } from '@/store'
+import { useAuthStore, useCartStore, useModalStore } from '@/store'
 import { ILogoutModalProps } from '@/types/molecules'
 import { JSX } from 'react'
 
@@ -21,6 +21,22 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
 }): JSX.Element => {
   // -------------- ZUSTAND STORE
   const { closeModal } = useModalStore()
+  const { clearCart } = useCartStore()
+
+  // -------------- HANDLERS
+  const handleClearOnLogout = () => {
+    // Clear the Authentication Store
+    useAuthStore.setState({
+      allUserData: null,
+      token: null,
+      userId: null,
+      expirationDate: null
+    })
+    // Clear the Cart Store
+    clearCart()
+    // Close the Modal
+    closeModal()
+  }
 
   return (
     <Modal isModalOpen={isModalOpen} modalId={modalId}>
@@ -63,14 +79,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
             variant="primary"
             buttonId="logout-button"
             buttonType="button"
-            onClick={() => {
-              useAuthStore.setState({
-                allUserData: null,
-                token: null,
-                userId: null
-              })
-              closeModal()
-            }}
+            onClick={handleClearOnLogout}
           >
             <Typography
               className="text-primary_black_600"

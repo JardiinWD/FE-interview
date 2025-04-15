@@ -110,7 +110,6 @@ export const calculateDiscountedPrice = (
   return 0
 }
 
-
 /**
  * @description Transforms a JWT expiration timestamp into a readable date and checks if the token is expired.
  * @param {number} token - The expiration timestamp of the JWT (in seconds since epoch).
@@ -118,5 +117,5 @@ export const calculateDiscountedPrice = (
  */
 export const transformJwtExpirationDate = (token: number) => {
   // Convert the token (seconds since epoch) to milliseconds
-  return new Date(token * 1000);
-};
+  return new Date(token * 1000)
+}
