@@ -11,16 +11,20 @@ import { ICartActionProps } from '@/types/atoms'
  * @description CartAction Component for Product Page
  * @param {IProduct} product - The product object containing product details
  * @param {boolean} isAddToCartVisible - Flag to show/hide the Add to Cart button
+ * @param {boolean} isRemoveFromCartVisible - Flag to show/hide the Remove from Cart button
  * @param {ICart} cart - The cart object containing cart details
  * @param {function} onAddToCart - Callback function to handle Add to Cart action
+ * @param {function} onRemoveFromCart - Callback function to handle Remove from Cart action
  * @param {function} onRetrieveCurrentQuantity - Callback function to retrieve current quantity
  * @param {boolean} isLoading - Flag to show loading state
  */
 const CartAction: React.FC<ICartActionProps> = ({
   product,
   isAddToCartVisible = true,
+  isRemoveFromCartVisible = false,
   cart,
   onAddToCart = () => {},
+  onRemoveFromCart = () => {},
   onRetrieveCurrentQuantity = (quantity: number) => quantity,
   isLoading = false
 }): JSX.Element => {
@@ -81,6 +85,26 @@ const CartAction: React.FC<ICartActionProps> = ({
           />
         </Button>
       )}
+      {/* Remove From Cart */}
+      {isRemoveFromCartVisible && (
+        <Button
+          variant="tertiary"
+          buttonId="remove-from-cart"
+          buttonType="button"
+          isLoading={isLoading}
+          className="w-[10rem] max-w-[10rem] !p-2.5"
+          //@ts-expect-error - Something is wrong with the type of `onClick`
+          onClick={onRemoveFromCart}
+        >
+          <Typography
+            className="text-primary_black_600"
+            tagAs="span"
+            weight="bold"
+            text="Remove"
+          />
+        </Button>
+      )}
+
       {/* Quantity Counter */}
       <QuantityCounter
         initialValue={counterValues.initialValue}

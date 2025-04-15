@@ -2,7 +2,6 @@ import React, { JSX } from 'react'
 import { DiscountPill, FlexContainer, Typography } from '@/components/atoms'
 import { ICartSummaryProductPriceProps } from '@/types/molecules'
 import { transformNumberToCurrency } from '@/utils/functions'
-import { ICart } from '@/api/types'
 
 /**
  * @description CartSummaryProductPrice Component for Product Page
@@ -12,7 +11,8 @@ import { ICart } from '@/api/types'
  */
 const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
   item,
-  index
+  index,
+  cartId = '33'
 }): JSX.Element => {
   return (
     <FlexContainer

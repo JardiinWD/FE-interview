@@ -6,6 +6,7 @@ import {
   Typography
 } from '@/components/atoms'
 import { ICartSummaryProductInfoProps } from '@/types/molecules'
+import { useCartStore } from '@/store'
 
 /**
  * @description CartSummaryProductInfo Component for Product Page
@@ -14,8 +15,15 @@ import { ICartSummaryProductInfoProps } from '@/types/molecules'
  */
 const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   item,
-  index
+  index,
+  cartId = '33'
 }): JSX.Element => {
+
+  // -------------- ZUSTAND
+  const {removeProductFromCart} = useCartStore()
+  console.log('ITEM ON CART SUMMARY PRODUCT INFO', item.id);
+    
+
   return (
     <FlexContainer
       flexContainerId={`cart-summary-product-info-${index}`}
@@ -51,7 +59,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
           text={item.title ?? '---'}
         />
         {/* CART ACTIONS */}
-        <CartAction cart={item} isAddToCartVisible={false} />
+        <CartAction isRemoveFromCartVisible={true} onRemoveFromCart={() => removeProductFromCart(cartId as number, item.id as number)} cart={item} isAddToCartVisible={false} />
       </FlexContainer>
     </FlexContainer>
   )

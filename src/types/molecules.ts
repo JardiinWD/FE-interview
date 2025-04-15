@@ -52,10 +52,11 @@ export interface ICartSummarySingleProductProps {
 export interface ICartSummaryProductInfoProps {
   item: ICartSummarySingleProductProps
   index: number
+  cartId: number
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps {}
+  extends ICartSummaryProductInfoProps { }
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[] | ICart[]
