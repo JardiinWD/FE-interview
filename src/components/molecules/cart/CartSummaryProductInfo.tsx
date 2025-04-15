@@ -18,11 +18,8 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   index,
   cartId = '33'
 }): JSX.Element => {
-
-  // -------------- ZUSTAND
-  const {removeProductFromCart} = useCartStore()
-  console.log('ITEM ON CART SUMMARY PRODUCT INFO', item.id);
-    
+  // -------------- ZUSTAND STORE
+  const { removeProductFromCart } = useCartStore()
 
   return (
     <FlexContainer
@@ -59,7 +56,14 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
           text={item.title ?? '---'}
         />
         {/* CART ACTIONS */}
-        <CartAction isRemoveFromCartVisible={true} onRemoveFromCart={() => removeProductFromCart(cartId as number, item.id as number)} cart={item} isAddToCartVisible={false} />
+        <CartAction
+          isRemoveFromCartVisible={true}
+          onRemoveFromCart={() =>
+            removeProductFromCart(cartId as number, item.id as number)
+          }
+          cart={item}
+          isAddToCartVisible={false}
+        />
       </FlexContainer>
     </FlexContainer>
   )

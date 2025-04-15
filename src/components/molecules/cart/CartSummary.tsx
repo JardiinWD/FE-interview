@@ -18,12 +18,6 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
   cartProducts,
   cartId = '33'
 }): JSX.Element => {
-
-  console.log('====================================');
-  console.log('CART ID FROM CART SUMMARY', cartId);
-  console.log('====================================');
-  
-
   return (
     <FlexContainer
       flexContainerId={`cart-summary-wrapper-${cartId}`}
@@ -51,8 +45,16 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
             wrap="nowrap"
             className={`w-full ${index === cartProducts.length - 1 ? '' : 'border-b'} ${index > cartProducts.length - 1 ? '' : 'pb-4'} ${index > cartProducts.length - 1 ? '' : 'pt-2'}`}
           >
-            <CartSummaryProductInfo cartId={cartId as number} item={item} index={index} />
-            <CartSummaryProductPrice cartId={cartId as number} item={item} index={index} />
+            <CartSummaryProductInfo
+              cartId={cartId as number}
+              item={item}
+              index={index}
+            />
+            <CartSummaryProductPrice
+              cartId={cartId as number}
+              item={item}
+              index={index}
+            />
           </FlexContainer>
         )}
       />

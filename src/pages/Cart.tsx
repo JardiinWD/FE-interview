@@ -65,20 +65,14 @@ const Cart: React.FC = (): JSX.Element => {
   // -------------- LOADING HANDLING
   if (isPending) return <LoadingState containerId="cart" />
 
-
   // -------------- CART DATA
-   const tabCartData = cartData?.[state.activeTab]
-    ?.products as ICart[]
+  const tabCartData = cartData?.[state.activeTab]?.products as ICart[]
   const tabCartCheckoutInfo = cartData?.[state.activeTab]
   const activeTabCartId = cartData?.[state.activeTab].id
 
-
   // -------------- API DATA
-  const tabApiData =
-    apiData?.data?.carts[state.activeTab]?.products
-  const tabApiCheckoutInfo = apiData?.data?.carts[
-    state.activeTab
-  ] as ICart
+  const tabApiData = apiData?.data?.carts[state.activeTab]?.products
+  const tabApiCheckoutInfo = apiData?.data?.carts[state.activeTab] as ICart
   const activeTabApiCartId = apiData?.data?.carts[state.activeTab].id
 
   return (
@@ -105,16 +99,11 @@ const Cart: React.FC = (): JSX.Element => {
       )}
       <SingleCart
         cartProducts={
-          !tabCartData
-            ? (tabApiData as ICartSummarySingleProductProps[])
-            : (tabCartData as ICart[])
+          (tabApiData as ICartSummarySingleProductProps[]) ??
+          (tabCartData as ICart[])
         }
-        cartId={!tabCartData ? activeTabApiCartId : activeTabCartId}
-        cartCheckoutData={
-          !tabCartCheckoutInfo
-            ? tabApiCheckoutInfo
-            : tabCartCheckoutInfo
-        }
+        cartId={activeTabApiCartId ?? activeTabCartId}
+        cartCheckoutData={tabApiCheckoutInfo ?? tabCartCheckoutInfo}
       />
     </FlexContainer>
   )
