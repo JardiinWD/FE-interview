@@ -55,6 +55,7 @@ export interface ICart {
   products: Partial<IProduct>[]
   total: number
   discountedTotal: number
+  discountedPrice?: number
   userId: number
   totalProducts: number
   totalQuantity: number
@@ -130,6 +131,7 @@ export interface IProduct {
   category: string
   price: number
   discountPercentage: number
+  quantity?: number
   rating: number
   stock: number
   tags: string[]

@@ -31,7 +31,10 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
       }}
     >
       <DataLoop
-        eachData={cartProducts}
+        eachData={cartProducts.filter(
+          (product): product is ICartSummarySingleProductProps =>
+            'thumbnail' in product && 'title' in product
+        )}
         render={(index: number, item: ICartSummarySingleProductProps) => (
           <FlexContainer
             flexContainerId={`single-cart-product-${index}`}

@@ -14,6 +14,7 @@ interface ICartStore {
   // --> Actions
   createNewCart: (cartData: ICart) => void
   updateCartWithNewProducts: (cartId: number, products: ICart[]) => void
+  removeProductFromCart: (cartId: number, productId: number) => void // New action to remove a product from the cart
   clearCart: () => void // New action to clear the cart
   loadUserCart: () => void // New action to load user-specific cart
 }
@@ -30,16 +31,16 @@ const useCartStore = create<ICartStore>()(
           cartData: state.cartData ? [...state.cartData, cartData] : [cartData]
         })),
 
+      /**
+       * @description Update the cart with new products
+       * @param {number} cartId - The ID of the cart to update
+       * @param {ICart[]} newProducts - The new products to add to the cart
+       * @returns {void}
+       * */
       updateCartWithNewProducts: (cartId: number, newProducts: ICart[]) =>
         set((state) => {
           // If state is null, return state without changes
           if (!state.cartData) return state
-
-          console.log('Updating cart with new products:', {
-            cartId,
-            newProducts
-          })
-
           // Create a deep copy of the cart array
           const updatedCart = state.cartData.map((cart) => {
             // If the cart ID matches, we update the products
@@ -57,9 +58,6 @@ const useCartStore = create<ICartStore>()(
                 // If newProd is a product itself (not a cart), return it directly
                 return newProd
               })
-
-              console.log('Products to add:', productsToAdd)
-
               // Create a copy of existing products
               const updatedProducts = [...cart.products]
 
@@ -112,11 +110,74 @@ const useCartStore = create<ICartStore>()(
             // Return cart unchanged if IDs don't match
             return cart
           })
-
-          console.log('Updated cart:', updatedCart)
-
           // Return updated state
           return { cartData: updatedCart }
+        }),
+
+      /**
+       * @description Remove a specific product from the cart
+       * @param {number} cartId - The ID of the cart containing the product
+       * @param {number} productId - The ID of the product to remove
+       */
+      removeProductFromCart: (cartId: number, productId: number) =>
+        set((state) => {
+          // If state is null, return state without changes
+          if (!state.cartData) return state
+
+          console.log('Removing product from cart:', { cartId, productId })
+
+          // Create a deep copy of the cart array
+          const updatedCart = state.cartData.map((cart) => {
+            // If the cart ID matches, we remove the product
+            if (cart.id === cartId) {
+              // Filter out the product with the matching ID
+              const filteredProducts = cart.products.filter(
+                (p) => p.id !== productId
+              )
+
+              // If there are no products left, you might want to handle that case
+              // For now, we'll leave an empty products array
+
+              // Calculate new totals
+              const totalProducts = filteredProducts.length
+              const totalQuantity = filteredProducts.reduce(
+                (sum, p) => sum + ((p as IProductWithQuantity).quantity || 1),
+                0
+              )
+              const total = filteredProducts.reduce(
+                (sum, p) =>
+                  sum +
+                  (p.price || 0) * ((p as IProductWithQuantity).quantity || 1),
+                0
+              )
+
+              // Create a new cart with updated products
+              return {
+                ...cart,
+                products: filteredProducts,
+                totalProducts,
+                totalQuantity,
+                total
+              }
+            }
+            // Return cart unchanged if IDs don't match
+            return cart
+          })
+
+          // Handle case where a cart becomes empty (no products)
+          const nonEmptyCarts = updatedCart.filter(
+            (cart) => cart.products.length > 0
+          )
+
+          // If all carts are empty, return null for cartData
+          if (nonEmptyCarts.length === 0) {
+            return { cartData: null }
+          }
+
+          console.log('Updated cart after removal:', nonEmptyCarts)
+
+          // Return updated state with non-empty carts
+          return { cartData: nonEmptyCarts }
         }),
 
       // Clear the cart (useful for logout)
@@ -161,11 +222,10 @@ const useCartStore = create<ICartStore>()(
       }),
       storage: {
         getItem: (name) => {
+          // Get the user ID from the auth store
           const userId = useAuthStore.getState().userId
-          if (!userId) {
-            console.log('No user logged in, returning empty cart')
-            return null
-          }
+          // If no user ID, return null
+          if (!userId) return null
 
           const key = `${name}-${userId}`
           console.log(`Loading cart for user ${userId} with key ${key}`)
@@ -173,21 +233,25 @@ const useCartStore = create<ICartStore>()(
           return value ? JSON.parse(value) : null
         },
         setItem: (name, value) => {
+          // Get the user ID from the auth store
           const userId = useAuthStore.getState().userId
-          if (!userId) {
-            console.log('No user logged in, not saving cart')
-            return
-          }
-
+          // If no user ID, do not save anything
+          if (!userId) return
+          // Create a unique key for the user
           const key = `${name}-${userId}`
+          // Save the cart data in localStorage
           console.log(`Saving cart for user ${userId} with key ${key}`)
+          // Convert the value to a string and save it
           localStorage.setItem(key, JSON.stringify(value))
         },
         removeItem: (name) => {
+          // Get the user ID from the auth store
           const userId = useAuthStore.getState().userId
+          // If no user ID, do not remove anything
           if (!userId) return
-
+          // Create a unique key for the user
           const key = `${name}-${userId}`
+          // Remove the cart data from localStorage
           localStorage.removeItem(key)
         }
       }

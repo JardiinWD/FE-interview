@@ -275,15 +275,16 @@ export interface ICategoriesDropdownProps {
   onCategorySelect: (category: string) => void
 }
 
-
-
 // -------------
 // ------------- LAZY IMAGE
 // -------------
 export interface ILazyImageProps {
   alt: string
   src: string
-  placeholder?: React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | null | undefined
+  placeholder?:
+    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+    | null
+    | undefined
   height?: number
   width?: number
   className?: string

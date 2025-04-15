@@ -18,10 +18,6 @@ import React, { JSX } from 'react'
 const CartCheckout: React.FC<ICartCheckoutProps> = ({
   cartCheckoutData
 }): JSX.Element => {
-
-  console.log('cartCheckoutData', cartCheckoutData);
-  
-
   return (
     <FlexContainer
       flexContainerId="cart-checkout"
@@ -44,7 +40,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
         label={'Discount'}
         discountPill={calculateDiscountedPrice(
           cartCheckoutData.total,
-          cartCheckoutData.discountedTotal
+          cartCheckoutData.discountedTotal ?? cartCheckoutData.discountedPrice
         )}
       />
       <hr
@@ -59,7 +55,9 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
         label={'Discounted Price'}
         propertyClassName="text-primary_yellow_600"
         property={
-          transformNumberToCurrency(cartCheckoutData.discountedTotal) as string
+          transformNumberToCurrency(
+            cartCheckoutData.discountedTotal ?? cartCheckoutData
+          ) as string
         }
       />
       <Button

@@ -78,7 +78,6 @@ export const CartApi: ICartApi = {
       })
       // Send the request to the API
       const response = await cartApi.post('/add', jsonData)
-      console.log('response', response)
       // Check if the response is valid
       if (response.statusText !== 'Created' || !response.data)
         throw new Error(`Something went Wrong with addNewCart API Call!`)

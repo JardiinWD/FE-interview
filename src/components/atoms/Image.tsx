@@ -2,7 +2,6 @@ import React, { JSX } from 'react'
 import { Image as ChakraImage } from '@chakra-ui/react'
 import { IImageProps } from '@/types/atoms'
 
-
 /**
  * @description Image component that displays an image with optional properties.
  * @param {string} src - The source URL of the image.

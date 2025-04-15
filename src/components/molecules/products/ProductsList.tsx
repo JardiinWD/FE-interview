@@ -63,7 +63,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
   }
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {/* FILTERS */}
       <Filters
         onCategorySelect={(category) =>
@@ -85,7 +85,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
         direction="row"
         justify={`center`}
         align={`center`}
-        className={`w-full ${filteredProducts.length <= 0 ? 'h-[50dvh]' : 'h-fit' }`}
+        className={`w-full ${filteredProducts.length <= 0 ? 'h-[50dvh]' : 'h-fit'}`}
         gap={4}
       >
         {filteredProducts.length === 0 && !isLoadingList && (

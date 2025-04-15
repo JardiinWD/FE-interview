@@ -43,12 +43,15 @@ const Cart: React.FC = (): JSX.Element => {
     }
   })
 
-   // -------------- ZUSTAND STORE
+  // -------------- ZUSTAND STORE
   const { cartData } = useCartStore()
 
-
   // -------------- ERROR HANDLING
-  if (apiData?.error && apiData?.error !== null && !cartData?.[state.activeTab]?.products) {
+  if (
+    apiData?.error &&
+    apiData?.error !== null &&
+    !cartData?.[state.activeTab]?.products
+  ) {
     return (
       <ErrorState
         containerId="cart"
@@ -62,14 +65,14 @@ const Cart: React.FC = (): JSX.Element => {
   // -------------- LOADING HANDLING
   if (isPending) return <LoadingState containerId="cart" />
 
- 
-  
-  const activeTabApiDataProducts = apiData?.data?.carts[state.activeTab]?.products
-  const activeTabApiCheckoutData = apiData?.data?.carts[state.activeTab] as ICart
-  const activeTabCartDataProducts = cartData?.[state.activeTab]?.products as ICart[]
+  const activeTabApiDataProducts =
+    apiData?.data?.carts[state.activeTab]?.products
+  const activeTabApiCheckoutData = apiData?.data?.carts[
+    state.activeTab
+  ] as ICart
+  const activeTabCartDataProducts = cartData?.[state.activeTab]
+    ?.products as ICart[]
   const activeTabCartCheckoutData = cartData?.[state.activeTab]
-  
-
 
   return (
     <FlexContainer
@@ -81,20 +84,30 @@ const Cart: React.FC = (): JSX.Element => {
       gap={2}
       className="min-h-[100dvh] lg:min-h-[80dvh] lg:h-[80dvh] w-full max-w-full p-4"
     >
-      {apiData?.data?.carts && <CartTabs
-        cartData={apiData?.data?.carts as ICart[]}
-        activeTab={state.activeTab}
-        onClickHandler={(index: number) =>
-          setState((prevState) => ({
-            ...prevState,
-            activeTab: index
-          }))
-        }
-      />}
+      {apiData?.data?.carts && (
+        <CartTabs
+          cartData={apiData?.data?.carts as ICart[]}
+          activeTab={state.activeTab}
+          onClickHandler={(index: number) =>
+            setState((prevState) => ({
+              ...prevState,
+              activeTab: index
+            }))
+          }
+        />
+      )}
       <SingleCart
-        cartProducts={!activeTabCartDataProducts ? activeTabApiDataProducts as ICartSummarySingleProductProps[] : activeTabCartDataProducts as ICart[]}
+        cartProducts={
+          !activeTabCartDataProducts
+            ? (activeTabApiDataProducts as ICartSummarySingleProductProps[])
+            : (activeTabCartDataProducts as ICart[])
+        }
         cartId={apiData?.data?.carts[state.activeTab].id}
-        cartCheckoutData={!activeTabCartCheckoutData ? activeTabApiCheckoutData : activeTabCartCheckoutData}
+        cartCheckoutData={
+          !activeTabCartCheckoutData
+            ? activeTabApiCheckoutData
+            : activeTabCartCheckoutData
+        }
       />
     </FlexContainer>
   )

@@ -67,7 +67,7 @@ const CardImage: React.FC<ICardProps> = ({
       align="center"
     >
       <LazyImage
-        placeholder={<Spinner width='2rem' height='2rem' />}
+        placeholder={<Spinner width="2rem" height="2rem" />}
         className="rounded-t-lg h-40 object-contain self-center"
         src={imageSrc}
         alt={title}
@@ -182,13 +182,13 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         // If the cart data is empty, create a new cart
         // @ts-ignore - TODO: Quick Fix before release
         createNewCart(data)
-        toast.success('Cart Created Successfully!')
+        toast.success(`Product Added to Cart Successfully!`)
       } else {
         // If the cart data is not empty, update the existing cart with new products
         const cartId = cartData[0].id
         // @ts-ignore - TODO: Quick Fix before release
         updateCartWithNewProducts(cartId, [data])
-        toast.success('Cart Updated Successfully!')
+        toast.success(`Product Added to Cart Successfully!`)
       }
 
       // TODO : Handle the API Response with ZUSTAND STORE

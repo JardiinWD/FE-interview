@@ -2,6 +2,7 @@ import React, { JSX } from 'react'
 import { DiscountPill, FlexContainer, Typography } from '@/components/atoms'
 import { ICartSummaryProductPriceProps } from '@/types/molecules'
 import { transformNumberToCurrency } from '@/utils/functions'
+import { ICart } from '@/api/types'
 
 /**
  * @description CartSummaryProductPrice Component for Product Page
@@ -45,7 +46,11 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
           textColor="text-primary_yellow_600"
           weight="bold"
           tagAs="h5"
-          text={transformNumberToCurrency(item.discountedTotal) ?? '---'}
+          text={
+            transformNumberToCurrency(
+              item.discountedTotal ?? item.discountedPrice
+            ) ?? '---'
+          }
         />
         {/* Discount Pill */}
         <DiscountPill discountPercentage={item.discountPercentage} />

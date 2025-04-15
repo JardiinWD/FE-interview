@@ -40,6 +40,7 @@ export interface ICartTabsProps {
 export interface ICartSummarySingleProductProps {
   discountPercentage: ICart['discountPercentage']
   discountedTotal: ICart['discountedTotal']
+  discountedPrice?: number
   id: ICart['id']
   price: ICart['price']
   quantity: ICart['quantity']
@@ -54,7 +55,7 @@ export interface ICartSummaryProductInfoProps {
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps { }
+  extends ICartSummaryProductInfoProps {}
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[] | ICart[]

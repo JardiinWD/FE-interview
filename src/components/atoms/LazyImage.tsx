@@ -1,7 +1,6 @@
-import { ILazyImageProps } from '@/types/atoms';
+import { ILazyImageProps } from '@/types/atoms'
 import React from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 /**
  * @description LazyImage component that loads images lazily to improve performance.
@@ -12,15 +11,23 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
  * @param {React.ReactElement} placeholder - The placeholder image to show while the main image is loading.
  */
 const LazyImage: React.FC<ILazyImageProps> = ({
-    alt,
-    src,
-    placeholder,
-    height = 100,
-    width = 100,
-    className = ''
+  alt,
+  src,
+  placeholder,
+  height = 100,
+  width = 100,
+  className = ''
 }) => {
-  return <LazyLoadImage className={className} alt={alt} src={src} placeholder={placeholder} height={height} width={width} />
-  
+  return (
+    <LazyLoadImage
+      className={className}
+      alt={alt}
+      src={src}
+      placeholder={placeholder}
+      height={height}
+      width={width}
+    />
+  )
 }
 
 export default LazyImage
