@@ -5,6 +5,7 @@ import CartTabs from './cart/CartTabs'
 import CartSummaryProductInfo from './cart/CartSummaryProductInfo'
 import CartSummaryProductPrice from './cart/CartSummaryProductPrice'
 import CartCheckout from './cart/CartCheckout'
+import CartSummaryClearCart from './cart/CartSummaryClearCart'
 
 // ------------------ FORM MOLECULES
 import LoginForm from './forms/LoginForm'
@@ -28,6 +29,7 @@ import LogoutModal from './modals/LogoutModal'
 // ------------------ COMMON MOLECULES
 import Header from './Header'
 
+
 export {
   CartSummary,
   ProductsList,
@@ -44,5 +46,6 @@ export {
   LogoutModal,
   SingleReview,
   Filters,
-  RecommendedProducts
+  RecommendedProducts,
+  CartSummaryClearCart
 }

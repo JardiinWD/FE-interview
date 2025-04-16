@@ -34,12 +34,6 @@ const CartAction: React.FC<ICartActionProps> = ({
   buttonClassName = 'lg:w-[10rem] lg:max-w-[10rem]',
   counterClassName = ''
 }): JSX.Element => {
-  console.log('====================================')
-  console.log('product', product)
-  console.log('Cart', cart)
-
-  console.log('====================================')
-
   // ------------ COUNTER CART ACTION
   const counterValues = product
     ? {

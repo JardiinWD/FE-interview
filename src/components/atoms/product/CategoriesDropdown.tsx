@@ -52,7 +52,11 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
   }
 
   return (
-    <FlexContainer direction="column" align="flex-start" className="relative">
+    <FlexContainer
+      direction="column"
+      align="flex-start"
+      className="relative z-20 w-64"
+    >
       {/* Dropdown Button */}
       <Button
         variant="primary"
@@ -64,13 +68,14 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
             isDropdownOpen: !prevState.isDropdownOpen
           }))
         }
-        className="focus:outline-none !bg-primary_white_100 px-5 py-2.5 text-center inline-flex items-center"
+        className="focus:outline-none w-full !bg-primary_white_100 px-5 py-2.5 text-center inline-flex items-center justify-between"
       >
         <Typography
           textId={`category-dropdown-${state.selectedCategory}`}
           text={state.selectedCategory as string}
-          tagAs="p"
+          tagAs="span"
           weight="regular"
+          className="capitalize"
         />
         <svg
           className="w-2.5 h-2.5 ms-3"
@@ -97,7 +102,7 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
           justify="flex-start"
           align="center"
           gap={2}
-          className="absolute !h-72 !max-h-72 p-4 overflow-y-auto top-[3rem] right-0 z-10 bg-white rounded-lg shadow-sm w-56"
+          className="absolute !h-72 !max-h-72 p-4 overflow-y-auto top-[3rem] right-0 z-10 bg-white rounded-lg shadow-sm w-64"
           style={{
             boxShadow:
               '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'

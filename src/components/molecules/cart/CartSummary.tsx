@@ -1,5 +1,6 @@
 import { DataLoop, FlexContainer } from '@/components/atoms'
 import {
+  CartSummaryClearCart,
   CartSummaryProductInfo,
   CartSummaryProductPrice
 } from '@/components/molecules'
@@ -58,6 +59,8 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
           </FlexContainer>
         )}
       />
+      {/* CLEAR ALL BUTTON */}
+      <CartSummaryClearCart />
     </FlexContainer>
   )
 }

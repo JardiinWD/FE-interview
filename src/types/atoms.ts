@@ -38,21 +38,6 @@ export interface ITypographyProps {
 }
 
 // -------------
-// ------------- GRID CONTAINER
-// -------------
-
-export interface IGridContainerProps {
-  children: React.ReactNode
-  templateColumns: string
-  templateRows: string
-  templateAreas?: string
-  gap: string
-  rowGap?: string
-  columnGap?: string
-  className?: string
-}
-
-// -------------
 // ------------- FLEX CONTAINER
 // -------------
 
@@ -270,14 +255,6 @@ export interface IFormInputProps {
   dataTestIdError?: string
 }
 
-// -------------
-// ------------- CUSTOM TOAST
-// -------------
-
-export interface ICustomToastProps {
-  toastId: string
-  toastMessage: string
-}
 
 // -------------
 // ------------- COMMON INPUT
@@ -307,9 +284,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-    | null
-    | undefined
+  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+  | null
+  | undefined
   height?: number
   width?: number
   className?: string

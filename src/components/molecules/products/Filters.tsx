@@ -19,7 +19,7 @@ const Filters: React.FC<IFiltersProps> = ({
       direction="row"
       wrap="nowrap"
       justify="space-between"
-      align="center"
+      align="flex-end"
       className="w-full h-20 mb-3"
       flexContainerId="filters"
     >

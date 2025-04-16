@@ -63,7 +63,9 @@ const ProductsList: React.FC<IProductsListProps> = ({
   }
 
   return (
-    <div className="w-full">
+    <div
+      className={`w-full ${filteredProducts.length <= 0 ? 'overflow-y-hidden' : 'overflow-y-auto'}`}
+    >
       {/* FILTERS */}
       <Filters
         onCategorySelect={(category) =>
@@ -84,8 +86,8 @@ const ProductsList: React.FC<IProductsListProps> = ({
         flexContainerId="product-list"
         direction="row"
         justify={`center`}
-        align={`center`}
-        className={`w-full ${filteredProducts.length <= 0 ? 'h-[50dvh]' : 'h-fit'}`}
+        align={`flex-start`}
+        className={`w-full  ${filteredProducts.length <= 0 ? 'h-[40dvh]' : 'min-h-full'}`}
         gap={4}
       >
         {filteredProducts.length === 0 && !isLoadingList && (
@@ -115,11 +117,13 @@ const ProductsList: React.FC<IProductsListProps> = ({
         )}
       </FlexContainer>
       {/* Pagination */}
-      <Pagination
-        totalPages={paginationParams.totalPages}
-        currentPage={paginationParams.currentPage}
-        onPageChange={paginationParams.onPageChange}
-      />
+      {filteredProducts.length !== 0 && (
+        <Pagination
+          totalPages={paginationParams.totalPages}
+          currentPage={paginationParams.currentPage}
+          onPageChange={paginationParams.onPageChange}
+        />
+      )}
     </div>
   )
 }

@@ -1,6 +1,5 @@
 // ------------------ COMMON ATOMS
 import Typography from './Typography'
-import GridContainer from './GridContainer'
 import FlexContainer from './FlexContainer'
 import Image from './Image'
 import Button from './Button'
@@ -8,7 +7,6 @@ import DataLoop from './DataLoop'
 import Modal from './Modal'
 import Pagination from './Pagination'
 import Spinner from './Spinner'
-import CustomToast from './CustomToast'
 import Input from './Input'
 import LazyImage from './LazyImage'
 
@@ -34,7 +32,6 @@ import UserPill from './user/UserPill'
 
 export {
   Typography,
-  GridContainer,
   FlexContainer,
   Image,
   Button,
@@ -51,7 +48,6 @@ export {
   Spinner,
   FormInput,
   UserPill,
-  CustomToast,
   Input,
   CategoriesDropdown,
   LazyImage,
