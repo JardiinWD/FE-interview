@@ -102,13 +102,7 @@ export const useCartActions = (
   const handleAddToCart = () => {
     if (!product || !userId) return
 
-    onAddToCart(
-      {
-        quantity: state.currentQuantity,
-        id: product.id
-      },
-      userId
-    )
+    onAddToCart({ quantity: state.currentQuantity, id: product.id }, userId)
   }
 
   return {

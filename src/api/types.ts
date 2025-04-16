@@ -130,6 +130,8 @@ export interface IProduct {
   description: string
   category: string
   price: number
+  total?: number
+  discountedPrice?: number
   discountPercentage: number
   quantity?: number
   rating: number

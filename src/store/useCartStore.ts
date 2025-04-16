@@ -21,7 +21,7 @@ interface ICartStore {
 
 const useCartStore = create<ICartStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // --> Initial state
       cartData: null,
 
@@ -36,7 +36,7 @@ const useCartStore = create<ICartStore>()(
        * @param {number} cartId - The ID of the cart to update
        * @param {ICart[]} newProducts - The new products to add to the cart
        * @returns {void}
-       * */
+       */
       updateCartWithNewProducts: (cartId: number, newProducts: ICart[]) =>
         set((state) => {
           // If state is null, return state without changes
@@ -58,6 +58,7 @@ const useCartStore = create<ICartStore>()(
                 // If newProd is a product itself (not a cart), return it directly
                 return newProd
               })
+
               // Create a copy of existing products
               const updatedProducts = [...cart.products]
 
@@ -69,47 +70,69 @@ const useCartStore = create<ICartStore>()(
                 )
 
                 if (existingIndex >= 0) {
-                  // If the product already exists, update its properties
+                  // If the product already exists, keep the original discounted prices
+                  // but update the quantity
+                  const originalProduct = updatedProducts[existingIndex]
+                  const newQuantity =
+                    (originalProduct.quantity || 0) + (newProduct.quantity || 1)
+
+                  // Calculate the new total price of the product based on the new quantity
+                  const newTotal = (originalProduct.price || 0) * newQuantity
+
+                  // Calculate the new discounted price based on the original discount percentage
+                  const discountPercentage =
+                    originalProduct.discountPercentage || 0
+                  const newDiscountedPrice =
+                    newTotal * (1 - discountPercentage / 100)
+
                   updatedProducts[existingIndex] = {
-                    ...updatedProducts[existingIndex],
-                    ...newProduct,
-                    // Update quantity by adding (if available)
-                    quantity:
-                      ((updatedProducts[existingIndex] as IProductWithQuantity)
-                        .quantity || 0) +
-                      ((newProduct as IProductWithQuantity).quantity || 1)
+                    ...originalProduct,
+                    quantity: newQuantity,
+                    total: newTotal,
+                    discountedPrice: newDiscountedPrice
                   }
                 } else {
-                  // If product does not exist, add it
+                  // If product does not exist, add it keeping its original values
                   updatedProducts.push(newProduct)
                 }
               })
 
-              // Calculate new totals
+              // Calculate new totals - using the correct values from each product
               const totalProducts = updatedProducts.length
               const totalQuantity = updatedProducts.reduce(
-                (sum, p) => sum + ((p as IProductWithQuantity).quantity || 1),
-                0
-              )
-              const total = updatedProducts.reduce(
-                (sum, p) =>
-                  sum +
-                  (p.price || 0) * ((p as IProductWithQuantity).quantity || 1),
+                (sum, p) => sum + (p.quantity || 1),
                 0
               )
 
-              // Create a new cart with updated products
+              // Calculate the total by summing up the totals of individual products
+              const total = updatedProducts.reduce(
+                (sum, p) =>
+                  sum + (p.total || (p.price || 0) * (p.quantity || 1)),
+                0
+              )
+
+              // Calculate the discounted total by summing up the discounted prices of individual products
+              const discountedTotal = updatedProducts.reduce(
+                (sum, p) => sum + (p.discountedPrice || p.total || 0),
+                0
+              )
+
+              // Create a new cart with updated products and totals
               return {
                 ...cart,
                 products: updatedProducts,
                 totalProducts,
                 totalQuantity,
-                total
+                total,
+                discountedTotal
               }
             }
             // Return cart unchanged if IDs don't match
             return cart
           })
+
+          console.log('Updated cart:', updatedCart)
+
           // Return updated state
           return { cartData: updatedCart }
         }),
