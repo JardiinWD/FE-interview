@@ -23,6 +23,7 @@ import CategoriesDropdown from './product/CategoriesDropdown'
 // ------------------ CART ATOMS
 import CartAction from './cart/CartAction'
 import CheckoutItem from './cart/CheckoutItem'
+import CartHeaderIcon from './cart/CartHeaderIcon'
 
 // ------------------ FORM ATOMS
 import FormInput from './forms/FormInput'
@@ -52,5 +53,6 @@ export {
   CustomToast,
   Input,
   CategoriesDropdown,
-  LazyImage
+  LazyImage,
+  CartHeaderIcon
 }

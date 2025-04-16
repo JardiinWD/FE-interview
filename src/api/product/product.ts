@@ -64,5 +64,29 @@ export const ProductApi: IProductApi = {
         'getProducts'
       )
     }
-  }
+  },
+  getProductsByCategory: async (category?: string) => {
+    try {
+      // 1. Check if the category is provided
+      if (!category) throw new Error('Category is required')
+      // 2. Retrieve the necessary Data from the API
+      const response = await productApi.get(`/category/${category}`)
+      // Check if the response is valid
+      if (!response.data) throw new Error(`Something went Wrong with getProducts API Call!`)
+      // Return the data in the expected format
+      return {
+        data: response.data,
+        error: null,
+        status: 'success'
+      }
+    } catch (error) {
+      // Handle the error using the handleProductError method
+      return await ProductApi.handleProductErrors(
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while fetching the data',
+        'getProductsByCategory'
+      )
+    }
+  },
 }

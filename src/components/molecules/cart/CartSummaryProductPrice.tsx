@@ -27,6 +27,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
     >
       {/* OLD PRICE */}
       <Typography
+        textId={`cart-summary-product-price-${item.title}`}
         textColor="text-primary_black_700 line-through"
         weight="bold"
         tagAs="h6"
@@ -35,7 +36,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
       />
       {/* NEW PRICE */}
       <FlexContainer
-        flexContainerId={`cart-summary-product-price-discounted-${index}`}
+        flexContainerId={`cart-summary-product-new-price-discounted-${index}`}
         direction="row"
         key={`cart-summary-product-price-discounted-${index}`}
         justify="center"
@@ -44,6 +45,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
         gap={1}
       >
         <Typography
+          textId={`cart-summary-product-price-discounted-${item.title}`}
           textColor="text-primary_yellow_600"
           weight="bold"
           tagAs="h5"

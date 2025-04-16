@@ -16,6 +16,9 @@ import { ICartActionProps } from '@/types/atoms'
  * @param {function} onAddToCart - Callback function to handle Add to Cart action
  * @param {function} onRemoveFromCart - Callback function to handle Remove from Cart action
  * @param {function} onRetrieveCurrentQuantity - Callback function to retrieve current quantity
+ * @param {string} containerClassName - Additional class name for the container
+ * @param {string} buttonClassName - Additional class name for the button
+ * @param {string} counterClassName - Additional class name for the counter
  * @param {boolean} isLoading - Flag to show loading state
  */
 const CartAction: React.FC<ICartActionProps> = ({
@@ -26,7 +29,10 @@ const CartAction: React.FC<ICartActionProps> = ({
   onAddToCart = () => {},
   onRemoveFromCart = () => {},
   onRetrieveCurrentQuantity = (quantity: number) => quantity,
-  isLoading = false
+  isLoading = false,
+  containerClassName = 'lg:w-[40%]',
+  buttonClassName = 'lg:w-[200px] lg:min-w-[200px]',
+  counterClassName = ''
 }): JSX.Element => {
   // ------------ COUNTER CART ACTION
   const counterValues = product
@@ -64,7 +70,7 @@ const CartAction: React.FC<ICartActionProps> = ({
       flexContainerId="add-to-cart"
       align="center"
       justify="space-between"
-      className="w-full lg:w-[80%]"
+      className={`w-full ${containerClassName}`}
       gap={2}
     >
       {/* Add To Cart */}
@@ -74,11 +80,12 @@ const CartAction: React.FC<ICartActionProps> = ({
           buttonId="add-to-cart"
           buttonType="button"
           isLoading={isLoading}
-          className="lg:w-[150px] lg:min-w-[150px] w-full"
+          className={`${buttonClassName} w-full`}
           //@ts-expect-error - Something is wrong with the type of `onClick`
           onClick={onAddToCart}
         >
           <Typography
+            textId="add-to-cart"
             className="text-primary_black_600"
             tagAs="span"
             weight="bold"
@@ -98,6 +105,7 @@ const CartAction: React.FC<ICartActionProps> = ({
           onClick={onRemoveFromCart}
         >
           <Typography
+            textId="remove-from-cart"
             className="text-primary_black_600"
             tagAs="span"
             weight="bold"
@@ -113,6 +121,7 @@ const CartAction: React.FC<ICartActionProps> = ({
         maxValue={counterValues.maxValue}
         step={1}
         onRetrieveCurrentQuantity={onRetrieveCurrentQuantity}
+        counterClassName={counterClassName}
       />
     </FlexContainer>
   )

@@ -83,6 +83,7 @@ const CardBody: React.FC<ICardProps> = ({
     >
       {/* TITLE */}
       <Typography
+        textId={`product-${title}`}
         textColor="text-primary_black_700"
         weight="bold"
         tagAs="h5"
@@ -91,6 +92,7 @@ const CardBody: React.FC<ICardProps> = ({
       />
       {/* DESCRIPTION */}
       <Typography
+        textId={`product-${description}`}
         textColor="text-primary_black_500"
         weight="regular"
         tagAs="p"
@@ -104,6 +106,7 @@ const CardBody: React.FC<ICardProps> = ({
           className="flex mb-3 items-center space-x-1.5 rtl:space-x-reverse"
         >
           <Typography
+            textId={`product-${product?.rating}`}
             weight="bold"
             tagAs="span"
             textColor="text-primary_black_700"
@@ -151,6 +154,7 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
             justify="center"
           >
             <Typography
+              textId={`product-price-${product?.price}`}
               textColor="text-primary_black_700"
               weight="bold"
               tagAs="h5"
@@ -183,6 +187,9 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
       >
         {/* CART ACTIONS */}
         <CartAction
+          containerClassName='w-full min-w-full'
+          counterClassName='lg:w-2/2'
+          buttonClassName='lg:w-2/2'
           isLoading={state.isLoading}
           onAddToCart={handleAddToCart}
           product={product as IProduct}

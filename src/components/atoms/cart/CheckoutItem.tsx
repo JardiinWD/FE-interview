@@ -27,6 +27,7 @@ const CheckoutItem: React.FC<ICartCheckoutItemProps> = ({
       className="w-full"
     >
       <Typography
+        textId={`checkout-item-${label}`}
         textColor={labelClassName}
         weight="bold"
         tagAs="h5"
@@ -34,6 +35,7 @@ const CheckoutItem: React.FC<ICartCheckoutItemProps> = ({
       />
       {property && (
         <Typography
+          textId={`checkout-item-${property}`}
           textColor={propertyClassName}
           weight="bold"
           tagAs="h5"

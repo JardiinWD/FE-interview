@@ -51,6 +51,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
       >
         {/* Product Title */}
         <Typography
+          textId={`cart-summary-title-${item.title}`}
           textColor="text-primary_black_700"
           weight="bold"
           tagAs="h6"

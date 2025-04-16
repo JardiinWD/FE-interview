@@ -24,6 +24,7 @@ const Input: React.FC<IInputProps> = ({
     <Box className={`${boxClassName} flex flex-col gap-1`}>
       {/* LABEL */}
       <Typography
+        textId={`label-${id}`}
         tagAs="label"
         htmlFor={id}
         text={label as string}

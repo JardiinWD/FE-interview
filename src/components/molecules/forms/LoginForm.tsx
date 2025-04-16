@@ -61,6 +61,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         formId={formId}
       >
         <Typography
+          textId="login-button"
           tagAs="span"
           text="Login"
           textColor="text-primary_black_500"
@@ -69,6 +70,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         />
         {authenticationError && (
           <Typography
+            textId="login-error"
             tagAs="span"
             text={authenticationError}
             textColor="text-red-500"

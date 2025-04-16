@@ -14,18 +14,18 @@ const ReviewsCarousel: React.FC<IReviewsCarouselProps> = ({
   return (
     <FlexContainer
       gap={5}
-      direction="row"
+      direction="column"
       justify="flex-start"
       flexContainerId="reviews-carousel"
       align="center"
       wrap="nowrap"
-      className="h-fit w-full max-w-full overflow-x-auto relative z-10 bg-primary_white_200 shadow-lg rounded-lg p-4"
+      className="h-fit w-full max-w-full lg:w-[25%] lg:h-[42.5rem] overflow-y-auto overflow-x-hidden relative z-10 bg-primary_white_200 shadow-lg rounded-lg p-4"
       style={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
       }}
     >
       {/* Testato anche tentativo con più reviews per far scrollare il container con each={[...reviews, ...reviews]} */}
-      <For each={reviews}>
+      <For each={[...reviews, ...reviews]}>
         {(item) =>
           item && <SingleReview key={`${item}-review`} review={item} />
         }

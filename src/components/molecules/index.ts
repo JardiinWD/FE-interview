@@ -14,6 +14,7 @@ import LoginForm from './forms/LoginForm'
 import ProductsList from './products/ProductsList'
 import SingleReview from './products/SingleReview'
 import Filters from './products/Filters'
+import RecommendedProducts from './products/RecommendedProducts'
 
 // ------------------ USER MOLECULES
 import UserAdditionalInfo from './user/UserAdditionalInfo'
@@ -27,6 +28,7 @@ import LogoutModal from './modals/LogoutModal'
 
 // ------------------ COMMON MOLECULES
 import Header from './Header'
+
 
 export {
   CartSummarySingleProduct,
@@ -44,5 +46,6 @@ export {
   UserAdditionalInfo,
   LogoutModal,
   SingleReview,
-  Filters
+  Filters,
+  RecommendedProducts
 }

@@ -1,7 +1,8 @@
 import { IQuantityCounterProps } from '@/types/atoms'
 import React, { JSX, useEffect, useState } from 'react'
-import Button from '../Button'
+import { Button, FlexContainer } from '@/components/atoms'
 
+// ---------- USE EFFECTS
 interface IState {
   value: number
 }
@@ -16,6 +17,7 @@ interface IState {
  * @param {function} onDecrement - Callback function for decrementing the quantity
  * @param {function} onChange - Callback function for handling input change
  * @param {function} onRetrieveCurrentQuantity - Callback function for retrieving the current quantity
+ * @param {string} counterClassName - Additional class name for the counter
  */
 const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   minValue = 0,
@@ -25,7 +27,8 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   onIncrement,
   onDecrement,
   onChange,
-  onRetrieveCurrentQuantity
+  onRetrieveCurrentQuantity,
+  counterClassName = 'lg:max-w-[8rem] lg:w-[8rem]'
 }): JSX.Element => {
   // ---------- STATE
   const [state, setState] = useState<IState>({
@@ -89,14 +92,14 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   }
 
   return (
-    <div className="relative flex items-center lg:max-w-[8rem] w-full">
+    <FlexContainer gap={0} flexContainerId='quantity-counter' direction='row' wrap="nowrap" align='center' justify='center' className={`relative bg-primary_white_200 rounded-lg ${counterClassName} w-full`}>
       {/* Decrement Button */}
       <Button
         buttonType="button"
         variant="secondary"
         buttonId="decrement-button"
         onClick={handleDecrement}
-        className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+        className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
       >
         <svg
           className="w-3 h-3 text-gray-900 dark:text-primary_black_700"
@@ -121,7 +124,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
         id="quantity-input"
         value={state.value}
         onChange={handleInputChange}
-        className="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary_black_700 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        className="bg-primary_white_200 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm  block w-full py-2.5"
         placeholder="999"
         required
       />
@@ -132,7 +135,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
         variant="secondary"
         buttonId="decrement-button"
         onClick={handleIncrement}
-        className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+        className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
       >
         <svg
           className="w-3 h-3 text-gray-900 dark:text-primary_black_700"
@@ -150,7 +153,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
           />
         </svg>
       </Button>
-    </div>
+    </FlexContainer>
   )
 }
 

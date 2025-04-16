@@ -20,6 +20,7 @@ import fonts from '@/assets/styles/fonts.module.scss'
 const Typography: React.FC<ITypographyProps> = ({
   tagAs = 'p',
   textColor = 'white',
+  textId = '',
   weight = 'regular',
   text = '',
   textLineHeight = '',
@@ -57,6 +58,7 @@ const Typography: React.FC<ITypographyProps> = ({
 
   return htmlString ? (
     <TagAs
+      id={textId}
       htmlFor={htmlFor}
       className={`${textColor && `${textColor}`} ${
         textLineHeight && `${textLineHeight}`
@@ -68,6 +70,7 @@ const Typography: React.FC<ITypographyProps> = ({
     />
   ) : (
     <TagAs
+      id={textId}
       htmlFor={htmlFor}
       className={`${textColor && `${textColor}`} ${
         textLineHeight && `${textLineHeight}`

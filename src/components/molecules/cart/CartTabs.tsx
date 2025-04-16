@@ -32,6 +32,7 @@ const CartTabs: React.FC<ICartTabsProps> = ({
             className={`px-4 py-2 ${activeTab !== index && '!bg-gray-200 text-primary_black_500'} rounded-lg`}
           >
             <Typography
+              textId={`cart-tab-${index}`}
               tagAs="span"
               weight="regular"
               textColor="text-primary_black_500"

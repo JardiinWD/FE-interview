@@ -21,6 +21,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     >
       {/* CUSTOM LABEL */}
       <Typography
+        textId={`label-${label}`}
         textColor="text-primary_black_500"
         weight="regular"
         tagAs="span"
@@ -29,6 +30,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       />
       {/* CUSTOM VALUE */}
       <Typography
+        textId={`info-${label}`}
         textColor="text-primary_black_500"
         weight="bold"
         tagAs="p"

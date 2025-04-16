@@ -192,8 +192,7 @@ export interface IProductApi {
     error: TPromiseError,
     context: TProductApiContext
   ) => Promise<IProductPromise>
-  // TODO : Remove optional cases, now for developing purpose
   getProductById?: (id: number) => Promise<IProductPromise>
-  getProductsByCategory?: (category: string) => Promise<IProductPromise>
+  getProductsByCategory: (category: string) => Promise<IProductPromise>
   // TODO : To implement search and filter
 }

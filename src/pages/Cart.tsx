@@ -22,6 +22,7 @@ const Cart: React.FC = (): JSX.Element => {
 
   // -------------- ZUSTAND
   const { userId } = useAuthStore()
+  const { cartData } = useCartStore()
 
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
@@ -42,9 +43,6 @@ const Cart: React.FC = (): JSX.Element => {
       }
     }
   })
-
-  // -------------- ZUSTAND STORE
-  const { cartData } = useCartStore()
 
   // -------------- ERROR HANDLING
   if (
@@ -74,6 +72,11 @@ const Cart: React.FC = (): JSX.Element => {
   const tabApiData = apiData?.data?.carts[state.activeTab]?.products
   const tabApiCheckoutInfo = apiData?.data?.carts[state.activeTab] as ICart
   const activeTabApiCartId = apiData?.data?.carts[state.activeTab].id
+
+  console.log('====================================')
+  console.log('TAB CART DATA', cartData?.[state.activeTab])
+  console.log('TAB API DATA', apiData?.data?.carts[state.activeTab])
+  console.log('====================================')
 
   return (
     <FlexContainer

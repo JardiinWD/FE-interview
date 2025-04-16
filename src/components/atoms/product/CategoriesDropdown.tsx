@@ -67,6 +67,7 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
         className="focus:outline-none !bg-primary_white_100 px-5 py-2.5 text-center inline-flex items-center"
       >
         <Typography
+          textId={`category-dropdown-${state.selectedCategory}`}
           text={state.selectedCategory as string}
           tagAs="p"
           weight="regular"
@@ -110,7 +111,7 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
             className="block w-full capitalize text-center"
             onClick={() => handleCategorySelect('All Categories')}
           >
-            <Typography text="All Categories" tagAs="span" weight="regular" />
+            <Typography textColor={`all-categories-label`} text="All Categories" tagAs="span" weight="regular" />
           </Button>
           <For each={categories}>
             {(category) => (
@@ -122,7 +123,7 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
                 className="block w-full capitalize text-center"
                 onClick={() => handleCategorySelect(category)}
               >
-                <Typography text={category} tagAs="span" weight="regular" />
+                <Typography textId={`dropdown-category-${category}`} text={category} tagAs="span" weight="regular" />
               </Button>
             )}
           </For>

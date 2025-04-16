@@ -29,6 +29,7 @@ const EmptyCard: React.FC<IEmptyCardProps> = ({
       }}
     >
       <Typography
+        textId="empty-cart-message"
         tagAs="h3"
         weight="bold"
         text={cardMessage}
@@ -36,6 +37,7 @@ const EmptyCard: React.FC<IEmptyCardProps> = ({
       />
       {process.env.NODE_ENV === 'development' && (
         <Typography
+          textId="empty-cart-error"
           tagAs="p"
           className="text-center"
           weight="bold"
@@ -52,6 +54,7 @@ const EmptyCard: React.FC<IEmptyCardProps> = ({
       >
         <Link to="/">
           <Typography
+            textId="empty-cart-button"
             tagAs="p"
             weight="bold"
             text={buttonText}

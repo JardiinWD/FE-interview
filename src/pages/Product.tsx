@@ -1,5 +1,5 @@
 import { FlexContainer } from '@/components/atoms'
-import { ErrorState, LoadingState } from '@/components/molecules'
+import { ErrorState, LoadingState, RecommendedProducts } from '@/components/molecules'
 import { ReviewsCarousel, SingleProduct } from '@/components/organisms'
 import { useLoadingDelay } from '@/hooks'
 import React, { JSX } from 'react'
@@ -42,12 +42,14 @@ const Product: React.FC = (): JSX.Element => {
       className="p-4 pt-[4rem] max-w-full w-full"
       gap={5}
       flexContainerId="product-page"
-      direction="column"
+      direction="row"
       justify="center"
       align="center"
+      wrap='wrap'
     >
       <SingleProduct product={product} />
       {product.reviews && <ReviewsCarousel reviews={product.reviews} />}
+      {product.category && <RecommendedProducts category={product.category} />}
     </FlexContainer>
   )
 }

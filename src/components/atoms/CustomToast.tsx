@@ -22,6 +22,7 @@ const CustomToast: React.FC<ICustomToastProps> = ({
     >
       <Image src={Images.Logo} alt="Logo" htmlWidth={75} htmlHeight={75} />
       <Typography
+        textId={toastId}
         className="text-primary_black_600"
         tagAs="p"
         weight="normal"

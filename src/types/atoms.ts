@@ -23,6 +23,7 @@ export type TTypographyWeight =
 // --> Typography props
 export interface ITypographyProps {
   tagAs: TTypographyTagName
+  textId?: string
   textColor?: string
   textLineHeight?: string
   weight: TTypographyWeight
@@ -54,6 +55,8 @@ export interface IGridContainerProps {
 // ------------- FLEX CONTAINER
 // -------------
 
+// --> Possible Options for flex container Tag
+export type TFlexContainerTag = | 'div' | 'section' | 'article' | 'aside' | 'nav' | 'header' | 'footer'
 // --> Possible flex directions options
 export type TFlexContainerDirections = 'row' | 'column'
 // --> Possible flex justify content options
@@ -84,6 +87,7 @@ export interface IFlexContainerProps {
   className?: string
   style?: React.CSSProperties
   flexContainerId?: string
+  as?: TFlexContainerTag
 }
 
 // -------------
@@ -129,6 +133,9 @@ export interface ICartActionProps {
   onRemoveFromCart?: (cartId: number, productId: number) => void
   onRetrieveCurrentQuantity?: (quantity: number) => void
   isLoading?: boolean
+  containerClassName?: string
+  buttonClassName?: string
+  counterClassName?: string
 }
 
 export interface ICartCheckoutItemProps {
@@ -177,6 +184,7 @@ export interface IQuantityCounterProps {
   onDecrement?: (value: number) => void
   onChange?: (value: number) => void
   onRetrieveCurrentQuantity?: (quantity: number) => void
+  counterClassName?: string
 }
 
 // -------------
@@ -284,9 +292,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-    | null
-    | undefined
+  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+  | null
+  | undefined
   height?: number
   width?: number
   className?: string

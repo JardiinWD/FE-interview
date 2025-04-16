@@ -12,6 +12,10 @@ import { IFlexContainerProps } from '@/types/atoms'
  * @param {TFlexContainerAlign} align - The alignment of the child elements along the cross axis.
  * @param {TFlexContainerWrap} wrap - The wrapping behavior of the child elements.
  * @param {number} gap - The gap between child elements, specified in pixels.
+ *  @param {string} className - Additional CSS classes to apply to the Flex container.
+ * @param {React.CSSProperties} style - Additional inline styles to apply to the Flex container.
+ * @param {string} flexContainerId - The ID to be assigned to the Flex container.
+ * @param {TFlexContainerTag} as - The HTML tag to be used for the Flex container.
  * @returns {JSX.Element} The rendered Flex container component.
  */
 const FlexContainer: React.FC<IFlexContainerProps> = ({
@@ -23,10 +27,12 @@ const FlexContainer: React.FC<IFlexContainerProps> = ({
   gap = 2,
   className = '',
   style = {},
-  flexContainerId = `flex`
+  flexContainerId = `flex`,
+  as = 'div',
 }): JSX.Element => {
   return (
     <Flex
+      as={as}
       id={`${flexContainerId}-container`}
       className={className}
       style={style}

@@ -13,6 +13,7 @@ const DiscountPill: React.FC<IDiscountPillProps> = ({
   return (
     <div className="bg-primary_yellow_400 text-primary_black_700 p-1 rounded-lg">
       <Typography
+        textId={`discount-pill-${discountPercentage}`}
         textColor="text-primary_black_700"
         weight="bold"
         tagAs="span"

@@ -52,6 +52,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
             onClick={openModal}
           >
             <Typography
+              textId="logout-button"
               className="text-primary_black_600"
               tagAs="span"
               weight="bold"

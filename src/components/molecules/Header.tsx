@@ -1,16 +1,13 @@
-import React, { JSX } from 'react'
+import { Images } from '@/assets/images'
 import {
+  CartHeaderIcon,
   FlexContainer,
   Image,
-  Typography,
-  Button,
   UserPill
 } from '@/components/atoms'
-import { Link, useLocation } from 'react-router-dom'
-import { Images } from '@/assets/images'
-import Lottie from 'lottie-react'
-import { Lotties } from '@/assets/lotties'
 import { appConfig } from '@/config/appConfig'
+import React, { JSX } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 appConfig
 
@@ -44,27 +41,11 @@ const Header: React.FC = (): JSX.Element => {
         flexContainerId="header-cart-and-user-pill"
         justify="center"
         align="center"
-        gap={4}
+        gap={8}
         className="absolute right-4"
       >
         {/* CART BUTTON */}
-        {!['/cart'].includes(location.pathname) && (
-          <Link to="/cart">
-            <Button
-              variant="secondary"
-              buttonType="button"
-              className="bg-white"
-              buttonId="cart-button"
-            >
-              <Lottie
-                className="h-[2rem] w-[2rem]"
-                animationData={Lotties.CartLottie}
-                loop
-                autoplay
-              />
-            </Button>
-          </Link>
-        )}
+        <CartHeaderIcon />
         {/* USER PILL */}
         <UserPill />
       </FlexContainer>

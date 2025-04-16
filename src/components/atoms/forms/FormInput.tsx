@@ -27,6 +27,7 @@ const FormInput: React.FC<IFormInputProps> = ({
       {/* LABEL */}
       <Typography
         tagAs="label"
+        textId={`label-${id}`}
         htmlFor={id}
         text={label}
         weight="regular"
@@ -44,6 +45,7 @@ const FormInput: React.FC<IFormInputProps> = ({
       {/* ERROR MESSAGE */}
       {error && (
         <Typography
+          textId={`error-${id}`}
           tagAs="label"
           text={error}
           textColor="text-red-500"

@@ -68,6 +68,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
         className="mt-4 w-full"
       >
         <Typography
+          textId="cart-checkout-button"
           className="text-primary_black_600"
           tagAs="span"
           weight="bold"

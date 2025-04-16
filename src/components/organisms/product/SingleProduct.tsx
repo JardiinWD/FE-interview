@@ -27,7 +27,7 @@ const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
       justify="flex-start"
       align="flex-start"
       wrap="nowrap"
-      className="h-fit relative z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
+      className="h-fit w-full max-w-full lg:w-[70%] lg:h-[42.5rem] relative z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
       style={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
       }}
@@ -66,6 +66,7 @@ const ProductInfo: React.FC<ISingleProductProps> = ({
     <React.Fragment>
       {/* PRODUCT TITLE */}
       <Typography
+        textId={`product-title-${product.title}`}
         textColor="text-primary_black_700"
         weight="bold"
         tagAs="h4"
@@ -83,6 +84,7 @@ const ProductInfo: React.FC<ISingleProductProps> = ({
           className="rtl:space-x-reverse"
         >
           <Typography
+            textId={`product-rating-${product?.rating}`}
             weight="bold"
             tagAs="span"
             textColor="text-primary_black_700"
@@ -96,6 +98,7 @@ const ProductInfo: React.FC<ISingleProductProps> = ({
       )}
       {/* PRODUCT DESCRIPTION */}
       <Typography
+        textId={`product-description-${product.description}`}
         textColor="text-primary_black_500 pb-4 lg:pb-0"
         weight="regular"
         tagAs="p"
@@ -181,6 +184,7 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
           className="rtl:space-x-reverse"
         >
           <Typography
+            textId={`product-price-${product?.price}`}
             textColor="text-primary_black_700"
             weight="bold"
             tagAs="h4"
@@ -196,6 +200,8 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
       )}
       {/* CART ACTIONS */}
       <CartAction
+        counterClassName='lg:w-[50%] bg-primary_white_200'
+        containerClassName='lg:w-[50%]'
         isLoading={state.isLoading}
         product={product}
         onRetrieveCurrentQuantity={retrieveCurrentQuantity}

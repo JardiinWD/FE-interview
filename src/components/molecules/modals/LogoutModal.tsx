@@ -52,6 +52,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
         <Image src={Images.Logo} alt="Logo" htmlWidth={75} htmlHeight={75} />
         {/* TITLE */}
         <Typography
+          textId="logout-modal-title"
           className="text-primary_black_600"
           tagAs="h3"
           weight="bold"
@@ -59,6 +60,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
         />
         {/* TEXT */}
         <Typography
+          textId="logout-modal-text"
           className="text-primary_black_600"
           tagAs="p"
           weight="normal"
@@ -82,6 +84,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
             onClick={handleClearOnLogout}
           >
             <Typography
+              textId="logout-modal-button"
               className="text-primary_black_600"
               tagAs="span"
               weight="bold"
@@ -96,6 +99,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
             onClick={closeModal}
           >
             <Typography
+              textId="logout-modal-dismiss-button"
               className="text-primary_black_600"
               tagAs="span"
               weight="bold"

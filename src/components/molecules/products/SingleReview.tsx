@@ -16,10 +16,11 @@ const SingleReview: React.FC<ISingleReviewProps> = ({
       justify="center"
       align="center"
       gap={3}
-      className="relative lg:h-auto h-[14rem] z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
+      className="relative w-full lg:h-auto h-[14rem] z-10 bg-primary_white_100 shadow-lg rounded-lg p-4"
     >
       {review.reviewerName && (
         <Typography
+          textId="reviewer-name"
           weight="bold"
           className="-mb-2"
           text={review.reviewerName ?? '---'}
@@ -28,6 +29,7 @@ const SingleReview: React.FC<ISingleReviewProps> = ({
       )}
       {review.reviewerEmail && (
         <Typography
+          textId="reviewer-email"
           weight="regular"
           text={review.reviewerEmail ?? '---'}
           tagAs="p"
@@ -38,6 +40,7 @@ const SingleReview: React.FC<ISingleReviewProps> = ({
       )}
       {review.comment && (
         <Typography
+          textId="review-comment"
           className="mt-1 text-center"
           weight="light"
           text={`"${truncateLongText(review.comment ?? '---', 50)}"`}
@@ -46,6 +49,7 @@ const SingleReview: React.FC<ISingleReviewProps> = ({
       )}
       {review.date && (
         <Typography
+          textId="review-date"
           className="-mt-2"
           weight="regular"
           text={dateFormatter(review.date)}
