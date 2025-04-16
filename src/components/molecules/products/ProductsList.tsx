@@ -45,13 +45,13 @@ const ProductsList: React.FC<IProductsListProps> = ({
   })
 
   // -------------- PAGINATION UPDATES
-  const itemsPerPage = 10 // Numero di prodotti per pagina
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) // Calcola il numero totale di pagine
-  const startIndex = (paginationParams.currentPage - 1) * itemsPerPage
-  const paginatedProducts = filteredProducts.slice(
+  // const itemsPerPage = 10 // Numero di prodotti per pagina
+  // const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) // Calcola il numero totale di pagine
+  // const startIndex = (paginationParams.currentPage - 1) * itemsPerPage
+  /* const paginatedProducts = filteredProducts.slice(
     startIndex,
     startIndex + itemsPerPage
-  )
+  ) */
 
   // -------------- HANDLERS
   const handleClearFilters = () => {

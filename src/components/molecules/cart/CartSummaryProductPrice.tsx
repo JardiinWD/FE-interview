@@ -18,7 +18,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
     <FlexContainer
       flexContainerId={`cart-summary-product-price-${index}`}
       direction="column"
-      key={`cart-summary-product-price-${index}`}
+      key={`cart-summary-product-price-${cartId}`}
       justify="flex-end"
       align="flex-end"
       wrap="nowrap"

@@ -6,7 +6,6 @@ import {
   RecommendedProducts
 } from '@/components/molecules'
 import { ReviewsCarousel, SingleProduct } from '@/components/organisms'
-import { useLoadingDelay } from '@/hooks'
 import { useQuery } from '@tanstack/react-query'
 import React, { JSX } from 'react'
 import { useLocation } from 'react-router-dom'

@@ -1,13 +1,12 @@
+import { CartApi } from '@/api'
+import { Lotties } from '@/assets/lotties'
+import { Button, Spinner, Typography } from '@/components/atoms'
+import { useAuthStore, useCartStore } from '@/store'
+import { Box } from '@chakra-ui/react'
+import { useQuery } from '@tanstack/react-query'
+import Lottie from 'lottie-react'
 import React, { JSX } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Typography } from '@/components/atoms'
-import Lottie from 'lottie-react'
-import { Lotties } from '@/assets/lotties'
-import { Box } from '@chakra-ui/react'
-import { useAuthStore, useCartStore } from '@/store'
-import { useQuery } from '@tanstack/react-query'
-import { CartApi } from '@/api'
-import { ICart } from '@/api/types'
 
 interface IState {
   activeTab: number
@@ -19,7 +18,7 @@ interface IState {
  */
 const CartHeaderIcon: React.FC = (): JSX.Element => {
   // -------------- STATE
-  const [state, setState] = React.useState<IState>({
+  const [state] = React.useState<IState>({
     activeTab: 0
   })
 
@@ -28,7 +27,7 @@ const CartHeaderIcon: React.FC = (): JSX.Element => {
   const { cartData } = useCartStore()
 
   // -------------- API CALL
-  const { isPending, data: apiData } = useQuery({
+  const { isPending,  data: apiData } = useQuery({
     queryKey: [userId], // Keeps previous data for 5 seconds
     staleTime: 5000,
     queryFn: async () => {
@@ -75,17 +74,23 @@ const CartHeaderIcon: React.FC = (): JSX.Element => {
             width={7}
             height={7}
           >
-            <Typography
-              textId="cart-quantity"
-              text={(
-                (tabApiTotalQuantity as number) ??
-                (tabCartTotalQuantity as number)
-              ).toString()}
-              tagAs="span"
-              weight="regular"
-              textColor={'text-white'}
-              className="text-center"
-            />
+            {
+              isPending ? (
+                <Spinner width='0.5rem' height='0.5rem' />
+              ) : (
+                <Typography
+                  textId="cart-quantity"
+                  text={(
+                    (tabApiTotalQuantity as number) ??
+                    (tabCartTotalQuantity as number)
+                  ).toString()}
+                  tagAs="span"
+                  weight="regular"
+                  textColor={'text-white'}
+                  className="text-center"
+                />
+              )
+            }
           </Box>
         )}
       </Button>

@@ -7,13 +7,11 @@ import {
 } from '@/components/atoms'
 import { appConfig } from '@/config/appConfig'
 import React, { JSX } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 appConfig
 
 const Header: React.FC = (): JSX.Element => {
-  // ------------- HOOKS
-  const location = useLocation()
 
   return (
     <FlexContainer

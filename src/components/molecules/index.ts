@@ -1,5 +1,4 @@
 // ------------------ CART MOLECULES
-import CartSummarySingleProduct from './cart/CartSummarySingleProduct'
 import CartSummary from './cart/CartSummary'
 import EmptyCard from './cart/EmptyCard'
 import CartTabs from './cart/CartTabs'
@@ -30,7 +29,6 @@ import LogoutModal from './modals/LogoutModal'
 import Header from './Header'
 
 export {
-  CartSummarySingleProduct,
   CartSummary,
   ProductsList,
   Header,
