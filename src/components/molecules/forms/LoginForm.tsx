@@ -34,6 +34,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       width={350}
       height={425}
       className="bg-white rounded-lg p-5 flex flex-col justify-center items-center gap-3"
+      data-testid="login-form"  
     >
       <Image src={Images.Logo} alt="Logo" htmlWidth={75} htmlHeight={75} />
       {/* USERNAME BOX (this should be a component like FormInput) */}
@@ -43,6 +44,8 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         placeholder="Enter your username"
         error={errors.username?.message}
         register={register('username')}
+        dataTestId="user-email"
+        dataTestIdError='user-email-error'
       />
       <FormInput
         id="password"
@@ -51,6 +54,8 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         placeholder="Enter your password"
         error={errors.password?.message}
         register={register('password')}
+        dataTestId="user-password"
+        dataTestIdError='user-password-error'
       />
       {/* SUBMIT BUTTON */}
       <Button
@@ -59,6 +64,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         buttonType="submit"
         isLoading={isSubmitting}
         formId={formId}
+        dataTestId="login-button"
       >
         <Typography
           textId="login-button"
@@ -76,6 +82,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
             textColor="text-red-500"
             className="absolute left-0 right-0 inset-x-0 -bottom-8"
             weight="regular"
+            dataTestId='login-error-message'
           />
         )}
       </Button>

@@ -37,8 +37,12 @@ export const AuthApi: IAuthApi = {
 
       // Retrieve the necessary Data from the API
       const response = await authApi.post('/login', requestBody)
+      console.log('====================================');
+      console.log('handleLogin response', response);
+      console.log('handleLogin response data', response.data);
+      console.log('====================================');
       // Check if the response is valid
-      if (response.statusText !== 'OK' || !response.data)
+      if (response.statusText !== 'OK')
         throw new Error(`Something went Wrong with handleLogin API Call!`)
       // Return the data in the expected format
       return {

@@ -10,10 +10,10 @@ const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const expirationDate = useAuthStore((state) => state.expirationDate)
 
   // -------------- CHECK EXPIRATION
-  useCheckJWTExpiration(expirationDate)
+  // useCheckJWTExpiration(expirationDate)
 
   // -------------- REDIRECT TO LOGIN
-  if (!userId || !token) return <Navigate to="/login" replace />
+  // if (!userId) return <Navigate to="/login" replace />
 
   return children
 }

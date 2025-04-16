@@ -34,6 +34,7 @@ export interface ITypographyProps {
   htmlString?: string
   whiteSpace?: boolean
   htmlFor?: string
+  dataTestId?: string
 }
 
 // -------------
@@ -219,6 +220,7 @@ export interface IButtonProps {
   buttonId?: string
   disabled?: boolean
   isLoading?: boolean
+  dataTestId?: string
 }
 
 // -------------
@@ -264,6 +266,8 @@ export interface IFormInputProps {
   error?: string
   register: ReturnType<any>
   className?: string
+  dataTestId?: string
+  dataTestIdError?: string
 }
 
 // -------------
@@ -303,9 +307,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-    | null
-    | undefined
+  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+  | null
+  | undefined
   height?: number
   width?: number
   className?: string

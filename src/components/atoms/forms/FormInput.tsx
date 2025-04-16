@@ -12,6 +12,8 @@ import React, { JSX } from 'react'
  * @param {string} error - Error message
  * @param {object} register - React Hook Form register function
  * @param {string} className - Additional class names for styling
+ * @param {string} dataTestId - Data-testid for testing purposes
+ * @param {string} dataTestIdError - Data-testid for error message
  */
 const FormInput: React.FC<IFormInputProps> = ({
   id,
@@ -20,7 +22,9 @@ const FormInput: React.FC<IFormInputProps> = ({
   placeholder = '',
   error,
   register,
-  className = ''
+  className = '',
+  dataTestId = '',
+  dataTestIdError = ''
 }): JSX.Element => {
   return (
     <Box className={`w-full ${className}`}>
@@ -36,6 +40,7 @@ const FormInput: React.FC<IFormInputProps> = ({
       />
       {/* INPUT */}
       <Input
+        data-testid={dataTestId}
         id={id}
         type={type}
         placeholder={placeholder}
@@ -51,6 +56,7 @@ const FormInput: React.FC<IFormInputProps> = ({
           textColor="text-red-500"
           className="mt-1 !text-[8px]"
           weight="regular"
+          dataTestId={dataTestIdError}
         />
       )}
     </Box>

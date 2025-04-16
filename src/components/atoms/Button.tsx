@@ -22,7 +22,8 @@ const Button: React.FC<IButtonProps> = ({
   formId = `generic-form-id`,
   buttonId = `generic-button-id`,
   disabled = false,
-  isLoading = false
+  isLoading = false,
+  dataTestId = ''
 }): JSX.Element => {
   // ------------- VARIANTS
   const buttonVariants: Record<IButtonProps['variant'], string> = {
@@ -40,6 +41,7 @@ const Button: React.FC<IButtonProps> = ({
       style={style}
       type={buttonType}
       id={buttonId}
+      data-testid={dataTestId}
     >
       {isLoading ? (
         <Spinner

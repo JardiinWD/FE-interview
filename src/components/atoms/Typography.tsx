@@ -29,7 +29,8 @@ const Typography: React.FC<ITypographyProps> = ({
   htmlString = '',
   style = {},
   whiteSpace = false,
-  htmlFor
+  htmlFor,
+  dataTestId = ''
 }): JSX.Element => {
   // ------------- TAG Fonts Size
   const typographyVariant: Record<ITypographyProps['tagAs'], string> = {
@@ -58,6 +59,7 @@ const Typography: React.FC<ITypographyProps> = ({
 
   return htmlString ? (
     <TagAs
+      data-testid={dataTestId}
       id={textId}
       htmlFor={htmlFor}
       className={`${textColor && `${textColor}`} ${
@@ -70,6 +72,7 @@ const Typography: React.FC<ITypographyProps> = ({
     />
   ) : (
     <TagAs
+      data-testid={dataTestId}
       id={textId}
       htmlFor={htmlFor}
       className={`${textColor && `${textColor}`} ${
