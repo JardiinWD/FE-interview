@@ -4,7 +4,8 @@ import {
   Cart,
   Product,
   Login,
-  UserInfo
+  UserInfo,
+  Checkout
 } from '@/pages'
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '@/layout/Layout'
@@ -67,6 +68,16 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <UserInfo />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />
+      },
+      {
+        path: '/checkout',
+        caseSensitive: true,
+        element: (
+          <ProtectedRoute>
+            <Checkout />
           </ProtectedRoute>
         ),
         errorElement: <ErrorPage />

@@ -255,7 +255,6 @@ export interface IFormInputProps {
   dataTestIdError?: string
 }
 
-
 // -------------
 // ------------- COMMON INPUT
 // -------------
@@ -284,9 +283,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-  | null
-  | undefined
+    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+    | null
+    | undefined
   height?: number
   width?: number
   className?: string

@@ -29,7 +29,6 @@ import LogoutModal from './modals/LogoutModal'
 // ------------------ COMMON MOLECULES
 import Header from './Header'
 
-
 export {
   CartSummary,
   ProductsList,
