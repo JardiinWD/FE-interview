@@ -1,34 +1,25 @@
 // TODO: Add Skeletons
 
-import { CartApi } from '@/api'
-import { ICart, IProduct } from '@/api/types'
+import { IProduct } from '@/api/types'
 import { Icons } from '@/assets/icons'
 import {
   CartAction,
   DiscountPill,
   FlexContainer,
-  Image,
-  ProductRating,
-  Typography,
   LazyImage,
-  Spinner
+  ProductRating,
+  Spinner,
+  Typography
 } from '@/components/atoms'
-import { useAuthStore, useCartStore } from '@/store'
+import { useCartActions } from '@/hooks'
 import { ICardProps } from '@/types/atoms'
 import {
   handleRouondedRatingValue,
   transformNumberToCurrency,
   truncateLongText
 } from '@/utils/functions'
-import React, { JSX, useState } from 'react'
+import React, { JSX } from 'react'
 import { Link } from 'react-router'
-import { toast } from 'react-toastify'
-
-// ------------ INTERFACES
-interface ICardFooterState {
-  currentQuantity: number
-  isLoading: boolean
-}
 
 /**
  * @description Card component
@@ -130,78 +121,9 @@ const CardBody: React.FC<ICardProps> = ({
 
 // ------------------ PRODUCT CARD FOOTER
 const CardFooter: React.FC<ICardProps> = ({ product }) => {
-  // ------------ STATES
-  const [state, setState] = useState<ICardFooterState>({
-    currentQuantity: product?.minimumOrderQuantity as number,
-    isLoading: false
-  })
-
-  // ------------ ZUSTAND STORE
-  const userId = useAuthStore((state) => state.userId)
-  const cartData = useCartStore((state) => state.cartData)
-  const { createNewCart, updateCartWithNewProducts } = useCartStore()
-
-  // ------------ HANDLER
-
-  /**
-   * @description Function to retrieve the current quantity of the product in the cart
-   * @param {number} quantity - The current quantity of the product
-   */
-  const retrieveCurrentQuantity = (quantity: number) => {
-    setState((prevState) => ({
-      ...prevState,
-      currentQuantity: quantity
-    }))
-  }
-
-  /**
-   * @description Function to handle the "Add to Cart" action
-   * @param {Partial<IProduct>} product - The product to add to the cart
-   * @param {number} userId - The ID of the user
-   */
-  const onAddToCart = async (product: Partial<ICart>, userId: number) => {
-    try {
-      // Set Loading State
-      setState((prevState) => ({
-        ...prevState,
-        isLoading: true
-      }))
-
-      // Invoke the API Call
-      const { data, error, status } = await CartApi.addNewCart(
-        userId,
-        product as IProduct
-      )
-      // Check if the API Call was successful
-      if (status !== 'success' || error) {
-        toast.error(error as string)
-        throw new Error(`Something went wrong with the API Call! --> ${error}`)
-      }
-      // Check if the Cart Data is empty
-      if (!cartData) {
-        // If the cart data is empty, create a new cart
-        // @ts-ignore - TODO: Quick Fix before release
-        createNewCart(data)
-        toast.success(`Product Added to Cart Successfully!`)
-      } else {
-        // If the cart data is not empty, update the existing cart with new products
-        const cartId = cartData[0].id
-        // @ts-ignore - TODO: Quick Fix before release
-        updateCartWithNewProducts(cartId, [data])
-        toast.success(`Product Added to Cart Successfully!`)
-      }
-
-      // TODO : Handle the API Response with ZUSTAND STORE
-    } catch (error) {
-      // Add toaster with the error message
-      toast.error(error as string)
-    } finally {
-      setState((prevState) => ({
-        ...prevState,
-        isLoading: false
-      }))
-    }
-  }
+  // ------------ CUSTOM HOOK
+  const { state, retrieveCurrentQuantity, handleAddToCart } =
+    useCartActions(product)
 
   return (
     <FlexContainer
@@ -262,15 +184,7 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         {/* CART ACTIONS */}
         <CartAction
           isLoading={state.isLoading}
-          onAddToCart={() =>
-            onAddToCart(
-              {
-                quantity: state.currentQuantity,
-                id: product?.id
-              },
-              userId as number
-            )
-          }
+          onAddToCart={handleAddToCart}
           product={product as IProduct}
           onRetrieveCurrentQuantity={retrieveCurrentQuantity}
         />

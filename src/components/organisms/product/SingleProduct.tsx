@@ -6,6 +6,7 @@ import {
   ProductRating,
   Typography
 } from '@/components/atoms'
+import { useCartActions } from '@/hooks'
 import { ISingleProductProps } from '@/types/organisms'
 import {
   handleRouondedRatingValue,
@@ -157,6 +158,10 @@ const ProductAdditionalInfo: React.FC<ISingleProductProps> = ({
 const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
   product
 }): JSX.Element => {
+  // ------------ CUSTOM HOOK
+  const { state, retrieveCurrentQuantity, handleAddToCart } =
+    useCartActions(product)
+
   return (
     <FlexContainer
       flexContainerId="product-price"
@@ -190,7 +195,12 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
         </FlexContainer>
       )}
       {/* CART ACTIONS */}
-      <CartAction product={product} />
+      <CartAction
+        isLoading={state.isLoading}
+        product={product}
+        onRetrieveCurrentQuantity={retrieveCurrentQuantity}
+        onAddToCart={handleAddToCart}
+      />
     </FlexContainer>
   )
 }
