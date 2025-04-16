@@ -36,71 +36,79 @@
 //   }
 // }
 
-
 Cypress.Commands.add('getElementByTestId', (testId, elementAs, timeoutTime) => {
-    cy.get(`[data-testid="${testId}"]`, timeoutTime ? { timeout: timeoutTime } : {}).as(elementAs ? elementAs : '')
+  cy.get(
+    `[data-testid="${testId}"]`,
+    timeoutTime ? { timeout: timeoutTime } : {}
+  ).as(elementAs ? elementAs : '')
 })
 
 Cypress.Commands.add('getElementById', (elementId, elementAs, timeoutTime) => {
-    cy.get(`#${elementId}`, timeoutTime ? { timeout: timeoutTime } : {}).as(elementAs)
+  cy.get(`#${elementId}`, timeoutTime ? { timeout: timeoutTime } : {}).as(
+    elementAs
+  )
 })
 
-Cypress.Commands.add('getElementByClassName', (className, elementAs, timeoutTime) => {
-    cy.get(`${className}`, timeoutTime ? { timeout: timeoutTime } : {}).as(elementAs)
-})
-
+Cypress.Commands.add(
+  'getElementByClassName',
+  (className, elementAs, timeoutTime) => {
+    cy.get(`${className}`, timeoutTime ? { timeout: timeoutTime } : {}).as(
+      elementAs
+    )
+  }
+)
 
 /* LANDING LOGIC */
 Cypress.Commands.add('firstExecution', (urlToVisit, shouldClearEverything) => {
-    // URL to Visit
-    cy.visit(urlToVisit)
-    // Check if cookies and local storage should be cleared
-    if (shouldClearEverything) {
-        cy.clearCookies()
-        cy.clearLocalStorage()
-    }
+  // URL to Visit
+  cy.visit(urlToVisit)
+  // Check if cookies and local storage should be cleared
+  if (shouldClearEverything) {
+    cy.clearCookies()
+    cy.clearLocalStorage()
+  }
 })
 
 // Comando personalizzato per eseguire il login tramite API
 Cypress.Commands.add('loginViaApi', (username, password) => {
-    // Esegui una vera richiesta POST all'API di autenticazione
-    cy.request({
-        method: 'POST',
-        url: `${Cypress.env('CYPRESS_DUMMYJSON_BASEURL')}/auth/login`,
-        body: {
-            username,
-            password,
-        },
-        failOnStatusCode: false // Per gestire le risposte di errore
-    }).then((response) => {
-        // Log della risposta completa per debug
-        cy.log('API Response:', JSON.stringify(response.body));
+  // Esegui una vera richiesta POST all'API di autenticazione
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('CYPRESS_DUMMYJSON_BASEURL')}/auth/login`,
+    body: {
+      username,
+      password
+    },
+    failOnStatusCode: false // Per gestire le risposte di errore
+  }).then((response) => {
+    // Log della risposta completa per debug
+    cy.log('API Response:', JSON.stringify(response.body))
 
-        if (response.status === 200 && response.body) {
-            // Salva il token nel localStorage
-            cy.window().then((win) => {
-                // Salva il token (potrebbe essere in diversi formati)
-                if (response.body.token) {
-                    win.localStorage.setItem('authToken', response.body.token);
-                } else if (response.body.accessToken) {
-                    win.localStorage.setItem('authToken', response.body.accessToken);
-                }
-
-                // Salva i dati utente nello store (se usi Zustand)
-                if (win.useAuthStore && win.useAuthStore.setState) {
-                    win.useAuthStore.setState({
-                        userId: response.body.id,
-                        allUserData: response.body,
-                        expirationDate: new Date(Date.now() + 86400000)
-                    });
-                }
-            });
-
-            // Visita la home page dopo il login
-            cy.visit('/');
-        } else {
-            // Gestisci il caso di errore
-            cy.log('Login failed:', response.status, response.body);
+    if (response.status === 200 && response.body) {
+      // Salva il token nel localStorage
+      cy.window().then((win) => {
+        // Salva il token (potrebbe essere in diversi formati)
+        if (response.body.token) {
+          win.localStorage.setItem('authToken', response.body.token)
+        } else if (response.body.accessToken) {
+          win.localStorage.setItem('authToken', response.body.accessToken)
         }
-    });
-});
+
+        // Salva i dati utente nello store (se usi Zustand)
+        if (win.useAuthStore && win.useAuthStore.setState) {
+          win.useAuthStore.setState({
+            userId: response.body.id,
+            allUserData: response.body,
+            expirationDate: new Date(Date.now() + 86400000)
+          })
+        }
+      })
+
+      // Visita la home page dopo il login
+      cy.visit('/')
+    } else {
+      // Gestisci il caso di errore
+      cy.log('Login failed:', response.status, response.body)
+    }
+  })
+})

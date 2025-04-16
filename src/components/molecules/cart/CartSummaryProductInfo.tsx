@@ -24,12 +24,6 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   // ------------ CUSTOM HOOK
   const { retrieveCurrentQuantity } = useCartActions(item)
 
-  console.log('====================================')
-  console.log('item', item)
-  console.log('index', index)
-  console.log('cartId', cartId)
-  console.log('====================================')
-
   return (
     <FlexContainer
       flexContainerId={`cart-summary-product-info-${index}`}

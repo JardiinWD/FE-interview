@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build --config vite.config.cjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prettier": "prettier --write src",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss}\" \"cypress/**/*.{ts,js,json}\"",
     "open:cypress": "cypress open --config-file cypress.config.ts"
   },
   "dependencies": {

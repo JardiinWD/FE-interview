@@ -154,15 +154,14 @@ const useCartStore = create<ICartStore>()(
                 (p) => p.id !== productId
               )
 
-              // If there are no products left, you might want to handle that case
-              // For now, we'll leave an empty products array
-
               // Calculate new totals
               const totalProducts = filteredProducts.length
               const totalQuantity = filteredProducts.reduce(
                 (sum, p) => sum + ((p as IProductWithQuantity).quantity || 1),
                 0
               )
+
+              // Calculate the total by summing up the price * quantity for each product
               const total = filteredProducts.reduce(
                 (sum, p) =>
                   sum +
@@ -170,13 +169,30 @@ const useCartStore = create<ICartStore>()(
                 0
               )
 
-              // Create a new cart with updated products
+              // Calculate the discounted total by summing up the discounted prices
+              // Use the same logic as in updateCartWithNewProducts
+              const discountedTotal = filteredProducts.reduce((sum, p) => {
+                // If the product already has a discountedPrice, use it
+                if (p.discountedPrice !== undefined) {
+                  return sum + p.discountedPrice
+                }
+
+                // Otherwise, calculate the discounted price using discountPercentage
+                const productTotal =
+                  (p.price || 0) * ((p as IProductWithQuantity).quantity || 1)
+                const discount =
+                  productTotal * ((p.discountPercentage || 0) / 100)
+                return sum + (productTotal - discount)
+              }, 0)
+
+              // Create a new cart with updated products and totals
               return {
                 ...cart,
                 products: filteredProducts,
                 totalProducts,
                 totalQuantity,
-                total
+                total,
+                discountedTotal // Added the updated discountedTotal
               }
             }
             // Return cart unchanged if IDs don't match

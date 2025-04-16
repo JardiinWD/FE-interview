@@ -1,4 +1,9 @@
-import { submitWithCorrectCredentials, submitWithoutEmail, submitWithoutPassword, submitWithWrongCredentials } from "./auth"
+import {
+  submitWithCorrectCredentials,
+  submitWithoutEmail,
+  submitWithoutPassword,
+  submitWithWrongCredentials
+} from './auth'
 
 describe('Sikuro FE Interview - Authentication Flow', () => {
   // Gruppo per i test di errore
