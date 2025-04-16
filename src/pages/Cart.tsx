@@ -81,7 +81,7 @@ const Cart: React.FC = (): JSX.Element => {
       justify="flex-start"
       align="flex-start"
       gap={2}
-      className="min-h-[100dvh] lg:min-h-[80dvh] lg:h-[80dvh] w-full max-w-full p-4 pt-12 lg:pt-20"
+      className="min-h-[100dvh] lg:min-h-[80dvh] lg:h-[80dvh] w-full max-w-full p-4 pt-12 lg:pt-8"
     >
       {apiData?.data?.carts && (
         <CartTabs

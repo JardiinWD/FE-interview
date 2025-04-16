@@ -31,7 +31,7 @@ const Product: React.FC = (): JSX.Element => {
 
   // -------------- API CALL
   const { isPending, data: apiData } = useQuery({
-    queryKey: ['productId', productId],
+    queryKey: [productId],
     queryFn: async () => {
       // Call the API to get the products and destructure the response
       const { data, error } = await ProductApi.getProductById(productId)

@@ -31,9 +31,17 @@ const CartAction: React.FC<ICartActionProps> = ({
   onRetrieveCurrentQuantity = (quantity: number) => quantity,
   isLoading = false,
   containerClassName = 'lg:w-[40%]',
-  buttonClassName = 'lg:w-[200px] lg:min-w-[200px]',
+  buttonClassName = 'lg:w-[10rem] lg:max-w-[10rem]',
   counterClassName = ''
 }): JSX.Element => {
+
+  console.log('====================================');
+  console.log('product', product);
+  console.log('Cart', cart);
+  
+  console.log('====================================');
+
+
   // ------------ COUNTER CART ACTION
   const counterValues = product
     ? {
@@ -70,6 +78,7 @@ const CartAction: React.FC<ICartActionProps> = ({
       flexContainerId="add-to-cart"
       align="center"
       justify="space-between"
+      
       className={`w-full ${containerClassName}`}
       gap={2}
     >
@@ -100,7 +109,7 @@ const CartAction: React.FC<ICartActionProps> = ({
           buttonId="remove-from-cart"
           buttonType="button"
           isLoading={isLoading}
-          className="lg:w-[10rem] lg:max-w-[10rem] w-full !p-2.5"
+          className={`${buttonClassName} w-full !p-2.5`}
           //@ts-expect-error - Something is wrong with the type of `onClick`
           onClick={onRemoveFromCart}
         >

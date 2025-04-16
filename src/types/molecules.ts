@@ -41,7 +41,7 @@ export interface ICartTabsProps {
   onClickHandler: (index: number) => void
 }
 
-export interface ICartSummarySingleProductProps {
+export interface ICartSummarySingleProductProps extends IProduct {
   discountPercentage: ICart['discountPercentage']
   discountedTotal: ICart['discountedTotal']
   discountedPrice?: number
@@ -60,7 +60,7 @@ export interface ICartSummaryProductInfoProps {
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps {}
+  extends ICartSummaryProductInfoProps { }
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[] | ICart[]

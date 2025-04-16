@@ -2,13 +2,13 @@
   "name": "sikuro-group-fe-interview",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --config vite.config.cjs",
+    "build": "tsc -b && vite build --config vite.config.cjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prettier": "prettier --write src"
+    "prettier": "prettier --write src",
+    "open:cypress": "cypress open --config-file tsconfig.cypress.config.ts"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",
@@ -38,7 +38,7 @@
     "react-toastify": "^11.0.5",
     "sitemap": "^8.0.0",
     "tailwindcss": "3.4.17",
-    "vite-tsconfig-paths": "^5.1.4",
+    "vite-tsconfig-paths": "3.6.0",
     "zod": "^3.24.2",
     "zustand": "^5.0.3"
   },
@@ -49,6 +49,7 @@
     "@types/react-lazy-load-image-component": "^1.6.4",
     "@types/react-modal": "^3.16.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "cypress": "^14.3.0",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
@@ -61,5 +62,12 @@
     "vite": "^6.2.0",
     "vite-plugin-minify": "^2.1.0",
     "vite-plugin-svgr": "^4.3.0"
+  },
+  "resolutions": {
+    "string-width": "4.2.3",
+    "strip-ansi": "6.0.1",
+    "ansi-regex": "5.0.1",
+    "wrap-ansi": "7.0.0",
+    "emoji-regex": "8.0.0"
   }
 }

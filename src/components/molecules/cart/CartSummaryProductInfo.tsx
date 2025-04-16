@@ -7,6 +7,7 @@ import {
 } from '@/components/atoms'
 import { ICartSummaryProductInfoProps } from '@/types/molecules'
 import { useCartStore } from '@/store'
+import { useCartActions } from '@/hooks'
 
 /**
  * @description CartSummaryProductInfo Component for Product Page
@@ -20,6 +21,14 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
 }): JSX.Element => {
   // -------------- ZUSTAND STORE
   const { removeProductFromCart } = useCartStore()
+  // ------------ CUSTOM HOOK
+    const {  retrieveCurrentQuantity } = useCartActions(item)
+
+    console.log('====================================');
+    console.log('item', item);
+    console.log('index', index);
+    console.log('cartId', cartId);
+    console.log('====================================');
 
   return (
     <FlexContainer
@@ -59,12 +68,14 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
         />
         {/* CART ACTIONS */}
         <CartAction
+          containerClassName='lg:w-[70%] !flex-row !flex-nowrap'
           isRemoveFromCartVisible={true}
           onRemoveFromCart={() =>
             removeProductFromCart(cartId as number, item.id as number)
           }
           cart={item}
           isAddToCartVisible={false}
+          onRetrieveCurrentQuantity={retrieveCurrentQuantity}
         />
       </FlexContainer>
     </FlexContainer>
