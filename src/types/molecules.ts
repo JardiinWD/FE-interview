@@ -27,6 +27,10 @@ export interface ISingleReviewProps {
   review: IProductReview
 }
 
+export interface IRecommendedProductsProps {
+  category: string
+}
+
 // -------------
 // ------------- CART
 // -------------

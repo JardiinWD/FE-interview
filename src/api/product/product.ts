@@ -4,7 +4,8 @@ import {
   IProductApi,
   TPromiseError,
   TProductApiContext,
-  IProductQueryParams
+  IProductQueryParams,
+  IProduct
 } from '@/api/types'
 
 // ----------- API ISTANCE
@@ -25,6 +26,31 @@ export const ProductApi: IProductApi = {
     return {
       error: error,
       status: 'error'
+    }
+  },
+  // @ts-expect-error Something went wrong with the API
+  getProductById: async (id: number) => {
+    try {
+      // 1. Check if the category is provided
+      if (!id) throw new Error('Product ID is required')
+      // 2. Retrieve the necessary Data from the API
+      const response = await productApi.get(`/${id}`)
+      // Check if the response is valid
+      if (!response.data) throw new Error(`Something went Wrong with getProductsByID API Call!`)
+      // Return the data in the expected format
+      return {
+        data: response.data as IProduct,
+        error: null,
+        status: 'success'
+      }
+    } catch (error) {
+      // Handle the error using the handleProductError method
+      return await ProductApi.handleProductErrors(
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while fetching the data',
+        'getProducts'
+      )
     }
   },
   getProducts: async (queryParams?: IProductQueryParams) => {
@@ -72,7 +98,7 @@ export const ProductApi: IProductApi = {
       // 2. Retrieve the necessary Data from the API
       const response = await productApi.get(`/category/${category}`)
       // Check if the response is valid
-      if (!response.data) throw new Error(`Something went Wrong with getProducts API Call!`)
+      if (!response.data) throw new Error(`Something went Wrong with getProductsByCategory API Call!`)
       // Return the data in the expected format
       return {
         data: response.data,

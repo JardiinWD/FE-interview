@@ -19,6 +19,8 @@ import AdditionalInfo from './product/AdditionalInfo'
 import DiscountPill from './product/DiscountPill'
 import QuantityCounter from './product/QuantityCounter'
 import CategoriesDropdown from './product/CategoriesDropdown'
+import SingleRecommendedProductCard from './product/SingleRecommendedProductCard'
+
 
 // ------------------ CART ATOMS
 import CartAction from './cart/CartAction'
@@ -30,6 +32,7 @@ import FormInput from './forms/FormInput'
 
 // ------------------ USER ATOMS
 import UserPill from './user/UserPill'
+
 
 export {
   Typography,
@@ -54,5 +57,6 @@ export {
   Input,
   CategoriesDropdown,
   LazyImage,
-  CartHeaderIcon
+  CartHeaderIcon,
+  SingleRecommendedProductCard
 }

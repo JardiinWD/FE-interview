@@ -27,7 +27,7 @@ const ReviewsCarousel: React.FC<IReviewsCarouselProps> = ({
       {/* Testato anche tentativo con più reviews per far scrollare il container con each={[...reviews, ...reviews]} */}
       <For each={[...reviews, ...reviews]}>
         {(item) =>
-          item && <SingleReview key={`${item}-review`} review={item} />
+          item && <SingleReview key={`${item}-review-${Math.random()}`} review={item} />
         }
       </For>
     </FlexContainer>

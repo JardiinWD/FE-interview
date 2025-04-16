@@ -171,6 +171,13 @@ export interface IProductPromise {
   status?: TPromiseStatus
 }
 
+export interface IProductByIDPromise {
+  data?: IProduct
+  error?: TPromiseError
+  status?: TPromiseStatus
+}
+
+
 // ------------ PRODUCT API CALL CONTEXT
 export type TProductApiContext =
   | 'getProducts'
@@ -192,7 +199,7 @@ export interface IProductApi {
     error: TPromiseError,
     context: TProductApiContext
   ) => Promise<IProductPromise>
-  getProductById?: (id: number) => Promise<IProductPromise>
+  getProductById: (id: number) => Promise<IProductByIDPromise>
   getProductsByCategory: (category: string) => Promise<IProductPromise>
   // TODO : To implement search and filter
 }

@@ -131,8 +131,6 @@ const useCartStore = create<ICartStore>()(
             return cart
           })
 
-          console.log('Updated cart:', updatedCart)
-
           // Return updated state
           return { cartData: updatedCart }
         }),
@@ -146,8 +144,6 @@ const useCartStore = create<ICartStore>()(
         set((state) => {
           // If state is null, return state without changes
           if (!state.cartData) return state
-
-          console.log('Removing product from cart:', { cartId, productId })
 
           // Create a deep copy of the cart array
           const updatedCart = state.cartData.map((cart) => {
@@ -196,8 +192,6 @@ const useCartStore = create<ICartStore>()(
           if (nonEmptyCarts.length === 0) {
             return { cartData: null }
           }
-
-          console.log('Updated cart after removal:', nonEmptyCarts)
 
           // Return updated state with non-empty carts
           return { cartData: nonEmptyCarts }
@@ -251,7 +245,6 @@ const useCartStore = create<ICartStore>()(
           if (!userId) return null
 
           const key = `${name}-${userId}`
-          console.log(`Loading cart for user ${userId} with key ${key}`)
           const value = localStorage.getItem(key)
           return value ? JSON.parse(value) : null
         },
@@ -262,8 +255,6 @@ const useCartStore = create<ICartStore>()(
           if (!userId) return
           // Create a unique key for the user
           const key = `${name}-${userId}`
-          // Save the cart data in localStorage
-          console.log(`Saving cart for user ${userId} with key ${key}`)
           // Convert the value to a string and save it
           localStorage.setItem(key, JSON.stringify(value))
         },

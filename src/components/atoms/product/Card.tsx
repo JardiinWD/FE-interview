@@ -171,7 +171,7 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         {/* Check Eye Icon */}
         <Link
           to={`/product/${product?.id}`}
-          state={{ product: product }}
+          state={{ productId: product?.id }}
           className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
         >
           <Icons.EyeIcon className="w-4 h-4 text-primary_black_500" />

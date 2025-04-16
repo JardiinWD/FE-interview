@@ -73,11 +73,6 @@ const Cart: React.FC = (): JSX.Element => {
   const tabApiCheckoutInfo = apiData?.data?.carts[state.activeTab] as ICart
   const activeTabApiCartId = apiData?.data?.carts[state.activeTab].id
 
-  console.log('====================================')
-  console.log('TAB CART DATA', cartData?.[state.activeTab])
-  console.log('TAB API DATA', apiData?.data?.carts[state.activeTab])
-  console.log('====================================')
-
   return (
     <FlexContainer
       flexContainerId="cart-page"

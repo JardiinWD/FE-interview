@@ -187,6 +187,11 @@ export interface IQuantityCounterProps {
   counterClassName?: string
 }
 
+export interface ISingleRecommendedProductCardProps {
+  product: IProduct
+}
+
+
 // -------------
 // ------------- BUTTON
 // -------------

@@ -1,18 +1,16 @@
+import { ProductApi } from '@/api'
 import { FlexContainer } from '@/components/atoms'
 import { ErrorState, LoadingState, RecommendedProducts } from '@/components/molecules'
 import { ReviewsCarousel, SingleProduct } from '@/components/organisms'
 import { useLoadingDelay } from '@/hooks'
+import { useQuery } from '@tanstack/react-query'
 import React, { JSX } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const Product: React.FC = (): JSX.Element => {
   // -------------- CUSTOM HOOK
   const location = useLocation()
-  const isLoading = useLoadingDelay(2000)
-
-  // -------------- LOADING STATE
-  if (isLoading) return <LoadingState containerId="product" />
-
+  
   // -------------- ERROR HANDLING
   if (!location || !location.state) {
     return (
@@ -24,10 +22,34 @@ const Product: React.FC = (): JSX.Element => {
       />
     )
   }
-  // -------------- DATA
-  const { product } = location.state
 
-  if (!product)
+  // -------------- DATA
+  const { productId } = location.state
+
+  // -------------- API CALL
+  const {
+    isPending,
+    data: apiData,
+  } = useQuery({
+    queryKey: ['productId', productId],
+    queryFn: async () => {
+      // Call the API to get the products and destructure the response
+      const { data, error } = await ProductApi.getProductById(productId)
+      // Return the necessary data
+      return {
+        data: data,
+        error: error,
+        status: status
+      }
+    }
+  })
+
+  // -------------- LOADING STATE
+  if (isPending) return <LoadingState containerId="product" />
+
+
+  // -------------- ERROR HANDLING
+  if (!apiData?.data)
     return (
       <ErrorState
         containerId="product-not-available"
@@ -47,9 +69,9 @@ const Product: React.FC = (): JSX.Element => {
       align="center"
       wrap='wrap'
     >
-      <SingleProduct product={product} />
-      {product.reviews && <ReviewsCarousel reviews={product.reviews} />}
-      {product.category && <RecommendedProducts category={product.category} />}
+      <SingleProduct product={apiData?.data} />
+      {apiData?.data?.reviews && <ReviewsCarousel reviews={apiData?.data?.reviews} />}
+      {apiData?.data?.category && <RecommendedProducts category={apiData?.data?.category} />}
     </FlexContainer>
   )
 }
