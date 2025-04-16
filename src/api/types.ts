@@ -177,7 +177,6 @@ export interface IProductByIDPromise {
   status?: TPromiseStatus
 }
 
-
 // ------------ PRODUCT API CALL CONTEXT
 export type TProductApiContext =
   | 'getProducts'

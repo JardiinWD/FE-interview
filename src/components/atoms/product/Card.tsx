@@ -187,9 +187,9 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
       >
         {/* CART ACTIONS */}
         <CartAction
-          containerClassName='w-full min-w-full'
-          counterClassName='lg:w-2/2'
-          buttonClassName='lg:w-2/2'
+          containerClassName="w-full min-w-full"
+          counterClassName="lg:w-2/2"
+          buttonClassName="lg:w-2/2"
           isLoading={state.isLoading}
           onAddToCart={handleAddToCart}
           product={product as IProduct}

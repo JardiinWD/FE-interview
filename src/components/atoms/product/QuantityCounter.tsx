@@ -92,7 +92,15 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   }
 
   return (
-    <FlexContainer gap={0} flexContainerId='quantity-counter' direction='row' wrap="nowrap" align='center' justify='center' className={`relative bg-primary_white_200 rounded-lg ${counterClassName} w-full`}>
+    <FlexContainer
+      gap={0}
+      flexContainerId="quantity-counter"
+      direction="row"
+      wrap="nowrap"
+      align="center"
+      justify="center"
+      className={`relative bg-primary_white_200 rounded-lg ${counterClassName} w-full`}
+    >
       {/* Decrement Button */}
       <Button
         buttonType="button"

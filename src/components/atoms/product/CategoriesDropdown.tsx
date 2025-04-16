@@ -111,7 +111,12 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
             className="block w-full capitalize text-center"
             onClick={() => handleCategorySelect('All Categories')}
           >
-            <Typography textColor={`all-categories-label`} text="All Categories" tagAs="span" weight="regular" />
+            <Typography
+              textColor={`all-categories-label`}
+              text="All Categories"
+              tagAs="span"
+              weight="regular"
+            />
           </Button>
           <For each={categories}>
             {(category) => (
@@ -123,7 +128,12 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
                 className="block w-full capitalize text-center"
                 onClick={() => handleCategorySelect(category)}
               >
-                <Typography textId={`dropdown-category-${category}`} text={category} tagAs="span" weight="regular" />
+                <Typography
+                  textId={`dropdown-category-${category}`}
+                  text={category}
+                  tagAs="span"
+                  weight="regular"
+                />
               </Button>
             )}
           </For>

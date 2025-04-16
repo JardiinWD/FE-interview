@@ -1,6 +1,10 @@
 import { ProductApi } from '@/api'
 import { FlexContainer } from '@/components/atoms'
-import { ErrorState, LoadingState, RecommendedProducts } from '@/components/molecules'
+import {
+  ErrorState,
+  LoadingState,
+  RecommendedProducts
+} from '@/components/molecules'
 import { ReviewsCarousel, SingleProduct } from '@/components/organisms'
 import { useLoadingDelay } from '@/hooks'
 import { useQuery } from '@tanstack/react-query'
@@ -10,7 +14,7 @@ import { useLocation } from 'react-router-dom'
 const Product: React.FC = (): JSX.Element => {
   // -------------- CUSTOM HOOK
   const location = useLocation()
-  
+
   // -------------- ERROR HANDLING
   if (!location || !location.state) {
     return (
@@ -27,10 +31,7 @@ const Product: React.FC = (): JSX.Element => {
   const { productId } = location.state
 
   // -------------- API CALL
-  const {
-    isPending,
-    data: apiData,
-  } = useQuery({
+  const { isPending, data: apiData } = useQuery({
     queryKey: ['productId', productId],
     queryFn: async () => {
       // Call the API to get the products and destructure the response
@@ -46,7 +47,6 @@ const Product: React.FC = (): JSX.Element => {
 
   // -------------- LOADING STATE
   if (isPending) return <LoadingState containerId="product" />
-
 
   // -------------- ERROR HANDLING
   if (!apiData?.data)
@@ -67,11 +67,15 @@ const Product: React.FC = (): JSX.Element => {
       direction="row"
       justify="center"
       align="center"
-      wrap='wrap'
+      wrap="wrap"
     >
       <SingleProduct product={apiData?.data} />
-      {apiData?.data?.reviews && <ReviewsCarousel reviews={apiData?.data?.reviews} />}
-      {apiData?.data?.category && <RecommendedProducts category={apiData?.data?.category} />}
+      {apiData?.data?.reviews && (
+        <ReviewsCarousel reviews={apiData?.data?.reviews} />
+      )}
+      {apiData?.data?.category && (
+        <RecommendedProducts category={apiData?.data?.category} />
+      )}
     </FlexContainer>
   )
 }

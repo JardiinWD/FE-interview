@@ -28,7 +28,7 @@ const FlexContainer: React.FC<IFlexContainerProps> = ({
   className = '',
   style = {},
   flexContainerId = `flex`,
-  as = 'div',
+  as = 'div'
 }): JSX.Element => {
   return (
     <Flex

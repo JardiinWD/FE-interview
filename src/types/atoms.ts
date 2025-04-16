@@ -56,7 +56,14 @@ export interface IGridContainerProps {
 // -------------
 
 // --> Possible Options for flex container Tag
-export type TFlexContainerTag = | 'div' | 'section' | 'article' | 'aside' | 'nav' | 'header' | 'footer'
+export type TFlexContainerTag =
+  | 'div'
+  | 'section'
+  | 'article'
+  | 'aside'
+  | 'nav'
+  | 'header'
+  | 'footer'
 // --> Possible flex directions options
 export type TFlexContainerDirections = 'row' | 'column'
 // --> Possible flex justify content options
@@ -191,7 +198,6 @@ export interface ISingleRecommendedProductCardProps {
   product: IProduct
 }
 
-
 // -------------
 // ------------- BUTTON
 // -------------
@@ -297,9 +303,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-  | null
-  | undefined
+    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+    | null
+    | undefined
   height?: number
   width?: number
   className?: string

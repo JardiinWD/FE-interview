@@ -36,7 +36,8 @@ export const ProductApi: IProductApi = {
       // 2. Retrieve the necessary Data from the API
       const response = await productApi.get(`/${id}`)
       // Check if the response is valid
-      if (!response.data) throw new Error(`Something went Wrong with getProductsByID API Call!`)
+      if (!response.data)
+        throw new Error(`Something went Wrong with getProductsByID API Call!`)
       // Return the data in the expected format
       return {
         data: response.data as IProduct,
@@ -98,7 +99,10 @@ export const ProductApi: IProductApi = {
       // 2. Retrieve the necessary Data from the API
       const response = await productApi.get(`/category/${category}`)
       // Check if the response is valid
-      if (!response.data) throw new Error(`Something went Wrong with getProductsByCategory API Call!`)
+      if (!response.data)
+        throw new Error(
+          `Something went Wrong with getProductsByCategory API Call!`
+        )
       // Return the data in the expected format
       return {
         data: response.data,
@@ -114,5 +118,5 @@ export const ProductApi: IProductApi = {
         'getProductsByCategory'
       )
     }
-  },
+  }
 }

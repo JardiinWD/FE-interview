@@ -21,7 +21,6 @@ import QuantityCounter from './product/QuantityCounter'
 import CategoriesDropdown from './product/CategoriesDropdown'
 import SingleRecommendedProductCard from './product/SingleRecommendedProductCard'
 
-
 // ------------------ CART ATOMS
 import CartAction from './cart/CartAction'
 import CheckoutItem from './cart/CheckoutItem'
@@ -32,7 +31,6 @@ import FormInput from './forms/FormInput'
 
 // ------------------ USER ATOMS
 import UserPill from './user/UserPill'
-
 
 export {
   Typography,

@@ -70,26 +70,24 @@ const CartHeaderIcon: React.FC = (): JSX.Element => {
         />
         {/* Cart Quantity */}
         {(tabApiTotalQuantity ?? tabCartTotalQuantity) && (
-            <Box
-              className="absolute top-[-0.5rem] right-[-1rem] bg-red-500 rounded-lg"
-              width={7}
-              height={7}
-            >
-              
-                <Typography
-                  textId="cart-quantity"
-                  text={(
-                    (tabApiTotalQuantity as number) ??
-                    (tabCartTotalQuantity as number)
-                  ).toString()}
-                  tagAs="span"
-                  weight="regular"
-                  textColor={'text-white'}
-                  className="text-center"
-                />
-              
-            </Box>
-          )}
+          <Box
+            className="absolute top-[-0.5rem] right-[-1rem] bg-red-500 rounded-lg"
+            width={7}
+            height={7}
+          >
+            <Typography
+              textId="cart-quantity"
+              text={(
+                (tabApiTotalQuantity as number) ??
+                (tabCartTotalQuantity as number)
+              ).toString()}
+              tagAs="span"
+              weight="regular"
+              textColor={'text-white'}
+              className="text-center"
+            />
+          </Box>
+        )}
       </Button>
     </Link>
   )
