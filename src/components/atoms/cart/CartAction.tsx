@@ -64,6 +64,7 @@ const CartAction: React.FC<ICartActionProps> = ({
       flexContainerId="add-to-cart"
       align="center"
       justify="space-between"
+      className="w-full lg:w-[80%]"
       gap={2}
     >
       {/* Add To Cart */}
@@ -73,7 +74,7 @@ const CartAction: React.FC<ICartActionProps> = ({
           buttonId="add-to-cart"
           buttonType="button"
           isLoading={isLoading}
-          className="w-[150px] min-w-[150px]"
+          className="lg:w-[150px] lg:min-w-[150px] w-full"
           //@ts-expect-error - Something is wrong with the type of `onClick`
           onClick={onAddToCart}
         >
@@ -92,7 +93,7 @@ const CartAction: React.FC<ICartActionProps> = ({
           buttonId="remove-from-cart"
           buttonType="button"
           isLoading={isLoading}
-          className="w-[10rem] max-w-[10rem] !p-2.5"
+          className="lg:w-[10rem] lg:max-w-[10rem] w-full !p-2.5"
           //@ts-expect-error - Something is wrong with the type of `onClick`
           onClick={onRemoveFromCart}
         >

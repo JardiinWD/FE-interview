@@ -24,7 +24,7 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
       direction="column"
       justify="flex-start"
       align="flex-start"
-      wrap="nowrap"
+      wrap="wrap"
       className="h-fit w-full lg:w-[65%] relative z-10 bg-white shadow-lg rounded-lg p-6"
       style={{
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)'
@@ -42,7 +42,7 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
             key={`single-cart-product-${index}`}
             justify="space-between"
             align="center"
-            wrap="nowrap"
+            wrap="wrap"
             className={`w-full ${index === cartProducts.length - 1 ? '' : 'border-b'} ${index > cartProducts.length - 1 ? '' : 'pb-4'} ${index > cartProducts.length - 1 ? '' : 'pt-2'}`}
           >
             <CartSummaryProductInfo

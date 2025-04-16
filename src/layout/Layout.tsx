@@ -21,7 +21,7 @@ const Layout = () => {
       direction="column"
       justify="flex-start"
       align="flex-start"
-      className="relative w-full min-h-[100dvh]"
+      className="relative w-full h-full"
       flexContainerId="layout"
     >
       {/* HELMET DATA */}

@@ -89,7 +89,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   }
 
   return (
-    <div className="relative flex items-center max-w-[8rem]">
+    <div className="relative flex items-center lg:max-w-[8rem] w-full">
       {/* Decrement Button */}
       <Button
         buttonType="button"

@@ -22,7 +22,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
       justify="flex-end"
       align="flex-end"
       wrap="nowrap"
-      className={`w-full lg:w-[20%] lg:!flex-nowrap !flex-wrap`}
+      className={`w-full lg:w-[20%] lg:!flex-col !flex-row lg:!flex-nowrap !flex-wrap`}
       gap={1}
     >
       {/* OLD PRICE */}
@@ -31,6 +31,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
         weight="bold"
         tagAs="h6"
         text={transformNumberToCurrency(item.total) ?? '---'}
+        className="w-[50%]"
       />
       {/* NEW PRICE */}
       <FlexContainer

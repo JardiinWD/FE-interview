@@ -27,22 +27,18 @@ const Header: React.FC = (): JSX.Element => {
       className="w-full relative h-28 bg-primary_yellow_500 text:primary_white_200"
     >
       {/* LOGO */}
-      <Image
-        src={Images.Logo}
-        alt="Logo"
-        className="absolute left-2"
-        htmlWidth={100}
-        htmlHeight={100}
-      />
+      <Link className="absolute left-2" to="/">
+        <Image src={Images.Logo} alt="Logo" htmlWidth={100} htmlHeight={100} />
+      </Link>
       {/* LINKS */}
-      <Link className="lg:flex hidden" to="/">
+      {/* <Link className="lg:flex hidden" to="/">
         <Typography
           text="Products"
           tagAs="h4"
           weight="bold"
           textColor={`${['/'].includes(location.pathname) ? 'text-white' : 'text-primary_black_600'}`}
         />
-      </Link>
+      </Link> */}
       <FlexContainer
         direction="row"
         flexContainerId="header-cart-and-user-pill"

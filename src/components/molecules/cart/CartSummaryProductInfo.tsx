@@ -29,7 +29,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
       justify="flex-start"
       align="center"
       wrap="nowrap"
-      className={`w-[70%]`}
+      className={`lg:w-[70%] w-full`}
       gap={5}
     >
       {/* PRODUCT IMAGE */}
@@ -47,6 +47,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
         justify="flex-start"
         align="flex-start"
         wrap="nowrap"
+        className="lg:w-[70%] w-full"
       >
         {/* Product Title */}
         <Typography
