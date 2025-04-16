@@ -43,36 +43,13 @@ const Login: React.FC = (): JSX.Element => {
       // If there are Any error occured then catch it
       if (authError || authStatus !== 'success')
         throw new Error(`${authError as string}`)
-        // Else if the response is valid then set the token and userId in the store
-
-            // ! ======= DISCLAIMER ========
-          // ! Questa logica di navigate prima di decodificare il token e settare lo store di zustand
-          // ! Senza controllare authData deriva dal fatto che cypress non riconosce la response.data della chiamata login!
-          // ! Sotto segue quella che per me dovrebbe essere la logica corretta di autenticazione. 
-       
-       
-          /* if (authData) {
-            // Decode the Received JWT Token in order to retrieve expiration date
-            const decodedToken = jwtDecode(authData.accessToken)
-            // Set the proper variables to the Zustand Store
-            useAuthStore.setState({
-              userId: authData.id,
-              allUserData: authData,
-              expirationDate: transformJwtExpirationDate(decodedToken.exp as number)
-            })
-            // Carica il carrello dell'utente
-            loadUserCart()
-            // Navigate to Home
-            navigate('/')
-          } */
-      
-
-        
+      // Else if the response is valid then set the token and userId in the store
+      if (authData) {
         // Decode the Received JWT Token in order to retrieve expiration date
-        const decodedToken = jwtDecode(authData?.accessToken as string)
+        const decodedToken = jwtDecode(authData.accessToken)
         // Set the proper variables to the Zustand Store
         useAuthStore.setState({
-          userId: authData?.id,
+          userId: authData.id,
           allUserData: authData,
           expirationDate: transformJwtExpirationDate(decodedToken.exp as number)
         })
@@ -80,7 +57,7 @@ const Login: React.FC = (): JSX.Element => {
         loadUserCart()
         // Navigate to Home
         navigate('/')
-      
+      }
     } catch (error) {
       console.error('Something Went Wrong during Authentication!', error)
       setState((prevState) => ({

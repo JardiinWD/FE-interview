@@ -27,7 +27,7 @@ const CartHeaderIcon: React.FC = (): JSX.Element => {
   const { cartData } = useCartStore()
 
   // -------------- API CALL
-  const { isPending,  data: apiData } = useQuery({
+  const { isPending, data: apiData } = useQuery({
     queryKey: [userId], // Keeps previous data for 5 seconds
     staleTime: 5000,
     queryFn: async () => {
@@ -74,23 +74,21 @@ const CartHeaderIcon: React.FC = (): JSX.Element => {
             width={7}
             height={7}
           >
-            {
-              isPending ? (
-                <Spinner width='0.5rem' height='0.5rem' />
-              ) : (
-                <Typography
-                  textId="cart-quantity"
-                  text={(
-                    (tabApiTotalQuantity as number) ??
-                    (tabCartTotalQuantity as number)
-                  ).toString()}
-                  tagAs="span"
-                  weight="regular"
-                  textColor={'text-white'}
-                  className="text-center"
-                />
-              )
-            }
+            {isPending ? (
+              <Spinner width="0.5rem" height="0.5rem" />
+            ) : (
+              <Typography
+                textId="cart-quantity"
+                text={(
+                  (tabApiTotalQuantity as number) ??
+                  (tabCartTotalQuantity as number)
+                ).toString()}
+                tagAs="span"
+                weight="regular"
+                textColor={'text-white'}
+                className="text-center"
+              />
+            )}
           </Box>
         )}
       </Button>

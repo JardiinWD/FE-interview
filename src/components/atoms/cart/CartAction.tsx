@@ -34,13 +34,11 @@ const CartAction: React.FC<ICartActionProps> = ({
   buttonClassName = 'lg:w-[10rem] lg:max-w-[10rem]',
   counterClassName = ''
 }): JSX.Element => {
+  console.log('====================================')
+  console.log('product', product)
+  console.log('Cart', cart)
 
-  console.log('====================================');
-  console.log('product', product);
-  console.log('Cart', cart);
-  
-  console.log('====================================');
-
+  console.log('====================================')
 
   // ------------ COUNTER CART ACTION
   const counterValues = product
@@ -78,7 +76,6 @@ const CartAction: React.FC<ICartActionProps> = ({
       flexContainerId="add-to-cart"
       align="center"
       justify="space-between"
-      
       className={`w-full ${containerClassName}`}
       gap={2}
     >

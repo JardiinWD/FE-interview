@@ -13,9 +13,8 @@ import { ToastContainer } from 'react-toastify'
 import { useAuthStore } from '@/store'
 
 if (typeof window !== 'undefined') {
-  window.useAuthStore = useAuthStore;
+  window.useAuthStore = useAuthStore
 }
-
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

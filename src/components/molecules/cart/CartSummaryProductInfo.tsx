@@ -22,13 +22,13 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   // -------------- ZUSTAND STORE
   const { removeProductFromCart } = useCartStore()
   // ------------ CUSTOM HOOK
-    const {  retrieveCurrentQuantity } = useCartActions(item)
+  const { retrieveCurrentQuantity } = useCartActions(item)
 
-    console.log('====================================');
-    console.log('item', item);
-    console.log('index', index);
-    console.log('cartId', cartId);
-    console.log('====================================');
+  console.log('====================================')
+  console.log('item', item)
+  console.log('index', index)
+  console.log('cartId', cartId)
+  console.log('====================================')
 
   return (
     <FlexContainer
@@ -68,7 +68,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
         />
         {/* CART ACTIONS */}
         <CartAction
-          containerClassName='lg:w-[70%] !flex-row !flex-nowrap'
+          containerClassName="lg:w-[70%] !flex-row !flex-nowrap"
           isRemoveFromCartVisible={true}
           onRemoveFromCart={() =>
             removeProductFromCart(cartId as number, item.id as number)

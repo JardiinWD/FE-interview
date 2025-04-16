@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom'
 appConfig
 
 const Header: React.FC = (): JSX.Element => {
-
   return (
     <FlexContainer
       direction="row"
