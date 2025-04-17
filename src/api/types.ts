@@ -64,6 +64,7 @@ export interface ICart {
   quantity: number
   discountPercentage: number
   price: number
+  stock?: number
 }
 
 // ------------ CART DATA

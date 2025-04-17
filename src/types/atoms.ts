@@ -132,6 +132,9 @@ export interface ICartActionProps {
   buttonClassName?: string
   counterClassName?: string
   dataTestId?: string
+  isAddToCartDisabled?: boolean
+  isDecrementDisabled?: boolean
+  isIncrementDisabled?: boolean
 }
 
 export interface ICartCheckoutItemProps {
@@ -182,6 +185,8 @@ export interface IQuantityCounterProps {
   onChange?: (value: number) => void
   onRetrieveCurrentQuantity?: (quantity: number) => void
   counterClassName?: string
+  isDecrementDisabled?: boolean
+  isIncrementDisabled?: boolean
 }
 
 export interface ISingleRecommendedProductCardProps {
@@ -288,9 +293,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-    | null
-    | undefined
+  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+  | null
+  | undefined
   height?: number
   width?: number
   className?: string

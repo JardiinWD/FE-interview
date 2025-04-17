@@ -21,6 +21,9 @@ import { ICartActionProps } from '@/types/atoms'
  * @param {string} counterClassName - Additional class name for the counter
  * @param {boolean} isLoading - Flag to show loading state
  * @param {string} dataTestId - Data test ID for the component
+ * @param {boolean} isAddToCartDisabled - Flag to disable the Add to Cart button
+ * @param {boolean} isDecrementDisabled - Flag to disable the decrement button
+ * @param {boolean} isIncrementDisabled - Flag to disable the increment button
  */
 const CartAction: React.FC<ICartActionProps> = ({
   product,
@@ -34,7 +37,10 @@ const CartAction: React.FC<ICartActionProps> = ({
   containerClassName = 'lg:w-[40%]',
   buttonClassName = 'lg:w-[10rem] lg:max-w-[10rem]',
   counterClassName = '',
-  dataTestId = 'cart-action'
+  dataTestId = 'cart-action',
+  isAddToCartDisabled = false,
+  isDecrementDisabled = false,
+  isIncrementDisabled = false
 }): JSX.Element => {
   // ------------ COUNTER CART ACTION
   const counterValues = product
@@ -95,6 +101,7 @@ const CartAction: React.FC<ICartActionProps> = ({
           buttonId="add-to-cart"
           dataTestId="add-to-cart"
           buttonType="button"
+          disabled={isAddToCartDisabled}
           isLoading={isLoading}
           className={`${buttonClassName} w-full`}
           //@ts-expect-error - Something is wrong with the type of `onClick`
@@ -133,6 +140,8 @@ const CartAction: React.FC<ICartActionProps> = ({
 
       {/* Quantity Counter */}
       <QuantityCounter
+        isDecrementDisabled={isDecrementDisabled}
+        isIncrementDisabled={isIncrementDisabled}
         initialValue={counterValues.initialValue}
         minValue={counterValues.minValue}
         maxValue={counterValues.maxValue}

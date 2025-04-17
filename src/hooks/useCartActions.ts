@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ICart, IProduct } from '@/api/types'
 import { CartApi } from '@/api'
 import { useAuthStore, useCartStore } from '@/store'
@@ -8,6 +8,10 @@ import { toast } from 'react-toastify'
 export interface ICartActionsState {
   currentQuantity: number
   isLoading: boolean
+  isMaxStockReached: boolean // Nuovo stato per tracciare se abbiamo raggiunto lo stock massimo
+  isIncrementDisabled: boolean // Nuovo stato per tracciare se il bottone incremento deve essere disabilitato
+  isDecrementDisabled: boolean // Nuovo stato per tracciare se il bottone decremento deve essere disabilitato
+  isAddToCartDisabled: boolean // Nuovo stato per tracciare se il bottone "Add to Cart" deve essere disabilitato
 }
 
 export interface IUseCartActions {
@@ -26,14 +30,20 @@ export const useCartActions = (
   product: IProduct | undefined
 ): IUseCartActions => {
   // ------------ STATES
+
+  // Initial quantity is set to the minimum order quantity or stock, whichever is lower
+  const initialQuantity = product
+    ? Math.min(product.minimumOrderQuantity || 1, product.stock || 999)
+    : 1;
+
+
   const [state, setState] = useState<ICartActionsState>({
-    currentQuantity: product
-      ? Math.min(
-        product.minimumOrderQuantity || 1,
-        product.stock || 999
-      )
-      : 1,
-    isLoading: false
+    isLoading: false,
+    currentQuantity: initialQuantity,
+    isMaxStockReached: product ? initialQuantity >= (product.stock || 0) : false,
+    isIncrementDisabled: product ? initialQuantity >= (product.stock || 0) : true,
+    isDecrementDisabled: product ? initialQuantity <= (product.minimumOrderQuantity || 1) : true,
+    isAddToCartDisabled: product ? product.stock <= 0 : true
   })
 
   // ------------ ZUSTAND STORE
@@ -46,11 +56,39 @@ export const useCartActions = (
    * @param {number} quantity - The current quantity of the product
    */
   const retrieveCurrentQuantity = (quantity: number) => {
-    setState((prevState) => ({
+    if (!product) return;
+
+    // Check if the quantity is less than the minimum order quantity
+    const minQuantity = product.minimumOrderQuantity || 1;
+    const maxQuantity = product.stock || 0;
+
+    // Update the state with the new quantity and check if max stock is reached
+    setState(prevState => ({
       ...prevState,
-      currentQuantity: quantity
-    }))
+      currentQuantity: quantity,
+      isMaxStockReached: quantity >= maxQuantity,
+      isIncrementDisabled: quantity >= maxQuantity,
+      isDecrementDisabled: quantity <= minQuantity,
+      isAddToCartDisabled: maxQuantity <= 0 || quantity > maxQuantity
+    }));
   }
+
+
+  // ------------ USE EFFECT
+  useEffect(() => {
+    if (product) {
+      const minQuantity = product.minimumOrderQuantity || 1;
+      const maxQuantity = product.stock || 0;
+
+      setState(prev => ({
+        ...prev,
+        isMaxStockReached: state.currentQuantity >= maxQuantity,
+        isIncrementDisabled: state.currentQuantity >= maxQuantity,
+        isDecrementDisabled: state.currentQuantity <= minQuantity,
+        isAddToCartDisabled: maxQuantity <= 0 || state.currentQuantity > maxQuantity
+      }));
+    }
+  }, [state.currentQuantity, product]);
 
   /**
    * @description Function to handle the "Add to Cart" action
@@ -59,6 +97,12 @@ export const useCartActions = (
    */
   const onAddToCart = async (product: Partial<ICart>, userId: number) => {
     try {
+      if (state.isAddToCartDisabled) {
+        toast.error('Cannot add more items than available in stock');
+        return;
+      }
+
+
       // Set Loading State
       setState((prevState) => ({
         ...prevState,
@@ -90,6 +134,14 @@ export const useCartActions = (
         updateCartWithNewProducts(cartId, [data])
         toast.success(`Product Added to Cart Successfully!`)
       }
+      // After we're done with the API Call, we need to check if the product is in stock
+      if (product && state.currentQuantity >= (product?.stock || 0)) {
+        setState(prev => ({
+          ...prev,
+          isAddToCartDisabled: true
+        }));
+      }
+
     } catch (error) {
       // Add toaster with the error message
       toast.error(error as string)
@@ -106,7 +158,6 @@ export const useCartActions = (
    */
   const handleAddToCart = () => {
     if (!product || !userId) return
-
     onAddToCart({ quantity: state.currentQuantity, id: product.id }, userId)
   }
 

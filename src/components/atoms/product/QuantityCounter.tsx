@@ -5,6 +5,8 @@ import { Button, FlexContainer } from '@/components/atoms'
 // ---------- USE EFFECTS
 interface IState {
   value: number
+  isDecrementDisabled: boolean
+  isIncrementDisabled: boolean
 }
 
 /**
@@ -18,6 +20,8 @@ interface IState {
  * @param {function} onChange - Callback function for handling input change
  * @param {function} onRetrieveCurrentQuantity - Callback function for retrieving the current quantity
  * @param {string} counterClassName - Additional class name for the counter
+ * @param {boolean} isDecrementDisabled - Flag to disable the decrement button
+ * @param {boolean} isIncrementDisabled - Flag to disable the increment button
  */
 const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   minValue = 0,
@@ -28,17 +32,35 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
   onDecrement,
   onChange,
   onRetrieveCurrentQuantity,
-  counterClassName = 'lg:max-w-[8rem] lg:w-[8rem]'
+  counterClassName = 'lg:max-w-[8rem] lg:w-[8rem]',
+  isDecrementDisabled = false,
+  isIncrementDisabled = false
 }): JSX.Element => {
   // ---------- STATE
   const [state, setState] = useState<IState>({
-    value: initialValue
+    value: initialValue,
+    isDecrementDisabled: isDecrementDisabled,
+    isIncrementDisabled: isIncrementDisabled
   })
 
   // ---------- USE EFFECTS
   useEffect(() => {
-    setState({ value: initialValue })
+    setState((prevState) => ({ ...prevState, value: initialValue }))
   }, [initialValue])
+
+  useEffect(() => {
+    setState((prevState) => ({
+      ...prevState,
+      isDecrementDisabled: state.value <= minValue || isDecrementDisabled,
+      isIncrementDisabled: state.value >= maxValue || isIncrementDisabled
+    }))
+  }, [
+    state.value,
+    minValue,
+    maxValue,
+    isDecrementDisabled,
+    isIncrementDisabled
+  ])
 
   // ---------- METHODS
 
@@ -109,7 +131,8 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
         dataTestId="decrement-button"
         buttonId="decrement-button"
         onClick={handleDecrement}
-        className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+        disabled={state.isDecrementDisabled}
+        className={`bg-gray-100 ${state.isDecrementDisabled ? 'cursor-not-allowed opacity-50' : ''}  hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none`}
       >
         <svg
           className="w-3 h-3 text-gray-900 dark:text-primary_black_700"
@@ -147,7 +170,8 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
         variant="secondary"
         buttonId="decrement-button"
         onClick={handleIncrement}
-        className="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+        disabled={state.isIncrementDisabled}
+        className={`bg-gray-100 ${state.isIncrementDisabled ? 'cursor-not-allowed opacity-50' : ''} hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none`}
       >
         <svg
           className="w-3 h-3 text-gray-900 dark:text-primary_black_700"

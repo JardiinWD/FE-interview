@@ -173,6 +173,7 @@ const CardFooter: React.FC<ICardProps> = ({ product, dataTestId }) => {
       >
         {/* CART ACTIONS */}
         <CartAction
+          isAddToCartDisabled={state.isAddToCartDisabled}
           containerClassName="w-full min-w-full"
           counterClassName="lg:w-2/2"
           buttonClassName="lg:w-2/2"
