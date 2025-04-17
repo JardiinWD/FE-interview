@@ -65,6 +65,9 @@ export interface ICart {
   discountPercentage: number
   price: number
   stock?: number
+  minimumOrderQuantity?: number
+  title?: string
+  thumbnail?: string
 }
 
 // ------------ CART DATA
@@ -73,6 +76,7 @@ export interface ICartData {
   total: number
   skip: number
   limit: number
+  products?: Partial<IProduct>[]
 }
 
 // ------------ CART PROMISE

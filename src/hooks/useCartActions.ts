@@ -121,6 +121,16 @@ export const useCartActions = (
         isLoading: true
       }))
 
+      // Before the API Call, we need to log the original product values
+      const originalProductStock = product?.stock;
+      const originalProductMinimumOrderQuantity = product?.minimumOrderQuantity;
+
+      console.log('Original product values:', {
+        id: product.id,
+        stock: originalProductStock,
+        minimumOrderQuantity: originalProductMinimumOrderQuantity
+      });
+
       // Invoke the API Call
       const { data, error, status } = await CartApi.addNewCart(
         userId,
@@ -133,17 +143,31 @@ export const useCartActions = (
         throw new Error(`Something went wrong with the API Call! --> ${error}`)
       }
 
+      const necessaryData = {
+        ...data,
+        products: Array.isArray(data?.products)
+          ? data?.products.map((p: any) => ({
+            ...p,
+            // Preserviamo stock e minimumOrderQuantity dall'originale
+            stock: p.id === product.id ? product.stock : p.stock,
+            minimumOrderQuantity: p.id === product.id
+              ? product.minimumOrderQuantity
+              : p.minimumOrderQuantity
+          }))
+          : []
+      };
+
       // Check if the Cart Data is empty
       if (!cartData) {
         // If the cart data is empty, create a new cart
         // @ts-ignore - TODO: Quick Fix before release
-        createNewCart(data)
+        createNewCart(necessaryData)
         toast.success(`Product Added to Cart Successfully!`)
       } else {
         // If the cart data is not empty, update the existing cart with new products
         const cartId = cartData[0].id
         // @ts-ignore - TODO: Quick Fix before release
-        updateCartWithNewProducts(cartId, [data])
+        updateCartWithNewProducts(cartId, [necessaryData])
         toast.success(`Product Added to Cart Successfully!`)
       }
       // After we're done with the API Call, we need to check if the product is in stock
@@ -164,12 +188,20 @@ export const useCartActions = (
     }
   }
 
-  /**
-   * @description Convenience function to add the current product to cart
-   */
+  //  Convenience function to add the current product to cart
   const handleAddToCart = () => {
     if (!product || !userId) return
-    onAddToCart({ quantity: state.currentQuantity, id: product.id }, userId)
+    // Pass all the necessary properties to the onAddToCart function
+    onAddToCart({
+      quantity: state.currentQuantity,
+      id: product.id,
+      stock: product.stock,
+      minimumOrderQuantity: product.minimumOrderQuantity,
+      price: product.price,
+      title: product.title,
+      discountPercentage: product.discountPercentage,
+      thumbnail: product.thumbnail
+    }, userId)
   }
 
   return {

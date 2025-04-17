@@ -5,7 +5,7 @@ import {
   Typography
 } from '@/components/atoms'
 import { ICartActionProps } from '@/types/atoms'
-import React, { JSX } from 'react'
+import React, { JSX, useEffect } from 'react'
 
 /**
  * @description CartAction Component for Product Page
@@ -42,6 +42,27 @@ const CartAction: React.FC<ICartActionProps> = ({
   isDecrementDisabled = false,
   isIncrementDisabled = false
 }): JSX.Element => {
+  // Log per debugging
+  useEffect(() => {
+    if (cart) {
+      console.log('CartAction - Cart Props:', {
+        id: cart.id,
+        quantity: cart.quantity,
+        stock: cart.stock,
+        minimumOrderQuantity: cart.minimumOrderQuantity
+      })
+    }
+
+    if (product) {
+      console.log('CartAction - Product Props:', {
+        id: product.id,
+        title: product.title,
+        stock: product.stock,
+        minimumOrderQuantity: product.minimumOrderQuantity
+      })
+    }
+  }, [cart, product])
+
   // ------------ COUNTER CART ACTION
   const counterValues = product
     ? {
@@ -58,29 +79,17 @@ const CartAction: React.FC<ICartActionProps> = ({
     : cart
       ? {
           initialValue: cart.quantity || 0,
-          minValue: cart.quantity || 0,
-          maxValue: cart.quantity
+          minValue: cart.minimumOrderQuantity || 1,
+          maxValue:
+            typeof cart.stock === 'number'
+              ? cart.stock
+              : Math.max(100, (cart.quantity || 0) + 20)
         }
       : {
           initialValue: 0,
           minValue: 0,
           maxValue: 0
         }
-
-  // Log per debug
-  /* useEffect(() => {
-    if (product) {
-      console.log('CartAction - counterValues:', {
-        productId: product.id,
-        title: product.title,
-        minimumOrderQuantity: product.minimumOrderQuantity,
-        stock: product.stock,
-        initialValue: counterValues.initialValue,
-        minValue: counterValues.minValue,
-        maxValue: counterValues.maxValue
-      })
-    }
-  }, [product, counterValues]) */
 
   return (
     <FlexContainer

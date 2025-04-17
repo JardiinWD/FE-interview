@@ -79,7 +79,7 @@ const CardBody: React.FC<ICardProps> = ({
         textColor="text-primary_black_500"
         weight="regular"
         tagAs="p"
-        text={truncateLongText(description, 70)}
+        text={truncateLongText(description, 60)}
         className="mb-3 font-normal "
       />
       {/* RATING + STARS */}
