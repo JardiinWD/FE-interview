@@ -35,6 +35,7 @@ const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
     >
       {/* PRODUCT IMAGE */}
       <Image
+        data-testid={`single-product-${product?.id}-image`}
         className="rounded-lg hidden lg:flex lg:h-[24rem] lg:w-[24rem] bg-primary_white_100"
         src={product.images[0]}
         alt={product.title}
@@ -42,6 +43,7 @@ const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
       />
       {/* PRODUCT INFO */}
       <FlexContainer
+        dataTestId={`single-product-${product?.id}-body`}
         flexContainerId="product-info"
         direction="column"
         justify="flex-start"
@@ -78,6 +80,7 @@ const ProductInfo: React.FC<ISingleProductProps> = ({
       {product?.rating && (
         <FlexContainer
           flexContainerId="product-rating"
+          dataTestId="product-rating"
           direction="row"
           justify="flex-start"
           align="center"
@@ -99,6 +102,7 @@ const ProductInfo: React.FC<ISingleProductProps> = ({
       )}
       {/* PRODUCT DESCRIPTION */}
       <Typography
+        dataTestId="product-description"
         textId={`product-description-${product.description}`}
         textColor="text-primary_black_500 pb-4 lg:pb-0"
         weight="regular"
@@ -138,6 +142,7 @@ const ProductAdditionalInfo: React.FC<ISingleProductProps> = ({
       className="w-full border-t-[1px] pt-2"
       wrap="nowrap"
       flexContainerId="product-additional-info"
+      dataTestId="product-additional-info"
       direction="column"
       justify="space-between"
       align="flex-start"

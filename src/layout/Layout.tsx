@@ -49,7 +49,11 @@ const Layout = () => {
       <Header />
       {/* GO Back Button */}
       {!['/', '/checkout'].includes(location.pathname) && (
-        <Link className="absolute top-[7.5rem] left-2 p-2" to="/">
+        <Link
+          data-testid="go-back-button"
+          className="absolute top-[7.5rem] left-2 p-2"
+          to="/"
+        >
           <Button
             variant="primary"
             buttonId="go-back-button"

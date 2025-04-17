@@ -73,7 +73,11 @@ const ProductRating: React.FC<IProductRatingProps> = ({
     }
   })
 
-  return <div className="flex items-center">{stars}</div>
+  return (
+    <div data-testid="stars-rating" className="flex items-center">
+      {stars}
+    </div>
+  )
 }
 
 export default ProductRating

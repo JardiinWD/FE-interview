@@ -15,6 +15,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     <FlexContainer
       className="w-full"
       flexContainerId={`${label}-info`}
+      dataTestId="additional-info"
       direction="row"
       justify="space-between"
       align="center"
@@ -23,6 +24,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       <Typography
         textId={`label-${label}`}
         textColor="text-primary_black_500"
+        dataTestId={`label-${label}`}
         weight="regular"
         tagAs="span"
         text={label}
