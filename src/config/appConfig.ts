@@ -76,6 +76,12 @@ export const appConfig: TAppConfig = {
       keywords: ['cart', 'checkout', 'products'],
       route: '/cart'
     },
+    checkout: {
+      title: 'Checkout',
+      description: 'Checkout',
+      keywords: ['checkout', 'carts', 'products'],
+      route: '/checkout'
+    },
     error: {
       title: 'Error',
       description: 'An error occurred',

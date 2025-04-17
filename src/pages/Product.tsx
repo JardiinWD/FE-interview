@@ -18,6 +18,7 @@ const Product: React.FC = (): JSX.Element => {
   if (!location || !location.state) {
     return (
       <ErrorState
+        dataTestId="product-error-landing"
         containerId="product-location-state"
         errorDevMessage={`Something went Wrong with the product, this is the current location.state : ${location.state}`}
         errorMessage="This product is not available!"
