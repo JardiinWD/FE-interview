@@ -34,7 +34,7 @@ const Error: React.FC<IErrorProps> = ({
         justify="center"
         align="center"
         gap={2}
-        className="lg:h-[75dvh] h-screen w-screen bg-primary_yellow_600 lg:bg-white"
+        className="h-screen w-screen bg-primary_yellow_600 lg:bg-white"
       >
         <EmptyCard
           cardError={error as string}
@@ -51,13 +51,15 @@ const Error: React.FC<IErrorProps> = ({
 
     return (
       <FlexContainer
+        as="section"
         flexContainerId="error-page"
+        dataTestId="error-page"
         wrap="nowrap"
         direction="column"
         justify="center"
         align="center"
         gap={2}
-        className="lg:h-[75dvh] h-screen w-screen p-4 bg-primary_yellow_600 lg:bg-white"
+        className="h-screen w-screen p-4 bg-primary_yellow_600 lg:bg-white"
       >
         <EmptyCard
           cardError={errorMessage as string}

@@ -2,6 +2,7 @@ import { ICart, IProduct } from '@/api/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { useAuthStore } from '@/store'
+import { validateQuantity } from '@/utils/functions'
 
 interface IProductWithQuantity extends IProduct {
   quantity?: number
@@ -73,11 +74,18 @@ const useCartStore = create<ICartStore>()(
                   // If the product already exists, keep the original discounted prices
                   // but update the quantity
                   const originalProduct = updatedProducts[existingIndex]
-                  const newQuantity =
+                  const requestedQuantity =
                     (originalProduct.quantity || 0) + (newProduct.quantity || 1)
 
+                  // Validate quantity against min/max constraints
+                  const validatedQuantity = validateQuantity(
+                    originalProduct as IProduct,
+                    requestedQuantity
+                  )
+
                   // Calculate the new total price of the product based on the new quantity
-                  const newTotal = (originalProduct.price || 0) * newQuantity
+                  const newTotal =
+                    (originalProduct.price || 0) * validatedQuantity
 
                   // Calculate the new discounted price based on the original discount percentage
                   const discountPercentage =
@@ -87,13 +95,31 @@ const useCartStore = create<ICartStore>()(
 
                   updatedProducts[existingIndex] = {
                     ...originalProduct,
-                    quantity: newQuantity,
+                    quantity: validatedQuantity,
                     total: newTotal,
                     discountedPrice: newDiscountedPrice
                   }
                 } else {
-                  // If product does not exist, add it keeping its original values
-                  updatedProducts.push(newProduct)
+                  // For new products, validate quantity before adding
+                  const validatedQuantity = validateQuantity(
+                    newProduct as IProduct,
+                    newProduct.quantity || 1
+                  )
+
+                  // Calculate correct total based on validated quantity
+                  const total = (newProduct.price || 0) * validatedQuantity
+
+                  // Calculate correct discounted price
+                  const discountPercentage = newProduct.discountPercentage || 0
+                  const discountedPrice = total * (1 - discountPercentage / 100)
+
+                  // Add the product with validated quantity and correct price calculations
+                  updatedProducts.push({
+                    ...newProduct,
+                    quantity: validatedQuantity,
+                    total: total,
+                    discountedPrice: discountedPrice
+                  })
                 }
               })
 
@@ -162,24 +188,40 @@ const useCartStore = create<ICartStore>()(
               )
 
               // Calculate the total by summing up the price * quantity for each product
-              const total = filteredProducts.reduce(
-                (sum, p) =>
-                  sum +
-                  (p.price || 0) * ((p as IProductWithQuantity).quantity || 1),
-                0
-              )
+              const total = filteredProducts.reduce((sum, p) => {
+                // Validate quantity against min/max constraints
+                const validatedQuantity = validateQuantity(
+                  p as IProduct,
+                  (p as IProductWithQuantity).quantity || 1
+                )
+
+                return sum + (p.price || 0) * validatedQuantity
+              }, 0)
 
               // Calculate the discounted total by summing up the discounted prices
-              // Use the same logic as in updateCartWithNewProducts
               const discountedTotal = filteredProducts.reduce((sum, p) => {
+                // Validate quantity against min/max constraints
+                const validatedQuantity = validateQuantity(
+                  p as IProduct,
+                  (p as IProductWithQuantity).quantity || 1
+                )
+
                 // If the product already has a discountedPrice, use it
                 if (p.discountedPrice !== undefined) {
+                  // Recalculate based on validated quantity if needed
+                  const originalQuantity =
+                    (p as IProductWithQuantity).quantity || 1
+                  if (validatedQuantity !== originalQuantity) {
+                    return (
+                      sum +
+                      (p.discountedPrice / originalQuantity) * validatedQuantity
+                    )
+                  }
                   return sum + p.discountedPrice
                 }
 
                 // Otherwise, calculate the discounted price using discountPercentage
-                const productTotal =
-                  (p.price || 0) * ((p as IProductWithQuantity).quantity || 1)
+                const productTotal = (p.price || 0) * validatedQuantity
                 const discount =
                   productTotal * ((p.discountPercentage || 0) / 100)
                 return sum + (productTotal - discount)

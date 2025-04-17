@@ -19,10 +19,12 @@ const Image: React.FC<IImageProps> = ({
   style = {},
   htmlHeight = 150,
   htmlWidth = 150,
-  fit = 'cover'
+  fit = 'cover',
+  dataTestId
 }): JSX.Element => {
   return (
     <ChakraImage
+      data-testid={dataTestId}
       src={src}
       alt={alt}
       className={className}

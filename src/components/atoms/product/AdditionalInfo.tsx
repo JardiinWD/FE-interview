@@ -33,6 +33,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       {/* CUSTOM VALUE */}
       <Typography
         textId={`info-${label}`}
+        dataTestId={`info-${label}`}
         textColor="text-primary_black_500"
         weight="bold"
         tagAs="p"

@@ -1,3 +1,4 @@
+import { IProduct } from '@/api/types'
 import { appConfig } from '@/config/appConfig'
 
 /**
@@ -118,4 +119,43 @@ export const calculateDiscountedPrice = (
 export const transformJwtExpirationDate = (token: number) => {
   // Convert the token (seconds since epoch) to milliseconds
   return new Date(token * 1000)
+}
+
+/**
+ * Validates the product quantity to ensure it's within min-max constraints
+ * @param product Product to validate quantity for
+ * @param requestedQuantity Requested quantity to validate
+ * @returns Validated quantity within allowed limits
+ */
+// Modifica la funzione validateQuantity
+export const validateQuantity = (
+  product: IProduct,
+  requestedQuantity: number
+): number => {
+  console.log('validateQuantity chiamata con:', {
+    productId: product.id,
+    productTitle: product.title,
+    requestedQuantity: requestedQuantity,
+    minimumOrderQuantity: product.minimumOrderQuantity,
+    stock: product.stock
+  })
+
+  // Default to 1 if minimumOrderQuantity is not defined
+  const minOrderQuantity = product.minimumOrderQuantity || 1
+
+  // Default to a high number if stock is not defined, otherwise use stock
+  const stockAvailable = typeof product.stock === 'number' ? product.stock : 999
+
+  // Se lo stock disponibile è inferiore alla quantità minima d'ordine,
+  // lo stock disponibile ha la precedenza
+  const effectiveMin = Math.min(minOrderQuantity, stockAvailable)
+
+  // La quantità richiesta non deve superare lo stock disponibile
+  // e deve essere almeno effectiveMin
+  const validatedQuantity = Math.min(
+    Math.max(requestedQuantity, effectiveMin),
+    stockAvailable
+  )
+
+  return validatedQuantity
 }

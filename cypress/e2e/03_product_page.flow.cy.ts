@@ -27,100 +27,210 @@ describe('Sikuro FE Interview - Product to Cart', () => {
 
   // Now check Labels and Reviews in a proper way (and add to cart)
   it('Should Check product Single Product Details', () => {
-    // Get the First box where there are the product details (and scroll into view)
-    const singleProductSheet = cy.getElementByTestId(
-      'single-product-1',
-      'div',
-      5000
+    // Define the default product ID
+    const defaultProductId = 1
+
+    // Intercept the API call
+    cy.intercept(
+      'GET',
+      `${Cypress.env('CYPRESS_DUMMYJSON_BASEURL')}/products/${defaultProductId}`
+    ).as('getProductById')
+
+    // Verify we're on the correct URL
+    cy.url().should(
+      'include',
+      `${Cypress.env('CYPRESS_BASE_URL')}/product/${defaultProductId}`
     )
-    singleProductSheet
-      .scrollIntoView()
-      .should('be.visible')
-      .as('singleProductSheet')
 
-    // Check product Details
-    cy.get('@singleProductSheet')
-      .invoke('attr', 'data-testid')
-      .then((testId) => {
-        // Extract the product ID from the test ID
-        const productId = testId?.replace('single-product-', '')
+    // Reload to trigger the API call
+    cy.reload()
 
-        // Verify each sub-component exists using the product ID
-        cy.getElementByTestId(`single-product-${productId}-image`, 'div', 5000)
-          .should('exist')
-          .and('be.visible')
-        cy.getElementByTestId(`single-product-${productId}-body`, 'div', 5000)
-          .should('exist')
-          .and('be.visible')
-          .as('productBody')
+    // Wait for API call to complete
+    cy.wait('@getProductById').then((interception) => {
+      // Verify API response
+      expect(interception.response?.statusCode).to.eq(200)
+      expect(interception.response?.body).to.exist
+      expect(interception.response?.body.id).to.eq(Number(defaultProductId))
 
-        // Now verify other properties of the body (like title, description, price and rating)
-        cy.get('@productBody').find('h4').should('exist').and('be.visible') // Title
+      // Store API response data for UI verification
+      const productData = interception.response?.body
 
-        // Rating
-        cy.get('@productBody')
-          .find('[data-testid="product-rating"]')
-          .should('exist')
-          .and('be.visible')
-          .as('productRating')
-        // Rating Value
-        cy.get('@productRating').find('span').should('exist').and('be.visible')
-        // Stars Rating
-        cy.get('@productRating')
-          .find('[data-testid="stars-rating"]')
-          .should('exist')
-          .and('be.visible')
+      // Get the product container
+      const singleProductSheet = cy.getElementByTestId(
+        `single-product-${defaultProductId}`,
+        'div',
+        5000
+      )
 
-        // Description
-        cy.get('@productBody')
-          .find('[data-testid="product-description"]')
-          .should('exist')
-          .and('be.visible')
+      // Scroll into view and check visibility
+      singleProductSheet
+        .scrollIntoView()
+        .should('be.visible')
+        .as('singleProductSheet')
 
-        // Cart Action and Price
+      // Check product details against API data
+      cy.get('@singleProductSheet')
+        .invoke('attr', 'data-testid')
+        .then((testId) => {
+          // Extract the product ID
+          const productId = testId?.replace('single-product-', '')
 
-        // Product Additional Information
-        cy.get('@productBody')
-          .find('[data-testid="product-additional-info"]')
-          .should('exist')
-          .and('be.visible')
-          .as('productAdditionalInfo')
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Minimum order quantity"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Category"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Brand"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Dimensions"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Return policy"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Availability"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Stock Quantity"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-Shipping Information"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-        cy.get('@productAdditionalInfo')
-          .find('[data-testid="label-SKU"]')
-          .should('exist')
-          .and('be.visible') // Minimum Order Quantity
-      })
+          // Verify sub-components
+          cy.getElementByTestId(
+            `single-product-${productId}-image`,
+            'div',
+            5000
+          )
+            .should('exist')
+            .and('be.visible')
+
+          // Get the product body
+          cy.getElementByTestId(`single-product-${productId}-body`, 'div', 5000)
+            .should('exist')
+            .and('be.visible')
+            .as('productBody')
+
+          // Verify title matches API data
+          cy.get('@productBody')
+            .find('h4')
+            .should('exist')
+            .and('be.visible')
+            .and('contain.text', productData.title) // Title should match API data
+
+          // Rating
+          cy.get('@productBody')
+            .find('[data-testid="product-rating"]')
+            .should('exist')
+            .and('be.visible')
+            .as('productRating')
+
+          // Rating value should match API data
+          cy.get('@productRating')
+            .find('span')
+            .should('exist')
+            .and('be.visible')
+            .and('contain.text', Math.round(productData.rating))
+
+          // Stars Rating
+          cy.get('@productRating')
+            .find('[data-testid="stars-rating"]')
+            .should('exist')
+            .and('be.visible')
+
+          // Description should match API data
+          cy.get('@productBody')
+            .find('[data-testid="product-description"]')
+            .should('exist')
+            .and('be.visible')
+            .and('contain.text', productData.description)
+
+          // Product Additional Information
+          cy.get('@productBody')
+            .find('[data-testid="product-additional-info"]')
+            .should('exist')
+            .and('be.visible')
+            .as('productAdditionalInfo')
+
+          // Check Minimum Order Quantity
+          cy.additionalInfoCheckKeyValue(
+            'Minimum order quantity',
+            'Minimum order quantity',
+            productData.minimumOrderQuantity,
+            '@productAdditionalInfo'
+          )
+
+          // Check Category
+          cy.additionalInfoCheckKeyValue(
+            'Category',
+            'Category',
+            productData.category,
+            '@productAdditionalInfo'
+          )
+
+          // Full Dimensions
+          cy.additionalInfoCheckKeyValue(
+            'Dimensions',
+            'Dimensions',
+            `${productData.dimensions.width} x ${productData.dimensions.height} x ${productData.dimensions.depth}`,
+            '@productAdditionalInfo'
+          )
+
+          // Return Policy
+          cy.additionalInfoCheckKeyValue(
+            'Return policy',
+            'Return policy',
+            productData.returnPolicy,
+            '@productAdditionalInfo'
+          )
+
+          // Availability
+          cy.additionalInfoCheckKeyValue(
+            'Availability',
+            'Availability',
+            productData.availabilityStatus,
+            '@productAdditionalInfo'
+          )
+
+          // Stock Quantity
+          cy.additionalInfoCheckKeyValue(
+            'Stock Quantity',
+            'Stock Quantity',
+            productData.stock,
+            '@productAdditionalInfo'
+          )
+
+          // Shipping Information
+          cy.additionalInfoCheckKeyValue(
+            'Shipping Information',
+            'Shipping Information',
+            productData.shippingInformation,
+            '@productAdditionalInfo'
+          )
+
+          // SKU
+          cy.additionalInfoCheckKeyValue(
+            'SKU',
+            'SKU',
+            productData.sku,
+            '@productAdditionalInfo'
+          )
+
+          // Cart Action
+          cy.getElementByTestId('quantity-counter', 'div', 5000)
+            .should('exist')
+            .and('be.visible')
+            .as('quantityCounter')
+
+          // ! Non li clicco per ora, sono leggermente buggati per via delle quantity, quindi per il momento mando avanti l'add to cart
+          // Increment Button
+          cy.get('@quantityCounter')
+            .find('button[data-testid="increment-button"]')
+            .should('exist')
+            .and('be.visible')
+
+          // Input Field
+          cy.get('@quantityCounter')
+            .find('input[data-testid="quantity-input"]')
+            .should('exist')
+            .and('be.visible')
+            .and('have.value', productData.stock)
+
+          // Decrement Button
+          cy.get('@quantityCounter')
+            .find('button[data-testid="decrement-button"]')
+            .should('exist')
+            .and('be.visible')
+
+          // Add to Cart Button
+          cy.get('@productBody')
+            .find('button[data-testid="add-to-cart"]')
+            .should('exist')
+            .and('be.visible')
+            .and('contain.text', 'Add to Cart')
+            .click()
+        })
+    })
   })
+
+  // C
 })

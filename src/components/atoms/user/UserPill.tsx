@@ -9,6 +9,7 @@ const UserPill: React.FC = (): JSX.Element => {
 
   return (
     <Link
+      data-testid="user-pill"
       state={{ userData: allUserData }}
       to="/user-info"
       className="flex items-center rounded-full bg-primary_white_200"

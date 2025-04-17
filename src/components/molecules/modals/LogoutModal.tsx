@@ -41,6 +41,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
   return (
     <Modal isModalOpen={isModalOpen} modalId={modalId}>
       <FlexContainer
+        dataTestId="logout-modal"
         className="w-full lg:w-96 h-fit p-8"
         gap={2}
         flexContainerId="user-logout-modal"
@@ -49,9 +50,16 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
         align="center"
       >
         {/* COMPANY LOGO */}
-        <Image src={Images.Logo} alt="Logo" htmlWidth={75} htmlHeight={75} />
+        <Image
+          dataTestId="company-logo"
+          src={Images.Logo}
+          alt="Logo"
+          htmlWidth={75}
+          htmlHeight={75}
+        />
         {/* TITLE */}
         <Typography
+          dataTestId="logout-modal-title"
           textId="logout-modal-title"
           className="text-primary_black_600"
           tagAs="h3"
@@ -61,6 +69,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
         {/* TEXT */}
         <Typography
           textId="logout-modal-text"
+          dataTestId="logout-modal-text"
           className="text-primary_black_600"
           tagAs="p"
           weight="normal"
@@ -68,6 +77,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
         />
         {/* BUTTON WRAPPER */}
         <FlexContainer
+          dataTestId="logout-modal-buttons"
           className="w-full h-fit mt-4"
           gap={4}
           flexContainerId="user-logout-modal-buttons"
@@ -78,6 +88,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
         >
           {/* CONFIRM BUTTON */}
           <Button
+            dataTestId="logout-button"
             variant="primary"
             buttonId="logout-button"
             buttonType="button"
@@ -93,6 +104,7 @@ const LogoutModal: React.FC<ILogoutModalProps> = ({
           </Button>
           {/* DISMISS BUTTON */}
           <Button
+            dataTestId="logout-modal-dismiss-button"
             variant="secondary"
             buttonId="logout-button"
             buttonType="button"

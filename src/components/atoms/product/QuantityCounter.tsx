@@ -95,6 +95,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
     <FlexContainer
       gap={0}
       flexContainerId="quantity-counter"
+      dataTestId="quantity-counter"
       direction="row"
       wrap="nowrap"
       align="center"
@@ -105,6 +106,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
       <Button
         buttonType="button"
         variant="secondary"
+        dataTestId="decrement-button"
         buttonId="decrement-button"
         onClick={handleDecrement}
         className="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 focus:ring-2 focus:outline-none"
@@ -129,6 +131,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
       {/* Input Field */}
       <input
         type="text"
+        data-testid="quantity-input"
         id="quantity-input"
         value={state.value}
         onChange={handleInputChange}
@@ -140,6 +143,7 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
       {/* Increment Button */}
       <Button
         buttonType="button"
+        dataTestId="increment-button"
         variant="secondary"
         buttonId="decrement-button"
         onClick={handleIncrement}

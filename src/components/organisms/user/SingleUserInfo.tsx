@@ -30,6 +30,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
       >
         {/* LEFT SIDE */}
         <FlexContainer
+          dataTestId="user-info-left-side"
           className="w-full lg:w-[25%]"
           gap={5}
           flexContainerId="user-info-left-side"
@@ -38,6 +39,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
           align="center"
         >
           <Image
+            dataTestId="user-image"
             className="bg-primary_white_200 rounded-full"
             src={userData?.image as string}
             alt="User Image"
@@ -45,6 +47,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
             htmlHeight={150}
           />
           <Button
+            dataTestId="logout-button"
             variant="primary"
             buttonId="logout-button"
             buttonType="button"
@@ -62,6 +65,7 @@ const SingleUserInfo: React.FC<ISingleUserInfo> = ({
         </FlexContainer>
         {/* RIGHT SIDE */}
         <FlexContainer
+          dataTestId="user-info-right-side"
           className="w-full lg:w-[70%]"
           gap={5}
           flexContainerId="user-info-right-side"

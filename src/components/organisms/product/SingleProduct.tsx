@@ -207,7 +207,7 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
       {/* CART ACTIONS */}
       <CartAction
         counterClassName="lg:w-[50%] bg-primary_white_200"
-        containerClassName="lg:w-[50%]"
+        containerClassName="lg:w-[70%]"
         isLoading={state.isLoading}
         product={product}
         onRetrieveCurrentQuantity={retrieveCurrentQuantity}

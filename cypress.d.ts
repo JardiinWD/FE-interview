@@ -19,6 +19,12 @@ declare global {
             firstExecution(urlToVisit: string, shouldClearEverything: boolean): Chainable
             loginAction(urlEnv: string, email: string, password: string): Chainable
             loginViaApi(username: string, password: string): void;
+            additionalInfoCheckKeyValue(
+                dataTestIdKey: string,
+                dataTestIdValue: string,
+                dynamicValue: string | number,
+                dataWrapper: string
+            ): Chainable<Element>;
         }
     }
 

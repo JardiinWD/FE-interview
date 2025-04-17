@@ -16,6 +16,7 @@ const UserInfo = () => {
   if (!location || !location.state) {
     return (
       <ErrorState
+        dataTestId="error-landing"
         containerId="user-info"
         errorDevMessage={`Something went Wrong with the User Info, this is the current location.state : ${location.state}`}
         errorMessage={`This user doesn't have any data!`}
@@ -30,6 +31,8 @@ const UserInfo = () => {
 
   return (
     <FlexContainer
+      dataTestId="user-info"
+      as="section"
       className="p-4 xs:h-[90dvh] sm:h-[95dvh] md:h-[90dvh] lg:h-auto xl:h-auto pt-4 w-full "
       gap={5}
       flexContainerId="user-info-page"

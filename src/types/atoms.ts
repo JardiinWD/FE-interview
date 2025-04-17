@@ -100,6 +100,7 @@ export interface IImageProps {
   htmlWidth?: number
   htmlHeight?: number
   fit?: TImageFit
+  dataTestId?: string
 }
 
 // -------------

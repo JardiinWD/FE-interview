@@ -112,3 +112,27 @@ Cypress.Commands.add('loginViaApi', (username, password) => {
     }
   })
 })
+
+// Check Key and Value in Additional Info
+Cypress.Commands.add(
+  'additionalInfoCheckKeyValue',
+  (
+    dataTestIdKey: string,
+    dataTestIdValue: string,
+    dynamicValue: string | number,
+    dataWrapper: string
+  ) => {
+    // Check if the key exists
+    cy.get(dataWrapper)
+      .find(`[data-testid="label-${dataTestIdKey}"]`)
+      .should('exist')
+      .and('be.visible')
+
+    // Check values
+    cy.get(dataWrapper)
+      .find(`[data-testid="info-${dataTestIdValue}"]`)
+      .should('exist')
+      .and('be.visible')
+      .and('contain.text', dynamicValue)
+  }
+)

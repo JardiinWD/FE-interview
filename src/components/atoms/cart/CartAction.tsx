@@ -49,7 +49,7 @@ const CartAction: React.FC<ICartActionProps> = ({
             ? product.stock
             : product.minimumOrderQuantity,
         maxValue:
-          (product.stock ?? 0) > (product.minimumOrderQuantity ?? 0)
+          (product.stock ?? 0) < (product.minimumOrderQuantity ?? 0)
             ? product.stock
             : product.minimumOrderQuantity
       }
@@ -81,6 +81,7 @@ const CartAction: React.FC<ICartActionProps> = ({
         <Button
           variant="primary"
           buttonId="add-to-cart"
+          dataTestId="add-to-cart"
           buttonType="button"
           isLoading={isLoading}
           className={`${buttonClassName} w-full`}
@@ -101,6 +102,7 @@ const CartAction: React.FC<ICartActionProps> = ({
         <Button
           variant="tertiary"
           buttonId="remove-from-cart"
+          dataTestId="remove-from-cart"
           buttonType="button"
           isLoading={isLoading}
           className={`${buttonClassName} w-full !p-2.5`}
