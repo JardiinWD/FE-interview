@@ -28,11 +28,11 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
       {/* OLD PRICE */}
       <Typography
         textId={`cart-summary-product-price-${item.title}`}
-        textColor="text-primary_black_700 line-through"
+        textColor="text-primary_black_700 line-through text-right"
         weight="bold"
         tagAs="h6"
         text={transformNumberToCurrency(item.total) ?? '---'}
-        className="lg:w-[60%] w-[50%]"
+        className="w-[50%]"
       />
       {/* NEW PRICE */}
       <FlexContainer

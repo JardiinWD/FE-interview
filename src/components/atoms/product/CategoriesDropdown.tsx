@@ -55,7 +55,7 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
     <FlexContainer
       direction="column"
       align="flex-start"
-      className="relative z-20 w-64"
+      className="relative z-20 lg:w-64 w-full"
     >
       {/* Dropdown Button */}
       <Button

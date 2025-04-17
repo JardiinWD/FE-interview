@@ -20,11 +20,11 @@ const Filters: React.FC<IFiltersProps> = ({
       wrap="nowrap"
       justify="space-between"
       align="flex-end"
-      className="w-full h-20 mb-3"
+      className="w-full !flex-wrap lg:!flex-nowrap h-20 lg:mb-3 mb-[3.5rem]"
       flexContainerId="filters"
     >
       <Input
-        boxClassName="!w-[30%]"
+        boxClassName="lg:w-[30%] w-full"
         type="text"
         id="filter-products"
         onChange={onSearchProduct}

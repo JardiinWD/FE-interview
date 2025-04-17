@@ -29,7 +29,7 @@ const CartSummaryClearCart: React.FC = (): JSX.Element => {
         buttonId="checkout"
         buttonType="button"
         onClick={handleClearCart}
-        className="mt-4 w-full lg:w-[30%]"
+        className="mt-4 w-full lg:w-[20%]"
       >
         <Typography
           textId="cart-checkout-button"

@@ -4,12 +4,14 @@ import {
   FlexContainer,
   Typography
 } from '@/components/atoms'
+import { useCartStore } from '@/store'
 import { ICartCheckoutProps } from '@/types/molecules'
 import {
   calculateDiscountedPrice,
   transformNumberToCurrency
 } from '@/utils/functions'
 import React, { JSX } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 /**
  * @description CartCheckout component for displaying the checkout summary
@@ -18,6 +20,15 @@ import React, { JSX } from 'react'
 const CartCheckout: React.FC<ICartCheckoutProps> = ({
   cartCheckoutData
 }): JSX.Element => {
+  // ---------------- CUSTOM HOOKS
+  const navigate = useNavigate()
+
+  // ---------------- HANDLERS
+  const handleCheckoutRedirect = () => {
+    // Redirect to checkout page
+    navigate('/checkout')
+  }
+
   return (
     <FlexContainer
       flexContainerId="cart-checkout"
@@ -64,7 +75,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
         variant="primary"
         buttonId="checkout"
         buttonType="button"
-        onClick={() => {}}
+        onClick={handleCheckoutRedirect}
         className="mt-4 w-full"
       >
         <Typography
