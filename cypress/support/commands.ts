@@ -79,22 +79,19 @@ Cypress.Commands.add('loginViaApi', (username, password) => {
       username,
       password
     },
-    failOnStatusCode: false // Per gestire le risposte di errore
+    failOnStatusCode: false // In case of a non-200 response
   }).then((response) => {
-    // Log della risposta completa per debug
+    // Check the Log
     cy.log('API Response:', JSON.stringify(response.body))
 
     if (response.status === 200 && response.body) {
-      // Salva il token nel localStorage
+      // Save the token in local storage
       cy.window().then((win) => {
-        // Salva il token (potrebbe essere in diversi formati)
-        if (response.body.token) {
-          win.localStorage.setItem('authToken', response.body.token)
-        } else if (response.body.accessToken) {
-          win.localStorage.setItem('authToken', response.body.accessToken)
-        }
+        // SaVE the token in local storage 
+        if (response.body.token) win.localStorage.setItem('authToken', response.body.token)
+        else if (response.body.accessToken) win.localStorage.setItem('authToken', response.body.accessToken)
 
-        // Salva i dati utente nello store (se usi Zustand)
+        // Save the userId in Zustand store
         if (win.useAuthStore && win.useAuthStore.setState) {
           win.useAuthStore.setState({
             userId: response.body.id,
@@ -104,10 +101,10 @@ Cypress.Commands.add('loginViaApi', (username, password) => {
         }
       })
 
-      // Visita la home page dopo il login
+      // Visit the main page
       cy.visit('/')
     } else {
-      // Gestisci il caso di errore
+      // Handle the error
       cy.log('Login failed:', response.status, response.body)
     }
   })

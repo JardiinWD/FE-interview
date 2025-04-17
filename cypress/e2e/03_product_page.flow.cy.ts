@@ -253,7 +253,7 @@ describe('Sikuro FE Interview - Product to Cart', () => {
               .and('be.visible')
               .as('quantityCounter')
 
-            // ! Non li clicco per ora, sono leggermente buggati per via delle quantity, quindi per il momento mando avanti l'add to cart
+            // ! Non li clicco per ora, in quanto questo prodotto ha raggiunto il suo stock,
             // Increment Button
             cy.get('@quantityCounter')
               .find('button[data-testid="increment-button"]')
@@ -282,6 +282,16 @@ describe('Sikuro FE Interview - Product to Cart', () => {
               .click()
           })
       })
+    })
+
+    it('Should Proceed to Checkout', () => {
+      // Get the header element and ensure it's visible
+      const headerElement = cy.getElementByTestId('header', 'div', 5000)
+      headerElement.scrollIntoView().should('be.visible')
+      // Find the cart icon and click on it
+      const cartIcon = cy.getElementByTestId('cart-icon', 'a', 5000)
+      cartIcon.scrollIntoView().should('be.visible').click()
+
     })
   })
 

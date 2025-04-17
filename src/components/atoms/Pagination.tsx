@@ -1,5 +1,3 @@
-// TODO : Metterlo in Fixed sotto alla pagina, se non ci sono card si spacca e si posiziona verso l'alto. Non deve muoversi da lì
-
 import React, { JSX } from 'react'
 import { Button, FlexContainer } from '@/components/atoms'
 import { For } from '@chakra-ui/react'

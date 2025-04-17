@@ -1,11 +1,11 @@
-import React, { JSX, useEffect } from 'react'
 import {
-  FlexContainer,
   Button,
+  FlexContainer,
   QuantityCounter,
   Typography
 } from '@/components/atoms'
 import { ICartActionProps } from '@/types/atoms'
+import React, { JSX } from 'react'
 
 /**
  * @description CartAction Component for Product Page
@@ -57,13 +57,11 @@ const CartAction: React.FC<ICartActionProps> = ({
       }
     : cart
       ? {
-          // Logica per `cart`
           initialValue: cart.quantity || 0,
           minValue: cart.quantity || 0,
           maxValue: cart.quantity
         }
       : {
-          // Fallback nel caso in cui né `product` né `cart` siano definiti
           initialValue: 0,
           minValue: 0,
           maxValue: 0

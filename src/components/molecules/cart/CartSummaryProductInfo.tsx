@@ -22,8 +22,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   // -------------- ZUSTAND STORE
   const { removeProductFromCart } = useCartStore()
   // ------------ CUSTOM HOOK
-  const { state, retrieveCurrentQuantity, handleAddToCart } =
-    useCartActions(item)
+  const { state, retrieveCurrentQuantity } = useCartActions(item)
 
   return (
     <FlexContainer

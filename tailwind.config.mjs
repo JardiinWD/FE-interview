@@ -5,7 +5,7 @@ export default {
     theme: {
         extend: {
             screens: {
-                xs: '375px', // Aggiungi un breakpoint personalizzato per xs
+                xs: '375px',
                 sm: '640px',
                 md: '768px',
                 lg: '1024px',

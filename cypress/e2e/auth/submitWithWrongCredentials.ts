@@ -4,7 +4,7 @@ export const submitWithWrongCredentials = () => {
     const loginForm = cy.getElementByTestId('login-form', 'form', 2000)
     loginForm.scrollIntoView().should('be.visible')
 
-    // Email/Username - inserisci un username errato
+    // Email/Username
     const inputEmail = cy.getElementByTestId('user-email', 'input', 2000)
     inputEmail
       .scrollIntoView()
@@ -12,7 +12,7 @@ export const submitWithWrongCredentials = () => {
       .clear()
       .type('wrong_username')
 
-    // Password - inserisci una password errata
+    // Password 
     const inputPassword = cy.getElementByTestId('user-password', 'input', 2000)
     inputPassword
       .scrollIntoView()
@@ -20,7 +20,7 @@ export const submitWithWrongCredentials = () => {
       .clear()
       .type('wrong_password')
 
-    // Intercept Errors - prepara intercettazione per la risposta di errore
+    // Intercept Errors 
     cy.intercept(
       'POST',
       `${Cypress.env('CYPRESS_DUMMYJSON_BASEURL')}/auth/login`,
@@ -32,7 +32,7 @@ export const submitWithWrongCredentials = () => {
       }
     ).as('loginFailed')
 
-    // Button - click per tentare il submit
+    // Button 
     const formButton = cy.getElementByTestId('login-button', 'button', 2000)
     formButton.scrollIntoView().should('be.visible').click()
 
@@ -50,7 +50,7 @@ export const submitWithWrongCredentials = () => {
       .should('be.visible')
       .should('contain.text', 'Request failed with status code 401')
 
-    // Bonus: verifica che l'utente rimanga nella pagina di login
+    // Verify that the user is not redirected to the dashboard
     cy.url().should('include', `${Cypress.env('CYPRESS_BASE_URL')}/login`)
   })
 }

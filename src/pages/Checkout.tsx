@@ -1,12 +1,12 @@
-import React, { JSX, useEffect, useState } from 'react'
-import { useLoadingDelay } from '@/hooks'
-import { Link, Navigate, redirect, useLocation } from 'react-router-dom'
-import { ErrorState, LoadingState } from '@/components/molecules'
 import { Button, FlexContainer, Typography } from '@/components/atoms'
-import { Box } from '@chakra-ui/react'
-import { useWindowSize } from 'react-use'
-import Confetti from 'react-confetti'
+import { LoadingState } from '@/components/molecules'
+import { useLoadingDelay } from '@/hooks'
 import { useCartStore } from '@/store'
+import { Box } from '@chakra-ui/react'
+import React, { JSX, useEffect, useState } from 'react'
+import Confetti from 'react-confetti'
+import { Link } from 'react-router-dom'
+import { useWindowSize } from 'react-use'
 
 // -------------- INTERFACES
 interface IState {

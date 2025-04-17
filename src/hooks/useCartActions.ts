@@ -8,10 +8,10 @@ import { toast } from 'react-toastify'
 export interface ICartActionsState {
   currentQuantity: number
   isLoading: boolean
-  isMaxStockReached: boolean // Nuovo stato per tracciare se abbiamo raggiunto lo stock massimo
-  isIncrementDisabled: boolean // Nuovo stato per tracciare se il bottone incremento deve essere disabilitato
-  isDecrementDisabled: boolean // Nuovo stato per tracciare se il bottone decremento deve essere disabilitato
-  isAddToCartDisabled: boolean // Nuovo stato per tracciare se il bottone "Add to Cart" deve essere disabilitato
+  isMaxStockReached: boolean
+  isIncrementDisabled: boolean
+  isDecrementDisabled: boolean
+  isAddToCartDisabled: boolean
 }
 
 export interface IUseCartActions {
@@ -33,12 +33,10 @@ export const useCartActions = (
   // ------------ ZUSTAND STORE
   const userId = useAuthStore((state) => state.userId)
   const cartData = useCartStore((state) => state.cartData)
-  const { createNewCart, updateCartWithNewProducts, isProductMaxedOut, getProductQuantityInCart, getRemainingStock } = useCartStore()
+  const { createNewCart, updateCartWithNewProducts, isProductMaxedOut, getRemainingStock } = useCartStore()
 
 
   // ------------ OTHER CART ACTIONS (GLOBALIZED)
-  const isMaxLimitReached = product ? isProductMaxedOut(product.id, product.stock || 0) : false; // Check if the product is maxed out
-  const quantityInCart = product ? getProductQuantityInCart(product.id) : 0; // Get the quantity of the product in the cart
   const remainingStock = product ? getRemainingStock(product.id, product.stock || 0) : 0; // Get the remaining stock of the product
   const initialQuantity = product
     ? Math.min(product.minimumOrderQuantity || 1, remainingStock || 999)

@@ -4,7 +4,6 @@ import {
   FlexContainer,
   Typography
 } from '@/components/atoms'
-import { useCartStore } from '@/store'
 import { ICartCheckoutProps } from '@/types/molecules'
 import {
   calculateDiscountedPrice,

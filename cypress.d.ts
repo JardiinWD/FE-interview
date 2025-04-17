@@ -6,7 +6,7 @@ interface AuthStore {
         allUserData: any | null;
         expirationDate: Date | null;
     }) => void;
-    // Aggiungi altre proprietà/metodi dello store se necessario
+    // Add other properties and methods as needed
 }
 
 
@@ -28,12 +28,12 @@ declare global {
         }
     }
 
-    // Estendi l'interfaccia AUTWindow per includere useAuthStore
+    // Extends the AUTWindow interface to include the useAuthStore property
     interface AUTWindow {
         useAuthStore: AuthStore;
     }
 
-    // Estendi anche l'interfaccia Window globale
+    // Extends the Window interface to include the useAuthStore property
     interface Window {
         useAuthStore: AuthStore;
     }
