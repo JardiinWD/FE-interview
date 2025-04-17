@@ -3,7 +3,9 @@ import {
   CartAction,
   DiscountPill,
   FlexContainer,
+  LazyImage,
   ProductRating,
+  Spinner,
   Typography
 } from '@/components/atoms'
 import { useCartActions } from '@/hooks'
@@ -12,7 +14,7 @@ import {
   handleRouondedRatingValue,
   transformNumberToCurrency
 } from '@/utils/functions'
-import { For, Image } from '@chakra-ui/react'
+import { For } from '@chakra-ui/react'
 import React, { JSX } from 'react'
 
 /**
@@ -34,12 +36,14 @@ const SingleProduct: React.FC<ISingleProductProps> = ({ product }) => {
       }}
     >
       {/* PRODUCT IMAGE */}
-      <Image
-        data-testid={`single-product-${product?.id}-image`}
-        className="rounded-lg hidden lg:flex lg:h-[24rem] lg:w-[24rem] bg-primary_white_100"
-        src={product.images[0]}
+      <LazyImage
+        className="rounded-lg items-center justify-center object-contain hidden lg:flex lg:h-[24rem] lg:w-[24rem] lg:min-w-[24rem] bg-primary_white_100"
+        placeholder={
+          <Spinner className="self-center" width="3rem" height="3rem" />
+        }
+        dataTestId={`single-product-${product?.id}-image`}
+        src={product.images[0] ?? 'https://picsum.photos/800/1400'}
         alt={product.title}
-        fit="contain"
       />
       {/* PRODUCT INFO */}
       <FlexContainer

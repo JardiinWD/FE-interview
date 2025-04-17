@@ -6,14 +6,16 @@ import React, { JSX } from 'react'
  * @param {string} width - Width of the spinner (default: '2rem')
  * @param {string} height - Height of the spinner (default: '2rem')
  * @param {string} customColor - Custom color for the spinner (default: 'fill-primary_yellow_600')
+ * @param {string} className - Additional class names for the spinner
  */
 const Spinner: React.FC<ISpinnerProps> = ({
   width = '4rem',
   height = '4rem',
-  customColor = 'fill-primary_yellow_600'
+  customColor = 'fill-primary_yellow_600',
+  className = ''
 }): JSX.Element => {
   return (
-    <div role="status">
+    <div className={className} role="status">
       <svg
         aria-hidden="true"
         className={`inline animate-spin text-gray-200 dark:text-gray-600 ${customColor}`}

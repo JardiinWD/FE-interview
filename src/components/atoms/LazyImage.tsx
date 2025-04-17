@@ -16,10 +16,12 @@ const LazyImage: React.FC<ILazyImageProps> = ({
   placeholder,
   height = 100,
   width = 100,
-  className = ''
+  className = '',
+  dataTestId = 'lazy-image'
 }) => {
   return (
     <LazyLoadImage
+      data-testid={dataTestId}
       className={className}
       alt={alt}
       src={src}

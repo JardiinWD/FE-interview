@@ -247,6 +247,7 @@ export interface ISpinnerProps {
   width?: string
   height?: string
   customColor?: string
+  className?: string
 }
 
 // -------------
@@ -301,4 +302,5 @@ export interface ILazyImageProps {
   height?: number
   width?: number
   className?: string
+  dataTestId?: string
 }
