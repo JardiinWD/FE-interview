@@ -1,6 +1,10 @@
 import { submitWithCorrectCredentials } from './auth'
 import { checkSingleProductSection, loadProducts } from './products'
-import { checkEmptyCart } from './cart'
+import {
+  checkEmptyCart,
+  proceedToCheckout,
+  purchaseSingleProduct
+} from './cart'
 
 describe('Sikuro FE Interview - Product to Cart', () => {
   before('Landing on Login Page', () => {
@@ -29,7 +33,7 @@ describe('Sikuro FE Interview - Product to Cart', () => {
       cy.get('@errorBoxWrapper')
         .find('h3')
         .should('be.visible')
-        .and('have.text', "This product is not available!")
+        .and('have.text', 'This product is not available!')
       cy.get('@errorBoxWrapper').find('p').should('be.visible')
       cy.get('@errorBoxWrapper')
         .find('button')
@@ -52,7 +56,7 @@ describe('Sikuro FE Interview - Product to Cart', () => {
       cy.get('@errorBoxWrapper')
         .find('h3')
         .should('be.visible')
-        .and('have.text', "This product is not available!")
+        .and('have.text', 'This product is not available!')
       cy.get('@errorBoxWrapper').find('p').should('be.visible')
       cy.get('@errorBoxWrapper')
         .find('button')
@@ -63,7 +67,6 @@ describe('Sikuro FE Interview - Product to Cart', () => {
       cy.url().should('include', `${Cypress.env('CYPRESS_BASE_URL')}/`)
     })
   })
-
 
   describe('Product Page - Success Scenarios', () => {
     // Load Products
@@ -80,7 +83,6 @@ describe('Sikuro FE Interview - Product to Cart', () => {
       const defaultProductId = 1
       // Go to the Product Page
       cy.visit(`${Cypress.env('CYPRESS_BASE_URL')}/product/${defaultProductId}`)
-
 
       // Intercept the API call
       cy.intercept(
@@ -137,7 +139,11 @@ describe('Sikuro FE Interview - Product to Cart', () => {
               .and('be.visible')
 
             // Get the product body
-            cy.getElementByTestId(`single-product-${productId}-body`, 'div', 5000)
+            cy.getElementByTestId(
+              `single-product-${productId}-body`,
+              'div',
+              5000
+            )
               .should('exist')
               .and('be.visible')
               .as('productBody')
@@ -284,16 +290,10 @@ describe('Sikuro FE Interview - Product to Cart', () => {
       })
     })
 
-    it('Should Proceed to Checkout', () => {
-      // Get the header element and ensure it's visible
-      const headerElement = cy.getElementByTestId('header', 'div', 5000)
-      headerElement.scrollIntoView().should('be.visible')
-      // Find the cart icon and click on it
-      const cartIcon = cy.getElementByTestId('cart-icon', 'a', 5000)
-      cartIcon.scrollIntoView().should('be.visible').click()
+    // It should then purchase a single product
+    purchaseSingleProduct()
 
-    })
+    // Proceed to Checkout
+    proceedToCheckout()
   })
-
-
 })

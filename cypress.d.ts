@@ -9,6 +9,16 @@ interface AuthStore {
     // Add other properties and methods as needed
 }
 
+interface CartStore {
+    getState: () => {
+        cartData: ICart[] | null;
+    };
+    setState: (state: {
+        clearCart: () => void;
+    }) => void;
+}
+
+
 
 declare global {
     namespace Cypress {
@@ -31,11 +41,13 @@ declare global {
     // Extends the AUTWindow interface to include the useAuthStore property
     interface AUTWindow {
         useAuthStore: AuthStore;
+        useCartStore: CartStore;
     }
 
     // Extends the Window interface to include the useAuthStore property
     interface Window {
         useAuthStore: AuthStore;
+        useCartStore: CartStore;
     }
 }
 

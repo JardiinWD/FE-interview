@@ -17,6 +17,7 @@ const CartSummaryClearCart: React.FC = (): JSX.Element => {
 
   return (
     <FlexContainer
+      dataTestId="cart-clearer-container"
       flexContainerId={`cart-clearer-container`}
       direction="row"
       justify="flex-end"
@@ -25,6 +26,7 @@ const CartSummaryClearCart: React.FC = (): JSX.Element => {
       className="w-full pt-4"
     >
       <Button
+        dataTestId="cart-clearer-button"
         variant="primary"
         buttonId="checkout"
         buttonType="button"
@@ -32,7 +34,8 @@ const CartSummaryClearCart: React.FC = (): JSX.Element => {
         className="mt-4 w-full lg:w-[20%]"
       >
         <Typography
-          textId="cart-checkout-button"
+          dataTestId="cart-clearer-button-text"
+          textId="cart-clearer-button-text"
           className="text-primary_black_600"
           tagAs="span"
           weight="bold"

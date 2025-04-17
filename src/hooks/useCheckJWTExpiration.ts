@@ -12,7 +12,6 @@ const useCheckJWTExpiration = (expirationDate: Date | null): void => {
   // -------------- ZUSTAND STORE
   const { clearUserId } = useAuthStore()
 
-
   useEffect(() => {
     // If no expiration date is provided, clear auth state and redirect to login
     if (!expirationDate) {
@@ -35,7 +34,7 @@ const useCheckJWTExpiration = (expirationDate: Date | null): void => {
     }
 
     // Set up a check that will run when the token expires
-    const timeUntilExpiry = expiration.getTime() - Date.now();
+    const timeUntilExpiry = expiration.getTime() - Date.now()
 
     // Only set timeout if expiry is in the future
     if (timeUntilExpiry > 0) {
@@ -43,10 +42,10 @@ const useCheckJWTExpiration = (expirationDate: Date | null): void => {
         console.warn('Token has expired. Logging out...')
         clearUserId()
         navigate('/login', { replace: true })
-      }, timeUntilExpiry);
+      }, timeUntilExpiry)
 
       // Clean up the timer on unmount
-      return () => clearTimeout(logoutTimer);
+      return () => clearTimeout(logoutTimer)
     }
   }, [expirationDate, navigate, clearUserId])
 }

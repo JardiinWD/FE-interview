@@ -76,6 +76,7 @@ const Cart: React.FC = (): JSX.Element => {
 
   return (
     <FlexContainer
+      data-testid="cart-page"
       flexContainerId="cart-page"
       wrap="nowrap"
       direction="column"

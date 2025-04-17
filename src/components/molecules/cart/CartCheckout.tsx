@@ -31,6 +31,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
   return (
     <FlexContainer
       flexContainerId="cart-checkout"
+      dataTestId="cart-checkout"
       direction="column"
       justify="flex-start"
       align="flex-start"
@@ -42,11 +43,13 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
     >
       {/* TOTAL AMOUNT */}
       <CheckoutItem
+        dataTestId="total-amount"
         label={'Total'}
         property={transformNumberToCurrency(cartCheckoutData.total) as string}
       />
       {/* DISCOUNT PERCENTAGE */}
       <CheckoutItem
+        dataTestId="discount-percentage"
         label={'Discount'}
         discountPill={calculateDiscountedPrice(
           cartCheckoutData.total,
@@ -62,6 +65,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
         }}
       />
       <CheckoutItem
+        dataTestId="discounted-price"
         label={'Discounted Price'}
         propertyClassName="text-primary_yellow_600"
         property={
@@ -73,6 +77,7 @@ const CartCheckout: React.FC<ICartCheckoutProps> = ({
       <Button
         variant="primary"
         buttonId="checkout"
+        dataTestId="checkout-button"
         buttonType="button"
         onClick={handleCheckoutRedirect}
         className="mt-4 w-full"

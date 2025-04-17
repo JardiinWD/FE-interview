@@ -4,7 +4,7 @@ export const submitWithoutEmail = () => {
     const loginForm = cy.getElementByTestId('login-form', 'form', 2000)
     loginForm.scrollIntoView().should('be.visible')
 
-    // Password 
+    // Password
     const inputPassword = cy.getElementByTestId('user-password', 'input', 2000)
     inputPassword
       .scrollIntoView()
@@ -24,7 +24,7 @@ export const submitWithoutEmail = () => {
     )
     inputEmailErrorMessage.scrollIntoView().should('be.visible')
 
-    // Email 
+    // Email
     const inputEmail = cy.getElementByTestId('user-email', 'input', 2000)
     inputEmail
       .scrollIntoView()
@@ -34,7 +34,7 @@ export const submitWithoutEmail = () => {
         force: true
       })
 
-    // Button 
+    // Button
     formButton.scrollIntoView().should('be.visible').click()
 
     // Intercept Errors

@@ -45,6 +45,7 @@ const Checkout: React.FC = (): JSX.Element => {
 
   return (
     <FlexContainer
+      dataTestId="checkout-page"
       className="lg:p-4 p-6 w-full xs:h-[90dvh] sm:h-[95dvh] md:h-[90dvh] lg:w-[70%] mx-auto overflow-x-hidden"
       gap={5}
       as="section"
@@ -58,7 +59,7 @@ const Checkout: React.FC = (): JSX.Element => {
       )}
       <Box
         width={['100%', '100%', '70%', '50%']}
-        height={['50%', '50%', '70%', '50%']}
+        height={['50%', '50%', '70%', '30%']}
         padding={4}
         borderRadius="md"
         boxShadow="md"
@@ -68,6 +69,7 @@ const Checkout: React.FC = (): JSX.Element => {
         alignItems="center"
         justifyContent="center"
         id="checkout-box"
+        data-testid="checkout-box"
       >
         {/* Congratulation Heading */}
         <Typography
@@ -76,6 +78,8 @@ const Checkout: React.FC = (): JSX.Element => {
           textColor="text-primary_black_600"
           weight="bold"
           className="text-center mb-4"
+          textId="checkout-heading"
+          dataTestId="checkout-heading"
         />
         {/* Congratulation Message */}
         <Typography
@@ -84,16 +88,18 @@ const Checkout: React.FC = (): JSX.Element => {
           text="Your order has been successfully placed. You will receive a confirmation email shortly."
           textColor="text-primary_black_600"
           className="text-center mb-4 w-[80%]"
+          textId="checkout-message"
+          dataTestId="checkout-message"
         />
         {/* Go back button */}
-        <Link to="/">
+        <Link data-testid="go-back-shopping" to="/">
           <Button
             variant="primary"
             buttonId="purchase-button"
             buttonType="button"
           >
             <Typography
-              textId="empty-cart-button"
+              textId="go-back-shopping-button"
               tagAs="p"
               weight="bold"
               text={'Go back to shopping'}

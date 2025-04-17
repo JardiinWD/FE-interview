@@ -17,6 +17,8 @@ const SingleCart: React.FC<ISingleCartProps> = ({
 }): JSX.Element => {
   return (
     <FlexContainer
+      as="section"
+      dataTestId="cart-content"
       flexContainerId="cart-content"
       direction="row"
       justify="space-between"

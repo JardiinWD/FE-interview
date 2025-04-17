@@ -21,6 +21,7 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
 }): JSX.Element => {
   return (
     <FlexContainer
+      dataTestId="cart-summary"
       flexContainerId={`cart-summary-wrapper-${cartId}`}
       direction="column"
       justify="flex-start"
@@ -38,6 +39,7 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
         )}
         render={(index: number, item: ICartSummarySingleProductProps) => (
           <FlexContainer
+            dataTestId={`single-cart-product-${index}`}
             flexContainerId={`single-cart-product-${index}`}
             direction="row"
             key={`single-cart-product-${index}`}

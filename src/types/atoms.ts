@@ -143,6 +143,7 @@ export interface ICartCheckoutItemProps {
   property?: string
   propertyClassName?: string
   discountPill?: number
+  dataTestId?: string
 }
 
 // -------------
@@ -160,6 +161,7 @@ export interface ICardProps {
 
 export interface IDiscountPillProps {
   discountPercentage: number
+  dataTestId?: string
 }
 
 export interface IProductRatingProps {
@@ -293,9 +295,9 @@ export interface ILazyImageProps {
   alt: string
   src: string
   placeholder?:
-  | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
-  | null
-  | undefined
+    | React.ReactElement<unknown, string | React.JSXElementConstructor<any>>
+    | null
+    | undefined
   height?: number
   width?: number
   className?: string

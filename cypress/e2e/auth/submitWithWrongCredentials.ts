@@ -12,7 +12,7 @@ export const submitWithWrongCredentials = () => {
       .clear()
       .type('wrong_username')
 
-    // Password 
+    // Password
     const inputPassword = cy.getElementByTestId('user-password', 'input', 2000)
     inputPassword
       .scrollIntoView()
@@ -20,7 +20,7 @@ export const submitWithWrongCredentials = () => {
       .clear()
       .type('wrong_password')
 
-    // Intercept Errors 
+    // Intercept Errors
     cy.intercept(
       'POST',
       `${Cypress.env('CYPRESS_DUMMYJSON_BASEURL')}/auth/login`,
@@ -32,7 +32,7 @@ export const submitWithWrongCredentials = () => {
       }
     ).as('loginFailed')
 
-    // Button 
+    // Button
     const formButton = cy.getElementByTestId('login-button', 'button', 2000)
     formButton.scrollIntoView().should('be.visible').click()
 

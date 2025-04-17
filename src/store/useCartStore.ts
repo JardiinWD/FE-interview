@@ -20,9 +20,9 @@ interface ICartStore {
   loadUserCart: () => void // New action to load user-specific cart
 
   // --> Stock Handlers
-  isProductMaxedOut: (productId: number, stock: number) => boolean;
-  getProductQuantityInCart: (productId: number) => number;
-  getRemainingStock: (productId: number, totalStock: number) => number;
+  isProductMaxedOut: (productId: number, stock: number) => boolean
+  getProductQuantityInCart: (productId: number) => number
+  getRemainingStock: (productId: number, totalStock: number) => number
 }
 
 const useCartStore = create<ICartStore>()(
@@ -297,42 +297,41 @@ const useCartStore = create<ICartStore>()(
 
       // Check if a product is maxed out in the cart
       isProductMaxedOut: (productId, stock) => {
-        const { cartData } = get();
-        if (!cartData || cartData.length === 0) return false;
+        const { cartData } = get()
+        if (!cartData || cartData.length === 0) return false
 
         // Find the product in the cart
-        let totalQuantityInCart = 0;
+        let totalQuantityInCart = 0
 
-        cartData.forEach(cart => {
-          const productInCart = cart.products.find(p => p.id === productId);
-          if (productInCart) totalQuantityInCart += productInCart.quantity || 0;
-        });
+        cartData.forEach((cart) => {
+          const productInCart = cart.products.find((p) => p.id === productId)
+          if (productInCart) totalQuantityInCart += productInCart.quantity || 0
+        })
 
-        return totalQuantityInCart >= stock;
+        return totalQuantityInCart >= stock
       },
-
 
       // Get the quantity of a specific product in the cart
       getProductQuantityInCart: (productId) => {
-        const { cartData } = get();
-        if (!cartData || cartData.length === 0) return 0;
+        const { cartData } = get()
+        if (!cartData || cartData.length === 0) return 0
 
         // Sum the quantities of the product in all carts
-        let totalQuantity = 0;
+        let totalQuantity = 0
 
-        cartData.forEach(cart => {
+        cartData.forEach((cart) => {
           // Find the product in the cart
-          const productInCart = cart.products.find(p => p.id === productId);
-          if (productInCart) totalQuantity += productInCart.quantity || 0;
-        });
+          const productInCart = cart.products.find((p) => p.id === productId)
+          if (productInCart) totalQuantity += productInCart.quantity || 0
+        })
         // Return the total quantity of the product in all carts
-        return totalQuantity;
+        return totalQuantity
       },
 
       // Get the remaining stock of a product
       getRemainingStock: (productId, totalStock) => {
-        const quantityInCart = get().getProductQuantityInCart(productId);
-        return Math.max(0, totalStock - quantityInCart);
+        const quantityInCart = get().getProductQuantityInCart(productId)
+        return Math.max(0, totalStock - quantityInCart)
       }
     }),
     {

@@ -87,9 +87,11 @@ Cypress.Commands.add('loginViaApi', (username, password) => {
     if (response.status === 200 && response.body) {
       // Save the token in local storage
       cy.window().then((win) => {
-        // SaVE the token in local storage 
-        if (response.body.token) win.localStorage.setItem('authToken', response.body.token)
-        else if (response.body.accessToken) win.localStorage.setItem('authToken', response.body.accessToken)
+        // SaVE the token in local storage
+        if (response.body.token)
+          win.localStorage.setItem('authToken', response.body.token)
+        else if (response.body.accessToken)
+          win.localStorage.setItem('authToken', response.body.accessToken)
 
         // Save the userId in Zustand store
         if (win.useAuthStore && win.useAuthStore.setState) {

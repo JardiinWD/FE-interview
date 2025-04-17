@@ -26,7 +26,8 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
 
   return (
     <FlexContainer
-      flexContainerId={`cart-summary-product-info-${index}`}
+      flexContainerId={`cart-summary-product-info`}
+      dataTestId="cart-summary-product-info"
       direction="row"
       key={index}
       justify="flex-start"
@@ -37,6 +38,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
     >
       {/* PRODUCT IMAGE */}
       <Image
+        dataTestId={`cart-summary-product-image`}
         className="rounded-lg hidden lg:flex lg:h-24 lg:w-24 bg-primary_white_200"
         src={item.thumbnail}
         alt={item.title}
@@ -44,7 +46,8 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
       />
       {/* Product Details and ACTIONS */}
       <FlexContainer
-        flexContainerId={`cart-summary-product-details-${index}`}
+        dataTestId={`cart-summary-product-details`}
+        flexContainerId={`cart-summary-product-details`}
         direction="column"
         key={index}
         justify="flex-start"
@@ -55,6 +58,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
         {/* Product Title */}
         <Typography
           textId={`cart-summary-title-${item.title}`}
+          dataTestId="cart-summary-title"
           textColor="text-primary_black_700"
           weight="bold"
           tagAs="h6"
