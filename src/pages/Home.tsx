@@ -9,13 +9,17 @@ import React, { JSX, useState } from 'react'
 interface IState {
   limit: IProductQueryParams['limit']
   currentPage?: number
+  searchProductName?: string
+  category?: string
 }
 
 const Home: React.FC = (): JSX.Element => {
   // -------------- STATE
   const [state, setState] = useState<IState>({
     limit: 6,
-    currentPage: 1
+    currentPage: 1,
+    searchProductName: '',
+    category: ''
   })
 
   // -------------- API CALL
@@ -28,7 +32,9 @@ const Home: React.FC = (): JSX.Element => {
     staleTime: 5000,
     queryFn: async () => {
       // Call the API to get the products and destructure the response
-      const { data, error } = await ProductApi.getProducts({ limit: 1000 })
+      const { data, error, status } = await ProductApi.getProducts({
+        limit: 1000
+      })
       // Return the necessary data
       return {
         data: data,
@@ -53,22 +59,51 @@ const Home: React.FC = (): JSX.Element => {
       />
     )
 
-  // -------------- LOCAL PAGINATION
+  // -------------- Apply filtering to ALL products first
+  const allProducts = apiData?.data?.products || []
+
+  const filteredProducts = allProducts.filter((product) => {
+    // Check if the product matches the search term
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes((state?.searchProductName || '').toLowerCase())
+
+    // Check if the product matches the selected category
+    const matchesCategory =
+      state.category === '' || product.category === state.category
+
+    return matchesSearch && matchesCategory
+  })
+
+  // -------------- Then apply pagination to filtered products
   const startIndex = ((state?.currentPage ?? 1) - 1) * (state.limit ?? 10)
-  const paginatedProducts = apiData?.data?.products.slice(
+  const paginatedFilteredProducts = filteredProducts.slice(
     startIndex,
     startIndex + (state.limit ?? 10)
   )
 
-  // -------------- TOTAL PAGES
-  const totalPages = Math.ceil(
-    (apiData?.data?.products?.length ?? 0) / (state.limit ?? 10)
-  )
+  // -------------- TOTAL PAGES based on filtered products
+  const totalPages = Math.ceil(filteredProducts.length / (state.limit ?? 10))
 
-  // -------------- CATEGORIES
-  const allCategories = [
-    ...new Set(apiData?.data?.products.map((p) => p.category))
-  ]
+  // -------------- CATEGORIES from all products
+  const allCategories = [...new Set(allProducts.map((p) => p.category))]
+
+  // -------------- HANDLERS for filters
+  const handleCategorySelect = (category: string) => {
+    setState({
+      ...state,
+      category,
+      currentPage: 1 // Reset to first page when filter changes
+    })
+  }
+
+  const handleSearchProduct = (searchTerm: string) => {
+    setState({
+      ...state,
+      searchProductName: searchTerm,
+      currentPage: 1 // Reset to first page when filter changes
+    })
+  }
 
   return (
     <FlexContainer
@@ -83,6 +118,8 @@ const Home: React.FC = (): JSX.Element => {
       {/* PRODUCTS */}
       <ProductsList
         allCategories={allCategories}
+        onCategorySelect={handleCategorySelect}
+        onSearchProduct={handleSearchProduct}
         paginationParams={{
           totalPages,
           currentPage: state.currentPage as number,
@@ -93,7 +130,7 @@ const Home: React.FC = (): JSX.Element => {
             })
         }}
         isLoadingList={isPending}
-        products={paginatedProducts as IProduct[]}
+        products={paginatedFilteredProducts as IProduct[]}
       />
     </FlexContainer>
   )

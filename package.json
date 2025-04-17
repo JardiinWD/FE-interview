@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss}\" \"cypress/**/*.{ts,js,json}\"",
-    "open:cypress": "cypress open --config-file cypress.config.ts"
+    "open:cypress": "cypress open --config-file cypress.config.ts",
+    "run:cypress": "cypress run --config-file cypress.config.ts"
   },
   "dependencies": {
     "@chakra-ui/form-control": "^2.2.0",

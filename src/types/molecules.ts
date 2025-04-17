@@ -21,6 +21,8 @@ export interface IProductsListProps {
   paginationParams: IPaginationProps
   isLoadingList: boolean
   allCategories: IProduct['category'][]
+  onCategorySelect: (category: string) => void
+  onSearchProduct: (value: string) => void
 }
 
 export interface ISingleReviewProps {
@@ -60,7 +62,7 @@ export interface ICartSummaryProductInfoProps {
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps {}
+  extends ICartSummaryProductInfoProps { }
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[] | ICart[]

@@ -51,6 +51,16 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
     onCategorySelect(['All Categories'].includes(category) ? '' : category)
   }
 
+  /**
+   * Toggles the dropdown menu open/closed state
+   */
+  const toggleDropdown = () => {
+    setState((prevState) => ({
+      ...prevState,
+      isDropdownOpen: !prevState.isDropdownOpen
+    }))
+  }
+
   return (
     <FlexContainer
       direction="column"
@@ -62,12 +72,7 @@ const CategoriesDropdown: React.FC<ICategoriesDropdownProps> = ({
         variant="primary"
         buttonType="button"
         buttonId="category-dropdown-button"
-        onClick={() =>
-          setState((prevState) => ({
-            ...prevState,
-            isDropdownOpen: !prevState.isDropdownOpen
-          }))
-        }
+        onClick={toggleDropdown}
         className="focus:outline-none w-full !bg-primary_white_100 px-5 py-2.5 text-center inline-flex items-center justify-between"
       >
         <Typography
