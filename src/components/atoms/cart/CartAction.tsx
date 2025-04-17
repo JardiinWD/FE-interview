@@ -1,4 +1,4 @@
-import React, { JSX } from 'react'
+import React, { JSX, useEffect } from 'react'
 import {
   FlexContainer,
   Button,
@@ -39,19 +39,16 @@ const CartAction: React.FC<ICartActionProps> = ({
   // ------------ COUNTER CART ACTION
   const counterValues = product
     ? {
-        // Logica per `product`
+        // Logica per `product` - CORREZIONE QUI
         initialValue:
           (product?.minimumOrderQuantity ?? 0) > (product?.stock ?? 0)
-            ? product.stock
+            ? product.stock // Se il minimo è maggiore dello stock, usiamo lo stock
             : product.minimumOrderQuantity,
         minValue:
-          (product.minimumOrderQuantity ?? 0) > (product.stock ?? 0)
-            ? product.stock
+          (product?.minimumOrderQuantity ?? 0) > (product?.stock ?? 0)
+            ? product.stock // Se il minimo è maggiore dello stock, usiamo lo stock
             : product.minimumOrderQuantity,
-        maxValue:
-          (product.stock ?? 0) < (product.minimumOrderQuantity ?? 0)
-            ? product.stock
-            : product.minimumOrderQuantity
+        maxValue: product.stock ?? 0 // Il massimo deve essere sempre lo stock disponibile
       }
     : cart
       ? {
@@ -66,6 +63,21 @@ const CartAction: React.FC<ICartActionProps> = ({
           minValue: 0,
           maxValue: 0
         }
+
+  // Log per debug
+  useEffect(() => {
+    if (product) {
+      console.log('CartAction - counterValues:', {
+        productId: product.id,
+        title: product.title,
+        minimumOrderQuantity: product.minimumOrderQuantity,
+        stock: product.stock,
+        initialValue: counterValues.initialValue,
+        minValue: counterValues.minValue,
+        maxValue: counterValues.maxValue
+      })
+    }
+  }, [product, counterValues])
 
   return (
     <FlexContainer

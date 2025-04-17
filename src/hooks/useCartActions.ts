@@ -27,7 +27,12 @@ export const useCartActions = (
 ): IUseCartActions => {
   // ------------ STATES
   const [state, setState] = useState<ICartActionsState>({
-    currentQuantity: product?.minimumOrderQuantity as number,
+    currentQuantity: product
+      ? Math.min(
+        product.minimumOrderQuantity || 1,
+        product.stock || 999
+      )
+      : 1,
     isLoading: false
   })
 
