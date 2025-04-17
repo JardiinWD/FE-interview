@@ -62,6 +62,30 @@ const QuantityCounter: React.FC<IQuantityCounterProps> = ({
     isIncrementDisabled
   ])
 
+  useEffect(() => {
+    setState((prevState) => {
+      // For the special case where initialValue is equal to maxValue
+      const isMaxLimitReach =
+        state.value === initialValue &&
+        initialValue === maxValue &&
+        initialValue > minValue
+
+      return {
+        ...prevState,
+        isDecrementDisabled:
+          (state.value <= minValue && !isMaxLimitReach) || isDecrementDisabled,
+        isIncrementDisabled: state.value >= maxValue || isIncrementDisabled
+      }
+    })
+  }, [
+    state.value,
+    minValue,
+    maxValue,
+    initialValue,
+    isDecrementDisabled,
+    isIncrementDisabled
+  ])
+
   // ---------- METHODS
 
   // --> Decrement the quantity value by step

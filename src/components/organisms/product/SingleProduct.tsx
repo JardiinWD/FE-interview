@@ -212,6 +212,9 @@ const ProductPriceAndCartActions: React.FC<ISingleProductProps> = ({
         product={product}
         onRetrieveCurrentQuantity={retrieveCurrentQuantity}
         onAddToCart={handleAddToCart}
+        isAddToCartDisabled={state.isAddToCartDisabled}
+        isDecrementDisabled={state.isDecrementDisabled}
+        isIncrementDisabled={state.isIncrementDisabled}
       />
     </FlexContainer>
   )

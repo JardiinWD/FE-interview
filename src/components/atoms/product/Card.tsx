@@ -180,6 +180,8 @@ const CardFooter: React.FC<ICardProps> = ({ product, dataTestId }) => {
           isLoading={state.isLoading}
           onAddToCart={handleAddToCart}
           product={product as IProduct}
+          isDecrementDisabled={state.isDecrementDisabled}
+          isIncrementDisabled={state.isIncrementDisabled}
           onRetrieveCurrentQuantity={retrieveCurrentQuantity}
         />
       </FlexContainer>

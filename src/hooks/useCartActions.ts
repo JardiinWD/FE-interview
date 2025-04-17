@@ -29,14 +29,22 @@ export interface IUseCartActions {
 export const useCartActions = (
   product: IProduct | undefined
 ): IUseCartActions => {
-  // ------------ STATES
 
-  // Initial quantity is set to the minimum order quantity or stock, whichever is lower
+  // ------------ ZUSTAND STORE
+  const userId = useAuthStore((state) => state.userId)
+  const cartData = useCartStore((state) => state.cartData)
+  const { createNewCart, updateCartWithNewProducts, isProductMaxedOut, getProductQuantityInCart, getRemainingStock } = useCartStore()
+
+
+  // ------------ OTHER CART ACTIONS (GLOBALIZED)
+  const isMaxLimitReached = product ? isProductMaxedOut(product.id, product.stock || 0) : false; // Check if the product is maxed out
+  const quantityInCart = product ? getProductQuantityInCart(product.id) : 0; // Get the quantity of the product in the cart
+  const remainingStock = product ? getRemainingStock(product.id, product.stock || 0) : 0; // Get the remaining stock of the product
   const initialQuantity = product
-    ? Math.min(product.minimumOrderQuantity || 1, product.stock || 999)
+    ? Math.min(product.minimumOrderQuantity || 1, remainingStock || 999)
     : 1;
 
-
+  // ------------ STATES
   const [state, setState] = useState<ICartActionsState>({
     isLoading: false,
     currentQuantity: initialQuantity,
@@ -46,10 +54,7 @@ export const useCartActions = (
     isAddToCartDisabled: product ? product.stock <= 0 : true
   })
 
-  // ------------ ZUSTAND STORE
-  const userId = useAuthStore((state) => state.userId)
-  const cartData = useCartStore((state) => state.cartData)
-  const { createNewCart, updateCartWithNewProducts } = useCartStore()
+
 
   /**
    * @description Function to retrieve the current quantity of the product in the cart
@@ -77,18 +82,19 @@ export const useCartActions = (
   // ------------ USE EFFECT
   useEffect(() => {
     if (product) {
+      const isMaxed = isProductMaxedOut(product.id, product.stock || 0);
+      const remaining = getRemainingStock(product.id, product.stock || 0);
       const minQuantity = product.minimumOrderQuantity || 1;
-      const maxQuantity = product.stock || 0;
 
       setState(prev => ({
         ...prev,
-        isMaxStockReached: state.currentQuantity >= maxQuantity,
-        isIncrementDisabled: state.currentQuantity >= maxQuantity,
+        isMaxStockReached: isMaxed || state.currentQuantity >= remaining,
+        isIncrementDisabled: isMaxed || state.currentQuantity >= remaining,
         isDecrementDisabled: state.currentQuantity <= minQuantity,
-        isAddToCartDisabled: maxQuantity <= 0 || state.currentQuantity > maxQuantity
+        isAddToCartDisabled: isMaxed || remaining <= 0 || state.currentQuantity > remaining
       }));
     }
-  }, [state.currentQuantity, product]);
+  }, [product, cartData]);
 
   /**
    * @description Function to handle the "Add to Cart" action

@@ -45,7 +45,6 @@ const CartAction: React.FC<ICartActionProps> = ({
   // ------------ COUNTER CART ACTION
   const counterValues = product
     ? {
-        // Logica per `product` - CORREZIONE QUI
         initialValue:
           (product?.minimumOrderQuantity ?? 0) > (product?.stock ?? 0)
             ? product.stock // Se il minimo è maggiore dello stock, usiamo lo stock
@@ -71,7 +70,7 @@ const CartAction: React.FC<ICartActionProps> = ({
         }
 
   // Log per debug
-  useEffect(() => {
+  /* useEffect(() => {
     if (product) {
       console.log('CartAction - counterValues:', {
         productId: product.id,
@@ -83,7 +82,7 @@ const CartAction: React.FC<ICartActionProps> = ({
         maxValue: counterValues.maxValue
       })
     }
-  }, [product, counterValues])
+  }, [product, counterValues]) */
 
   return (
     <FlexContainer
@@ -101,7 +100,7 @@ const CartAction: React.FC<ICartActionProps> = ({
           buttonId="add-to-cart"
           dataTestId="add-to-cart"
           buttonType="button"
-          disabled={isAddToCartDisabled}
+          disabled={isAddToCartDisabled || product?.stock === 0}
           isLoading={isLoading}
           className={`${buttonClassName} w-full`}
           //@ts-expect-error - Something is wrong with the type of `onClick`
