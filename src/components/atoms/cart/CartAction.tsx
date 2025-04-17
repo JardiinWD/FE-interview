@@ -20,6 +20,7 @@ import { ICartActionProps } from '@/types/atoms'
  * @param {string} buttonClassName - Additional class name for the button
  * @param {string} counterClassName - Additional class name for the counter
  * @param {boolean} isLoading - Flag to show loading state
+ * @param {string} dataTestId - Data test ID for the component
  */
 const CartAction: React.FC<ICartActionProps> = ({
   product,
@@ -32,7 +33,8 @@ const CartAction: React.FC<ICartActionProps> = ({
   isLoading = false,
   containerClassName = 'lg:w-[40%]',
   buttonClassName = 'lg:w-[10rem] lg:max-w-[10rem]',
-  counterClassName = ''
+  counterClassName = '',
+  dataTestId = 'cart-action'
 }): JSX.Element => {
   // ------------ COUNTER CART ACTION
   const counterValues = product
@@ -67,6 +69,7 @@ const CartAction: React.FC<ICartActionProps> = ({
 
   return (
     <FlexContainer
+      dataTestId={dataTestId}
       flexContainerId="add-to-cart"
       align="center"
       justify="space-between"

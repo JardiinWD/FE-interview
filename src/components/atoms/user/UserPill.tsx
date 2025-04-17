@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/store'
 import React, { JSX } from 'react'
 import { Link } from 'react-router-dom'
-import Image from '../Image'
+import { Image } from '@/components/atoms'
 
 const UserPill: React.FC = (): JSX.Element => {
   // ------------ ZUSTAND STORE

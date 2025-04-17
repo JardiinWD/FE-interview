@@ -13,10 +13,12 @@ const EmptyCard: React.FC<IEmptyCardProps> = ({
   cardMessage = 'Your cart is empty',
   cardError = 'There was an error loading your cart',
   buttonText = 'Start Shopping',
-  onClickHandler = () => {}
+  onClickHandler = () => {},
+  dataTestId = 'empty-cart-card'
 }): JSX.Element => {
   return (
     <FlexContainer
+      dataTestId={dataTestId}
       flexContainerId="cart-page"
       wrap="nowrap"
       direction="column"

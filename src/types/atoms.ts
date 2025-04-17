@@ -81,6 +81,7 @@ export interface IFlexContainerProps {
   style?: React.CSSProperties
   flexContainerId?: string
   as?: TFlexContainerTag
+  dataTestId?: string
 }
 
 // -------------
@@ -129,6 +130,7 @@ export interface ICartActionProps {
   containerClassName?: string
   buttonClassName?: string
   counterClassName?: string
+  dataTestId?: string
 }
 
 export interface ICartCheckoutItemProps {
@@ -149,6 +151,7 @@ export interface ICardProps {
   imageSrc?: IProduct['images'][0]
   product?: IProduct
   onAddToCart?: (product: Partial<IProduct>, userId: number) => void
+  dataTestId?: string
 }
 
 export interface IDiscountPillProps {
@@ -182,6 +185,7 @@ export interface IQuantityCounterProps {
 
 export interface ISingleRecommendedProductCardProps {
   product: IProduct
+  dataTestId?: string
 }
 
 // -------------

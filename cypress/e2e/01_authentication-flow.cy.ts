@@ -6,7 +6,7 @@ import {
 } from './auth'
 
 describe('Sikuro FE Interview - Authentication Flow', () => {
-  // Gruppo per i test di errore
+  // Error scenarios
   describe('Login Error Scenarios', () => {
     beforeEach('Landing on Login Page', () => {
       cy.visit(`${Cypress.env('CYPRESS_BASE_URL')}/login`)
@@ -22,7 +22,7 @@ describe('Sikuro FE Interview - Authentication Flow', () => {
     submitWithWrongCredentials()
   })
 
-  // Gruppo separato per il test di successo
+  // Success scenarios
   describe('Successful Login', () => {
     before('Landing on Login Page', () => {
       cy.visit(`${Cypress.env('CYPRESS_BASE_URL')}/login`)
@@ -31,9 +31,9 @@ describe('Sikuro FE Interview - Authentication Flow', () => {
     // Try to submit the Form with correct credentials
     submitWithCorrectCredentials()
 
-    // Importante: Non avere un beforeEach qui, così il test non torna alla login page
+    // Stay on Homepage
     after('Stay on homepage', () => {
-      // Verifica che siamo ancora nella homepage
+      // Check if the URL is correct
       cy.url().should('include', `${Cypress.env('CYPRESS_BASE_URL')}/`)
     })
   })

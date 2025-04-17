@@ -42,6 +42,7 @@ const RecommendedProducts: React.FC<IRecommendedProductsProps> = ({
     <FlexContainer
       as="section"
       flexContainerId="recommended-products"
+      dataTestId="recommended-products"
       direction="column"
       justify="flex-start"
       align="flex-start"
@@ -59,7 +60,8 @@ const RecommendedProducts: React.FC<IRecommendedProductsProps> = ({
       {/* PRODUCT LISTS */}
       <FlexContainer
         as="section"
-        flexContainerId="products-list"
+        flexContainerId="recommended-products-list"
+        dataTestId="recommended-products-list"
         direction="row"
         justify="flex-start"
         align="flex-start"
@@ -69,7 +71,11 @@ const RecommendedProducts: React.FC<IRecommendedProductsProps> = ({
         <For each={apiData?.data?.products ?? []}>
           {(item) =>
             item && (
-              <SingleRecommendedProductCard key={item.id} product={item} />
+              <SingleRecommendedProductCard
+                dataTestId={`recommended-product-${item.id}`}
+                key={item.id}
+                product={item}
+              />
             )
           }
         </For>

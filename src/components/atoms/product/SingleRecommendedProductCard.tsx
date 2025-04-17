@@ -22,7 +22,7 @@ const SingleRecommendedProductCard: React.FC<
   return (
     <Box
       width={['100%', '100%', '32%', '32%']}
-      className="bg-primary_white_100 lg:h-[12.5rem] lg:min-h-[12.5rem] h-fit shadow-lg rounded-lg p-2 flex items-start justify-start gap-2"
+      className="bg-primary_white_100 lg:h-[14rem] lg:min-h-[14rem] h-fit shadow-lg rounded-lg p-2 flex items-start justify-start gap-2"
     >
       {/* IMAGE */}
       <LazyImage

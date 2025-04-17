@@ -7,6 +7,7 @@ import {
   IProductQueryParams,
   IProduct
 } from '@/api/types'
+import { useAuthStore } from '@/store'
 
 // ----------- API ISTANCE
 const productApi = axios.create({
@@ -120,3 +121,27 @@ export const ProductApi: IProductApi = {
     }
   }
 }
+
+// ----------- AXIOS INTERCEPTOR
+
+// Add a request interceptor to include the access token in the headers
+productApi.interceptors.request.use(
+  async (config) => {
+    // Retrieve the token from the Zustand store
+    const authState = useAuthStore.getState()
+
+    // Get the access token from allUserData if it exists
+    const accessToken = authState.allUserData?.accessToken || ''
+
+    // If the access token exists, add it to the Authorization header
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`
+    }
+
+    return config
+  },
+  (error) => {
+    // Handle request errors
+    return Promise.reject(error)
+  }
+)

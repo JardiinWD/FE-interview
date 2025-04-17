@@ -1,6 +1,7 @@
 // --> Documentation : https://dummyjson.com/docs/carts
 import axios from 'axios'
 import { ICartApi, TPromiseError, TCartApiContext, IProduct } from '@/api/types'
+import { useAuthStore } from '@/store'
 
 // ----------- API ISTANCE
 const cartApi = axios.create({
@@ -97,3 +98,23 @@ export const CartApi: ICartApi = {
     }
   }
 }
+
+// ----------- AXIOS INTERCEPTOR
+
+// Add a request interceptor to include the access token in the headers
+cartApi.interceptors.request.use(
+  async (config) => {
+    // Retrieve the token from the Zustand store
+    const authState = useAuthStore.getState()
+    // Get the access token from allUserData if it exists
+    const accessToken = authState.allUserData?.accessToken || ''
+    // If the access token exists, add it to the Authorization header
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`
+
+    return config
+  },
+  (error) => {
+    // Handle request errors
+    return Promise.reject(error)
+  }
+)

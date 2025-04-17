@@ -76,6 +76,7 @@ export interface IEmptyCardProps {
   cardError?: string
   buttonText?: string
   onClickHandler?: () => void
+  dataTestId?: string
 }
 
 // -------------
@@ -94,6 +95,7 @@ export interface IErrorStateProps {
   containerClassName?: string
   errorDevMessage?: string
   containerId?: string
+  dataTestId?: string
 }
 
 // -------------

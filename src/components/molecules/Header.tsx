@@ -18,6 +18,7 @@ const Header: React.FC = (): JSX.Element => {
       justify="center"
       align="center"
       flexContainerId="header"
+      dataTestId="header"
       className="w-full relative h-28 bg-primary_yellow_500 text:primary_white_200"
     >
       {/* LOGO */}

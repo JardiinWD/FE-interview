@@ -1,7 +1,7 @@
 import { ICart, IProduct } from '@/api/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import useAuthStore from './useAuthStore'
+import { useAuthStore } from '@/store'
 
 interface IProductWithQuantity extends IProduct {
   quantity?: number

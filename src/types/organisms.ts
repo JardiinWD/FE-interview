@@ -1,5 +1,5 @@
 import { IAuthData, ICart, IProduct, IProductReview } from '@/api/types'
-import { ICartSummarySingleProductProps } from './molecules'
+import { ICartSummarySingleProductProps } from '@/types/molecules'
 
 // -------------
 // ------------- PRODUCT
@@ -10,6 +10,7 @@ export interface ISingleProductProps {
 
 export interface IReviewsCarouselProps {
   reviews: IProductReview[]
+  dataTestId?: string
 }
 
 // -------------

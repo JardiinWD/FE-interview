@@ -70,7 +70,10 @@ const Product: React.FC = (): JSX.Element => {
     >
       <SingleProduct product={apiData?.data} />
       {apiData?.data?.reviews && (
-        <ReviewsCarousel reviews={apiData?.data?.reviews} />
+        <ReviewsCarousel
+          dataTestId={`reviews-carousel-${apiData?.data?.id}`}
+          reviews={apiData?.data?.reviews}
+        />
       )}
       {apiData?.data?.category && (
         <RecommendedProducts category={apiData?.data?.category} />

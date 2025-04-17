@@ -11,6 +11,7 @@ import { EmptyCard } from '@/components/molecules'
  * @param {string} buttonText - The text for the button.
  * @param {function} onClickHandler - The function to call when the button is clicked.
  * @param {string} errorDevMessage - The error message to display in development mode.
+ * @param {string} dataTestId - The data-testid for the component.
  */
 const ErrorState: React.FC<IErrorStateProps> = ({
   containerClassName = 'h-[80dvh] w-full p-4',
@@ -18,10 +19,12 @@ const ErrorState: React.FC<IErrorStateProps> = ({
   errorMessage = 'Something went wrong',
   buttonText = 'Try Again',
   onClickHandler = () => console.log('Try Again'),
-  errorDevMessage = 'This is a development error message'
+  errorDevMessage = 'This is a development error message',
+  dataTestId = 'error-state'
 }): JSX.Element => {
   return (
     <FlexContainer
+      dataTestId={dataTestId}
       flexContainerId={`${containerId}-error-state`}
       wrap="nowrap"
       direction="column"
@@ -31,6 +34,7 @@ const ErrorState: React.FC<IErrorStateProps> = ({
       className={containerClassName}
     >
       <EmptyCard
+        dataTestId={`${dataTestId}-card`}
         onClickHandler={onClickHandler}
         cardError={errorDevMessage}
         cardMessage={errorMessage}

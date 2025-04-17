@@ -16,6 +16,7 @@ import { IFlexContainerProps } from '@/types/atoms'
  * @param {React.CSSProperties} style - Additional inline styles to apply to the Flex container.
  * @param {string} flexContainerId - The ID to be assigned to the Flex container.
  * @param {TFlexContainerTag} as - The HTML tag to be used for the Flex container.
+ * @param {string} dataTestId - The data-testid attribute for testing purposes.
  * @returns {JSX.Element} The rendered Flex container component.
  */
 const FlexContainer: React.FC<IFlexContainerProps> = ({
@@ -28,10 +29,12 @@ const FlexContainer: React.FC<IFlexContainerProps> = ({
   className = '',
   style = {},
   flexContainerId = `flex`,
-  as = 'div'
+  as = 'div',
+  dataTestId
 }): JSX.Element => {
   return (
     <Flex
+      data-testid={dataTestId}
       as={as}
       id={`${flexContainerId}-container`}
       className={className}

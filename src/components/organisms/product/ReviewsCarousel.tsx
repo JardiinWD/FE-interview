@@ -9,10 +9,12 @@ import React, { JSX } from 'react'
  * @param {IProductReview} reviews - The reviews array to display.
  */
 const ReviewsCarousel: React.FC<IReviewsCarouselProps> = ({
-  reviews
+  reviews,
+  dataTestId = 'reviews-carousel'
 }): JSX.Element => {
   return (
     <FlexContainer
+      dataTestId={dataTestId}
       gap={5}
       direction="column"
       justify="flex-start"

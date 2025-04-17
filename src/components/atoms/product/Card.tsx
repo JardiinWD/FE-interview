@@ -21,38 +21,18 @@ import {
 import React, { JSX } from 'react'
 import { Link } from 'react-router'
 
-/**
- * @description Card component
- * @param {string} title - The title of the product.
- * @param {string} description - The description of the product.
- * @param {string} imageSrc - The source URL of the product image.
- * @param {function} onAddToCart - The function to call when the "Add to Cart" button is clicked.
- * @param {IProduct} product - The product object.
- * @returns {JSX.Element}
- */
-const Card: React.FC<ICardProps> = ({
-  title = 'Product',
-  description = 'Product Description',
-  imageSrc = 'https://via.placeholder.com/300',
-  product
-}): JSX.Element => {
-  return (
-    <div className="max-w-xs bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      <CardImage title={title} imageSrc={imageSrc} />
-      <CardBody title={title} product={product} description={description} />
-      <CardFooter product={product} />
-    </div>
-  )
-}
-
 // ------------------ PRODUCT CARD IMAGE
 const CardImage: React.FC<ICardProps> = ({
   imageSrc = 'https://via.placeholder.com/300',
-  title = 'Product'
+  title = 'Product',
+  dataTestId = 'product-card-image',
+  product
 }): JSX.Element => {
   return (
     <FlexContainer
-      flexContainerId="card-image"
+      as="div"
+      dataTestId={dataTestId}
+      flexContainerId={`card-image-${product?.id}`}
       direction="row"
       justify="center"
       align="center"
@@ -71,11 +51,14 @@ const CardImage: React.FC<ICardProps> = ({
 const CardBody: React.FC<ICardProps> = ({
   title = 'Product',
   description = 'Product Description',
-  product
+  product,
+  dataTestId
 }) => {
   return (
     <FlexContainer
-      flexContainerId="card-body"
+      as="div"
+      dataTestId={dataTestId}
+      flexContainerId={`card-body-${product?.id}`}
       direction="column"
       justify="center"
       align="flex-start"
@@ -123,14 +106,16 @@ const CardBody: React.FC<ICardProps> = ({
 }
 
 // ------------------ PRODUCT CARD FOOTER
-const CardFooter: React.FC<ICardProps> = ({ product }) => {
+const CardFooter: React.FC<ICardProps> = ({ product, dataTestId }) => {
   // ------------ CUSTOM HOOK
   const { state, retrieveCurrentQuantity, handleAddToCart } =
     useCartActions(product)
 
   return (
     <FlexContainer
-      flexContainerId="card-footer"
+      as="div"
+      dataTestId={dataTestId}
+      flexContainerId={`card-footer-${product?.id}`}
       justify="space-between"
       align="center"
       direction="row"
@@ -170,6 +155,7 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         )}
         {/* Check Eye Icon */}
         <Link
+          data-testid={`product-card-${product?.id}-eye-icon`}
           to={`/product/${product?.id}`}
           state={{ productId: product?.id }}
           className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
@@ -197,6 +183,46 @@ const CardFooter: React.FC<ICardProps> = ({ product }) => {
         />
       </FlexContainer>
     </FlexContainer>
+  )
+}
+
+/**
+ * @description Card component
+ * @param {string} title - The title of the product.
+ * @param {string} description - The description of the product.
+ * @param {string} imageSrc - The source URL of the product image.
+ * @param {function} onAddToCart - The function to call when the "Add to Cart" button is clicked.
+ * @param {IProduct} product - The product object.
+ * @returns {JSX.Element}
+ */
+const Card: React.FC<ICardProps> = ({
+  title = 'Product',
+  description = 'Product Description',
+  imageSrc = 'https://via.placeholder.com/300',
+  product
+}): JSX.Element => {
+  return (
+    <div
+      data-testid={`product-card-${product?.id}`}
+      className="max-w-xs bg-white border rounded-lg shadow-sm"
+    >
+      <CardImage
+        dataTestId={`product-card-${product?.id}-image`}
+        title={title}
+        imageSrc={imageSrc}
+        product={product}
+      />
+      <CardBody
+        dataTestId={`product-card-${product?.id}-body`}
+        title={title}
+        product={product}
+        description={description}
+      />
+      <CardFooter
+        dataTestId={`product-card-${product?.id}-footer`}
+        product={product}
+      />
+    </div>
   )
 }
 

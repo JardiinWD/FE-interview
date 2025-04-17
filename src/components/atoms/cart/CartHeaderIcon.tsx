@@ -54,7 +54,7 @@ const CartHeaderIcon: React.FC = (): JSX.Element => {
     apiData?.data?.carts[state.activeTab].totalQuantity
 
   return (
-    <Link to="/cart">
+    <Link data-testid="cart-icon" to="/cart">
       <Button
         variant="secondary"
         buttonType="button"

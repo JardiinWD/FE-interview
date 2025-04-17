@@ -64,6 +64,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
 
   return (
     <div
+      data-testid="products-list"
       className={`w-full ${filteredProducts.length <= 0 ? 'overflow-y-hidden' : 'overflow-y-auto'}`}
     >
       {/* FILTERS */}

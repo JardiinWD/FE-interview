@@ -53,6 +53,7 @@ const Cart: React.FC = (): JSX.Element => {
     return (
       <ErrorState
         containerId="cart"
+        dataTestId="cart-error-state"
         errorDevMessage={apiData?.error as string}
         errorMessage="Your cart is empty!"
         buttonText="Start Shopping"
