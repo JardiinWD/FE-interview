@@ -32,7 +32,7 @@ const CartSummaryProductPrice: React.FC<ICartSummaryProductPriceProps> = ({
         weight="bold"
         tagAs="h6"
         text={transformNumberToCurrency(item.total) ?? '---'}
-        className="w-[50%]"
+        className="w-[70%]"
       />
       {/* NEW PRICE */}
       <FlexContainer

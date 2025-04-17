@@ -43,7 +43,7 @@ const CartAction: React.FC<ICartActionProps> = ({
   isIncrementDisabled = false
 }): JSX.Element => {
   // Log per debugging
-  useEffect(() => {
+  /*   useEffect(() => {
     if (cart) {
       console.log('CartAction - Cart Props:', {
         id: cart.id,
@@ -61,7 +61,7 @@ const CartAction: React.FC<ICartActionProps> = ({
         minimumOrderQuantity: product.minimumOrderQuantity
       })
     }
-  }, [cart, product])
+  }, [cart, product]) */
 
   // ------------ COUNTER CART ACTION
   const counterValues = product

@@ -23,7 +23,7 @@ export interface IUseCartActions {
 
 /**
  * @description Custom hook for cart actions
- * @param product - The product to add to cart
+ * @param product - The product or cart item to interact with
  * @returns Cart action state and functions
  */
 export const useCartActions = (
@@ -39,12 +39,22 @@ export const useCartActions = (
     getRemainingStock
   } = useCartStore()
 
-  // ------------ OTHER CART ACTIONS (GLOBALIZED)
+  // ------------ DETERMINE PRODUCT TYPE
+  // Check if this is a cart item by detecting if it has quantity property
+  const isCartItem = product && 'quantity' in product
+
+  // ------------ CALCULATE REMAINING STOCK
   const remainingStock = product
-    ? getRemainingStock(product.id, product.stock || 0)
-    : 0 // Get the remaining stock of the product
+    ? isCartItem
+      ? product.stock || 0
+      : getRemainingStock(product.id, product.stock || 0)
+    : 0
+
+  // ------------ CALCULATE INITIAL QUANTITY
   const initialQuantity = product
-    ? Math.min(product.minimumOrderQuantity || 1, remainingStock || 999)
+    ? isCartItem
+      ? (product as unknown as ICart).quantity || 0
+      : Math.min(product.minimumOrderQuantity || 1, remainingStock || 999)
     : 1
 
   // ------------ STATES
@@ -64,17 +74,25 @@ export const useCartActions = (
   })
 
   /**
-   * @description Function to retrieve the current quantity of the product in the cart
+   * @description Function to retrieve the current quantity of the product
    * @param {number} quantity - The current quantity of the product
    */
   const retrieveCurrentQuantity = (quantity: number) => {
     if (!product) return
 
-    // Check if the quantity is less than the minimum order quantity
+    // Get proper constraints based on product type
     const minQuantity = product.minimumOrderQuantity || 1
-    const maxQuantity = product.stock || 0
+    const maxQuantity = product.stock || (isCartItem ? 100 : 0)
 
-    // Update the state with the new quantity and check if max stock is reached
+    // Log for debugging
+    /*     console.log('CartAction - retrieveCurrentQuantity:', {
+          quantity,
+          minQuantity,
+          maxQuantity,
+          isCartItem
+        }) */
+
+    // Update the state with the new quantity and check limits
     setState((prevState) => ({
       ...prevState,
       currentQuantity: quantity,
@@ -85,23 +103,39 @@ export const useCartActions = (
     }))
   }
 
-  // ------------ USE EFFECT
+  // ------------ UPDATE STATE BASED ON PRODUCT AND CART DATA
   useEffect(() => {
     if (product) {
-      const isMaxed = isProductMaxedOut(product.id, product.stock || 0)
-      const remaining = getRemainingStock(product.id, product.stock || 0)
-      const minQuantity = product.minimumOrderQuantity || 1
+      if (isCartItem) {
+        // For cart items, use direct values from the item
+        const minQuantity = product.minimumOrderQuantity || 1
+        const maxQuantity = product.stock || 100
 
-      setState((prev) => ({
-        ...prev,
-        isMaxStockReached: isMaxed || state.currentQuantity >= remaining,
-        isIncrementDisabled: isMaxed || state.currentQuantity >= remaining,
-        isDecrementDisabled: state.currentQuantity <= minQuantity,
-        isAddToCartDisabled:
-          isMaxed || remaining <= 0 || state.currentQuantity > remaining
-      }))
+        setState((prev) => ({
+          ...prev,
+          isMaxStockReached: state.currentQuantity >= maxQuantity,
+          isIncrementDisabled: state.currentQuantity >= maxQuantity,
+          isDecrementDisabled: state.currentQuantity <= minQuantity,
+          isAddToCartDisabled:
+            maxQuantity <= 0 || state.currentQuantity > maxQuantity
+        }))
+      } else {
+        // For regular products, use store logic for remaining stock
+        const isMaxed = isProductMaxedOut(product.id, product.stock || 0)
+        const remaining = getRemainingStock(product.id, product.stock || 0)
+        const minQuantity = product.minimumOrderQuantity || 1
+
+        setState((prev) => ({
+          ...prev,
+          isMaxStockReached: isMaxed || state.currentQuantity >= remaining,
+          isIncrementDisabled: isMaxed || state.currentQuantity >= remaining,
+          isDecrementDisabled: state.currentQuantity <= minQuantity,
+          isAddToCartDisabled:
+            isMaxed || remaining <= 0 || state.currentQuantity > remaining
+        }))
+      }
     }
-  }, [product, cartData])
+  }, [product, cartData, state.currentQuantity])
 
   /**
    * @description Function to handle the "Add to Cart" action
@@ -121,15 +155,15 @@ export const useCartActions = (
         isLoading: true
       }))
 
-      // Before the API Call, we need to log the original product values
-      const originalProductStock = product?.stock;
-      const originalProductMinimumOrderQuantity = product?.minimumOrderQuantity;
+      // Store original product values before API call
+      const originalProductStock = product?.stock
+      const originalProductMinimumOrderQuantity = product?.minimumOrderQuantity
 
-      console.log('Original product values:', {
-        id: product.id,
-        stock: originalProductStock,
-        minimumOrderQuantity: originalProductMinimumOrderQuantity
-      });
+      /*       console.log('Original product values:', {
+              id: product.id,
+              stock: originalProductStock,
+              minimumOrderQuantity: originalProductMinimumOrderQuantity
+            }) */
 
       // Invoke the API Call
       const { data, error, status } = await CartApi.addNewCart(
@@ -143,42 +177,47 @@ export const useCartActions = (
         throw new Error(`Something went wrong with the API Call! --> ${error}`)
       }
 
-      const necessaryData = {
+      // Enhance API response with original product properties
+      const suitableForCartData = {
         ...data,
         products: Array.isArray(data?.products)
           ? data?.products.map((p: any) => ({
-            ...p,
-            // Preserviamo stock e minimumOrderQuantity dall'originale
-            stock: p.id === product.id ? product.stock : p.stock,
-            minimumOrderQuantity: p.id === product.id
-              ? product.minimumOrderQuantity
-              : p.minimumOrderQuantity
-          }))
+              ...p,
+              // Preserve stock and minimumOrderQuantity from original product
+              stock: p.id === product.id ? originalProductStock : p.stock,
+              minimumOrderQuantity:
+                p.id === product.id
+                  ? originalProductMinimumOrderQuantity
+                  : p.minimumOrderQuantity
+            }))
           : []
-      };
+      }
+
+      console.log('Enhanced cart data:', suitableForCartData)
 
       // Check if the Cart Data is empty
       if (!cartData) {
         // If the cart data is empty, create a new cart
-        // @ts-ignore - TODO: Quick Fix before release
-        createNewCart(necessaryData)
+        // @ts-expect-error - Something is wrong with the types
+        createNewCart(suitableForCartData)
         toast.success(`Product Added to Cart Successfully!`)
       } else {
         // If the cart data is not empty, update the existing cart with new products
         const cartId = cartData[0].id
-        // @ts-ignore - TODO: Quick Fix before release
-        updateCartWithNewProducts(cartId, [necessaryData])
+        // @ts-expect-error - Something is wrong with the types
+        updateCartWithNewProducts(cartId, [suitableForCartData])
         toast.success(`Product Added to Cart Successfully!`)
       }
-      // After we're done with the API Call, we need to check if the product is in stock
-      if (product && state.currentQuantity >= (product?.stock || 0)) {
+
+      // Check if product is at max stock after adding
+      if (product && state.currentQuantity >= (originalProductStock || 0)) {
         setState((prev) => ({
           ...prev,
           isAddToCartDisabled: true
         }))
       }
     } catch (error) {
-      // Add toaster with the error message
+      // Show error message
       toast.error(error as string)
     } finally {
       setState((prevState) => ({
@@ -188,20 +227,26 @@ export const useCartActions = (
     }
   }
 
-  //  Convenience function to add the current product to cart
+  /**
+   * @description Convenience function to add the current product to cart
+   */
   const handleAddToCart = () => {
     if (!product || !userId) return
-    // Pass all the necessary properties to the onAddToCart function
-    onAddToCart({
-      quantity: state.currentQuantity,
-      id: product.id,
-      stock: product.stock,
-      minimumOrderQuantity: product.minimumOrderQuantity,
-      price: product.price,
-      title: product.title,
-      discountPercentage: product.discountPercentage,
-      thumbnail: product.thumbnail
-    }, userId)
+
+    // Pass all important properties, not just id and quantity
+    onAddToCart(
+      {
+        id: product.id,
+        quantity: state.currentQuantity,
+        stock: product.stock,
+        minimumOrderQuantity: product.minimumOrderQuantity,
+        price: product.price,
+        title: product.title,
+        discountPercentage: product.discountPercentage,
+        thumbnail: product.thumbnail
+      },
+      userId
+    )
   }
 
   return {

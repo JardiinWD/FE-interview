@@ -62,7 +62,7 @@ export interface ICartSummaryProductInfoProps {
 }
 
 export interface ICartSummaryProductPriceProps
-  extends ICartSummaryProductInfoProps { }
+  extends ICartSummaryProductInfoProps {}
 
 export interface ICartSummaryProps {
   cartProducts: ICartSummarySingleProductProps[] | ICart[]
