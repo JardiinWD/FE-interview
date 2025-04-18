@@ -147,3 +147,39 @@ Questa implementazione è stata realizzata come compromesso per soddisfare i req
 Questa differenza di comportamento è dovuta alle limitazioni delle API DummyJSON e alla necessità di mantenere una simulazione coerente dell'esperienza di e-commerce, pur rispettando i vincoli tecnici del backend utilizzato.
 
 Comunque sia, nella `public/docs` folder trovate gli screen della documentazione di dummyJSON che indicano appunto questo comportamento
+
+#### Utenze
+
+Dopo tale premessa, di seguito fornisco credenziali necessarie per accedere ai due flussi
+
+##### Utente con carrello API
+
+```
+username: oliviaw
+password: oliviawpass
+```
+
+##### Utente con carrello gestito in Zustand
+
+```
+username: lilyb
+password: lilybpass
+```
+
+---
+
+### DummyJSON Api - Images
+
+Durante l'esperienza e il giro per analizzare il flusso, potreste notare che le immagini che riceviamo tramite API sono effettivamente troppo lente a renderizzare. Questo é dovuto al fatto che, tramite l'api di DummyJSON, recuperiamo immagini in `.png` dal peso minimo di `1.5 - 1.8mb`. In tutto ciò ho provato ad implementare tramite `LazyImage` il caricamento delle immagini con un `Spinner` di Fallback ma senza ottenere il risultato sperato. In una condizione ideale le immagini che riceviamo tramite API dovrebbero essere in formato `.webp` in modo da alleggerirle quanto più possibile.
+
+---
+
+### DummyJSON Api - Environments e Dati Sensibili
+
+Potreste appunto aver notato che in questo file readme ho fornito la env necessaria per dummyJSON e le credenziali d'accesso. **Ovviamente non sono solito lasciare variabili d'ambiente o credenziali in un readme** a disposizione di tutti, ho quindi pensato di fornirvele per evitarvi lo sbatti di cercarle nella documentazione ufficiale 😂
+
+Nel caso lascio qui i link utili di Dummy JSON per credenziali e altro per fare un giro con eventuali utenti differenti con carrello API o meno.
+
+- [Authentication](https://dummyjson.com/docs/auth) -> Link autenticazione di DummyJSON
+- [Users](https://dummyjson.com/docs/users#users-all) -> Link Utenti di DummyJSON
+- [User1-Credential](https://dummyjson.com/user/1) -> Dati Necessari di Utente 1.
