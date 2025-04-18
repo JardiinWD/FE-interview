@@ -137,6 +137,26 @@ export const useCartActions = (
     }
   }, [product, cartData, state.currentQuantity])
 
+  // ------------ USE EFFECT
+  useEffect(() => {
+    if (product) {
+      setState(prevState => ({
+        ...prevState,
+        currentQuantity: initialQuantity,
+        isMaxStockReached: product
+          ? initialQuantity >= (product.stock || 0)
+          : false,
+        isIncrementDisabled: product
+          ? initialQuantity >= (product.stock || 0)
+          : true,
+        isDecrementDisabled: product
+          ? initialQuantity <= (product.minimumOrderQuantity || 1)
+          : true,
+        isAddToCartDisabled: product ? product.stock as number <= 0 : true
+      }));
+    }
+  }, [product?.id, initialQuantity]);
+
   /**
    * @description Function to handle the "Add to Cart" action
    * @param {Partial<ICart>} product - The product to add to the cart
@@ -154,6 +174,7 @@ export const useCartActions = (
         ...prevState,
         isLoading: true
       }))
+
 
       // Store original product values before API call
       const originalProductStock = product?.stock

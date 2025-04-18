@@ -71,7 +71,7 @@ const CardBody: React.FC<ICardProps> = ({
         weight="bold"
         tagAs="h5"
         text={title}
-        className="mb-2 truncate tracking-tight"
+        className="mb-2 max-w-full truncate tracking-tight break-words"
       />
       {/* DESCRIPTION */}
       <Typography

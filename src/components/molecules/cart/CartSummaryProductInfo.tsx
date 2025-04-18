@@ -23,7 +23,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   // -------------- ZUSTAND STORE
   const { removeProductFromCart, updateProductQuantity } = useCartStore()
   // ------------ CUSTOM HOOK
-  const { state, retrieveCurrentQuantity } = useCartActions(item)
+  const { state } = useCartActions(item)
 
   // ------------ HANDLER
   const handleQuantityChange = (newQuantity: number) => {

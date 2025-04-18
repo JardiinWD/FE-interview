@@ -43,7 +43,7 @@ const ProductsList: React.FC<IProductsListProps> = ({
         direction="row"
         justify={`flex-start`}
         align={`center`}
-        className={`w-full ${products.length <= 0 ? 'h-[40dvh]' : 'min-h-full'}`}
+        className={`w-full !justify-center ${products.length <= 0 ? 'h-[40dvh]' : 'min-h-full'}`}
         gap={4}
       >
         {products.length === 0 && !isLoadingList && (
