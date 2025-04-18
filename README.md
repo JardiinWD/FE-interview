@@ -168,6 +168,12 @@ password: lilybpass
 
 ---
 
+### DummyJSON Api - Pagination
+
+La paginazione dell'elaborato sono riuscito ad eseguirla, funzionante, lato Client. Sono a conoscenza del fatto che React Query - che é il tool che ho utilizzato durante lo sviluppo - permette agli sviluppatori di paginare correttamente tramite queries i dati che riceve (tant'é che DummyJSON, guardando dall'API di `GET` dei loro prodotti fornisce i parametri di `skip` e `limit`) ma per via di ulteriori implementazioni (`Authentication`, `Checkout`, `Single Product`) e per bug che ho riscontrato e risolto all'ultimo non son riuscito a **implementarla lato server-side**. Qui la documentazione che avrei seguito per l'implementazione (-> https://tanstack.com/query/v4/docs/framework/react/guides/paginated-queries <-)
+
+---
+
 ### DummyJSON Api - Images
 
 Durante l'esperienza e il giro per analizzare il flusso, potreste notare che le immagini che riceviamo tramite API sono effettivamente troppo lente a renderizzare. Questo é dovuto al fatto che, tramite l'api di DummyJSON, recuperiamo immagini in `.png` dal peso minimo di `1.5 - 1.8mb`. In tutto ciò ho provato ad implementare tramite `LazyImage` il caricamento delle immagini con un `Spinner` di Fallback ma senza ottenere il risultato sperato. In una condizione ideale le immagini che riceviamo tramite API dovrebbero essere in formato `.webp` in modo da alleggerirle quanto più possibile.
