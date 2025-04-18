@@ -1,3 +1,10 @@
+
+// ! Disclaimer : I could add other tests to check the
+// Product Card Action like increment or decrement the quantity
+// But I fixed early this morning so i couln't add more tests
+
+
+
 import { submitWithCorrectCredentials } from './auth'
 import {
   checkEmptyCart,
