@@ -3,18 +3,24 @@ import { Button, FlexContainer } from '@/components/atoms'
 import { Header } from '@/components/molecules'
 import { appConfig } from '@/config/appConfig'
 import { retrieveHelmetData } from '@/utils/functions'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const Layout = () => {
   // ------------- HOOKS
   const location = useLocation()
-  // ------------- DATA
-  const metadataHelmetInfo = React.useMemo(
-    () => retrieveHelmetData(location.pathname),
-    [location.pathname]
+
+  // ------------- STATE
+  const [metadataHelmetInfo, setMetadataHelmetInfo] = useState(() =>
+    retrieveHelmetData(location.pathname)
   )
+
+  // ------------- DATA
+  useEffect(() => {
+    const metadata = retrieveHelmetData(location.pathname)
+    setMetadataHelmetInfo(metadata)
+  }, [location.pathname])
 
   return (
     <FlexContainer
