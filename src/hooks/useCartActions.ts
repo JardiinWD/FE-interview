@@ -204,6 +204,10 @@ export const useCartActions = (
       } else {
         // If the cart data is not empty, update the existing cart with new products
         const cartId = cartData[0].id
+        // Invoke API Call to update the cart (Even though we are not using it)
+        const { data, error, status } =
+          await CartApi.updateCart(suitableForCartData)
+        console.log('Update cart response:', { data, error, status })
         // @ts-expect-error - Something is wrong with the types
         updateCartWithNewProducts(cartId, [suitableForCartData])
         toast.success(`Product Added to Cart Successfully!`)

@@ -1,3 +1,4 @@
+import { CartApi } from '@/api'
 import { Button, FlexContainer, Typography } from '@/components/atoms'
 import { useCartStore } from '@/store'
 import React, { JSX } from 'react'
@@ -8,9 +9,12 @@ const CartSummaryClearCart: React.FC = (): JSX.Element => {
   const { clearCart } = useCartStore()
 
   // ---------------- HANDLERS
-  const handleClearCart = () => {
+  const handleClearCart = async () => {
     // Clear zustand cart store and reset it
     clearCart()
+    // Clear the cart in the API (Even though it's not necessary)
+    const { data, error, status } = await CartApi.deleteCart()
+    console.log('Cart cleared:', data, error, status)
     // Show a toast of success message
     toast.success('Cart cleared successfully!')
   }

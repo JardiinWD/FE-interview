@@ -29,7 +29,7 @@ export const ProductApi: IProductApi = {
       status: 'error'
     }
   },
-  // @ts-expect-error Something went wrong with the API
+  // @ts-expect-error - Something is wrong with Types definition of this Promise
   getProductById: async (id: number) => {
     try {
       // 1. Check if the category is provided
@@ -55,6 +55,11 @@ export const ProductApi: IProductApi = {
       )
     }
   },
+  /**
+   * @description Get all products from the API
+   * @param {IProductQueryParams} queryParams - The query parameters for the API call
+   * @returns {Promise<IProductPromise>} - A promise that resolves to the product data or an error
+   */
   getProducts: async (queryParams?: IProductQueryParams) => {
     try {
       let productUrl: string = '/'
@@ -93,6 +98,11 @@ export const ProductApi: IProductApi = {
       )
     }
   },
+  /**
+   * @description Get products by category from the API
+   * @param {string} category - The category of the products to be retrieved
+   * @returns {Promise<IProductPromise>} - A promise that resolves to the product data or an error
+   */
   getProductsByCategory: async (category?: string) => {
     try {
       // 1. Check if the category is provided

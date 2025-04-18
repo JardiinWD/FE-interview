@@ -41,8 +41,8 @@ const ProductsList: React.FC<IProductsListProps> = ({
       <FlexContainer
         flexContainerId="product-list"
         direction="row"
-        justify={`center`}
-        align={`flex-start`}
+        justify={`flex-start`}
+        align={`center`}
         className={`w-full ${products.length <= 0 ? 'h-[40dvh]' : 'min-h-full'}`}
         gap={4}
       >

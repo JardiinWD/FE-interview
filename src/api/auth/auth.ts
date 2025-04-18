@@ -23,6 +23,12 @@ export const AuthApi: IAuthApi = {
       status: 'error'
     }
   },
+  /**
+   * @description Handle the login process
+   * @param {string} username - The username of the user
+   * @param {string} password - The password of the user
+   * @returns {Promise<IAuthPromise>} - A promise that resolves to the authentication data or an error
+   */
   handleLogin: async (username: string, password: string) => {
     try {
       // Check if the username and password are not empty

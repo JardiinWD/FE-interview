@@ -18,7 +18,7 @@ const ErrorState: React.FC<IErrorStateProps> = ({
   containerId = 'page',
   errorMessage = 'Something went wrong',
   buttonText = 'Try Again',
-  onClickHandler = () => console.log('Try Again'),
+  onClickHandler = () => {},
   errorDevMessage = 'This is a development error message',
   dataTestId = 'error-state'
 }): JSX.Element => {
