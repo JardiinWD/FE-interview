@@ -1,113 +1,149 @@
-# Obiettivo  
-Realizza una **pagina vetrina di prodotti** utilizzando l'API di DummyJSON.  
+# Sikuro Group - FE Interview
 
-La pagina deve includere:  
-- **Paginazione** per navigare tra i prodotti.  
-- **Filtraggio per categoria**.  
-- **Barra di ricerca** generica (per nome o descrizione).  
+## Table of Content
 
-Inoltre, implementa un sistema di **gestione del carrello** che consenta:  
-- Aggiunta di prodotti al carrello.  
-- Rimozione di prodotti dal carrello.  
-- Modifica delle quantità dei prodotti.  
+- [API Layer](./src/api/README.md) - Documentation of API modules, endpoints and interfaces
+- [Components](#components)
+  - [Atoms](./src/components/atoms/README.md) - Base UI building blocks
+  - [Molecules](./src/components/molecules/README.md) - Composite UI elements
+  - [Organisms](./src/components/organisms/README.md) - Complex UI sections
+- [Custom Hooks](./src/hooks/README.md) - Reusable logic and component functionality
+- [Pages](./src/pages/README.md) - Application views and routes
+- [Providers](./src/providers/README.md) - Context providers and dependency injection
+- [State Management](./src/store/README.md) - Zustand stores and persistence
 
-Il progetto deve seguire il principio del **Test-Driven Development (TDD)**.  
+## Installation
 
----
+For installing the necessary dependencies launch the following command
 
-## Requisiti  
+```bash
+yarn install && yarn dev
+```
 
-### 1. API  
-Utilizza le API di [DummyJSON](https://dummyjson.com/) per:  
-- Ottenere i dati dei prodotti.  
-- Gestire il carrello (aggiunta, rimozione, modifica delle quantità).  
+The application should now be running at `http://localhost:4005`
 
----
+### Environments
 
-### 2. Funzionalità principali  
+The application requires a `.env` file in the root directory of the project with the following environment variable:
 
-#### **Vetrina prodotti**  
-- **Paginazione**: Mostra un numero limitato di prodotti per pagina.  
-- **Filtraggio per categoria**: Visualizza prodotti filtrati per categoria.  
-- **Ricerca**: Permetti di cercare prodotti per nome o descrizione.  
+```bash
+VITE_DUMMY_JSON_BASEURL = 'https://dummyjson.com'
+```
 
-#### **Carrello**  
-- **Gestione completa**:  
-  - Aggiunta di prodotti al carrello.  
-  - Rimozione di prodotti dal carrello.  
-  - Modifica della quantità dei prodotti presenti nel carrello.  
+This environment variable is essential for connecting to the DummyJSON API, which provides all the product data, user authentication, and cart functionality for the application.Without this configuration, the application will not be able to fetch data or perform API operations.
 
----
+### Scripts
 
-### 3. Ottimizzazione  
-- Integra una strategia di **caching** per ridurre le richieste al server e migliorare le prestazioni.  
+The project includes several npm/yarn scripts to streamline development:
 
----
+| Script              | Description                                                                                                                       |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `yarn dev`          | Starts the development server using Vite with hot module replacement. The application will be available at http://localhost:4005. |
+| `yarn build`        | Creates a production-ready build. First runs TypeScript compiler for type checking, then uses Vite to bundle and optimize assets. |
+| `yarn preview`      | Serves the production build locally for preview and testing before deployment.                                                    |
+| `yarn prettier`     | Formats all source code files according to the project's style guidelines using Prettier.                                         |
+| `yarn open:cypress` | Opens the Cypress test runner UI for interactive end-to-end testing.                                                              |
+| `yarn run:cypress`  | Runs Cypress tests in headless mode, suitable for CI environments or quick test execution.                                        |
 
-### 4. Tecnologie  
+To run any of these scripts, use:
 
-#### **Framework**  
-- Utilizza **React**.  
+```bash
+yarn <script-name>
+```
 
-#### **Stile**  
-- Puoi scegliere liberamente tra **CSS puro**, **Tailwind CSS** o altre librerie di stile.  
+### Tests
 
-#### **Test**  
-- Scrivi almeno **4-5 test significativi** per le funzionalità principali.  
+The application includes comprehensive end-to-end tests using Cypress. These tests simulate real user interactions and verify that all core functionality works correctly across different flows.
 
----
+#### Running Tests
 
-### 5. Sviluppo  
+To run the tests in interactive mode open your terminal and then run this command:
 
-- Segui il principio del **Test-Driven Development (TDD)**.  
-- Mantieni il codice **leggibile** e **organizzato**.  
+```bash
+yarn open:cypress
+```
 
----
+To run tests in headless mode (CI environments):
 
-### 6. Grafica  
-- Sei libero di definire lo stile e il design della pagina.  
+```bash
+yarn run:cypress
+```
 
----
+#### Test Structure
 
-## Criteri di valutazione  
+Tests are organized into numbered flow files and supporting modules in feature-specific folders (`auth/`, `cart/`, `products/`).
 
-La valutazione si baserà sui seguenti aspetti:  
+| Test File                      | Description                                                                                                                                           |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `01_authentication-flow.cy.ts` | Tests all authentication scenarios including successful login, validation errors when omitting required fields, and handling invalid credentials      |
+| `02_api-check-flow.cy.ts`      | Verifies API integration by checking product data loading, API responses, and correct display of fetched content                                      |
+| `03_product_page-flow.cy.ts`   | Tests the product detail page functionality including error handling for invalid products, product information display, and add-to-cart functionality |
+| `04_home_product-flow.cy.ts`   | Tests product interactions from the home page including product listing, adding single and multiple products to cart, and cart management             |
+| `05_logout-flow.cy.ts`         | Tests the logout flow including modal confirmation, successful logout redirection, and handling error scenarios                                       |
 
-### **1. Qualità del codice**  
-- Leggibilità, pulizia e manutenibilità.  
-- Uso di buone pratiche di sviluppo.  
+Each test file uses modular test components from the feature folders:
 
-### **2. Test**  
-- Completezza e rilevanza dei test rispetto alle funzionalità richieste.  
+- `auth/` - Authentication-related test modules (login with various credential scenarios)
+- `cart/` - Shopping cart test modules (empty cart, adding products, checkout process)
+- `products/` - Product-related test modules (listing, details, adding to cart)
 
-### **3. Completezza**  
-- Implementazione di tutte le funzionalità previste.  
+## Disclaimer
 
-### **4. Performance**  
-- Ottimizzazione delle chiamate API e interazioni efficienti.  
+Spero le uniche note che troverete in italiano nel mio elaborato 😂
 
-### **5. Architettura**  
-- Struttura del progetto ben organizzata.  
+### DummyJSON Api - Cart Action
 
----
+**Nota importante sulla gestione del carrello:**
 
-## Istruzioni  
+Il servizio DummyJSON è stato utilizzato come backend per questa applicazione, ma presenta alcune limitazioni importanti da considerare:
 
-1. Effettua un fork di questo repository.  
-2. Sviluppa la tua soluzione seguendo i requisiti.  
-3. Esegui il **commit** e il **push** delle modifiche.  
+#### Limitazioni delle API
 
----
+Mentre DummyJSON fornisce API funzionanti in modalità GET per recuperare dati relativi a prodotti, utenti e carrelli, **non supporta completamente le operazioni di modifica (POST/PUT/DELETE) per la gestione del carrello**. In particolare:
 
-## Nota  
-Hai piena libertà creativa per:  
-- La grafica.  
-- Le scelte tecniche.  
+- Le chiamate POST per la creazione di nuovi carrelli
+- Le chiamate PUT per l'aggiornamento dei carrelli esistenti
+- Le chiamate DELETE per la rimozione di prodotti dal carrello
 
-Questo progetto è pensato per valutare il tuo approccio allo sviluppo e la tua capacità di affrontare sfide tecniche.  
+restituiscono risposte simulate ma non modificano effettivamente alcun dato sul server.
 
-**Buon lavoro!** 🎉  
+#### Soluzione implementata
 
-# Mockup Files
+Per soddisfare i requisiti del progetto che richiedono una gestione completa del carrello, è stata implementata una soluzione ibrida:
 
-- Product Mockup -> https://excalidraw.com/#json=m744fJ9wdv_6d20l4zhZ6,6XxFSBFyK_U0JzVqWxSVHw
+1. **Utilizzo di Zustand** per la gestione dello stato locale del carrello
+2. **Simulazione delle risposte API** mantenendo la struttura e i formati di risposta previsti da DummyJSON
+3. **Persistenza locale** dei dati del carrello specifica per utente attraverso localStorage
+
+Questa soluzione permette di mantenere un'interfaccia coerente con quella che sarebbe stata utilizzata con API completamente funzionanti.
+
+#### Implicazioni
+
+Questo approccio significa che:
+
+- I carrelli creati sono visibili solo all'utente corrente e persistono solo sul dispositivo utilizzato.
+- Le modifiche al carrello non sono sincronizzate tra dispositivi diversi.
+- In un'implementazione di produzione, queste funzionalità dovrebbero essere sostituite con chiamate API reali a un backend completo.
+
+Questa implementazione è stata realizzata come compromesso per soddisfare i requisiti di progetto, mantenendo comunque un'architettura che rispecchia le migliori pratiche di sviluppo front-end.
+
+#### Flusso di Autenticazione e Gestione Carrelli
+
+##### Scenari di interazione col carrello
+
+1. **Utenti con carrelli pre-esistenti nelle API**
+
+   - Questi utenti possono navigare nell'applicazione e visualizzare i prodotti.
+   - Possono tentare di aggiungere prodotti al carrello tramite l'interfaccia.
+   - **Limitazione importante**: Non vedranno i nuovi prodotti aggiunti nel loro carrello, poiché l'API `getCarts` restituisce solo i carrelli pre-esistenti nel sistema DummyJSON.
+   - Le operazioni di Zustand non possono modificare i dati restituiti dall'API.
+
+2. **Utenti senza carrelli pre-esistenti**
+   - Questi utenti vedranno la creazione di un nuovo carrello tramite Zustand.
+   - Potranno gestire completamente questo carrello (aggiungere prodotti, modificare quantità, rimuovere prodotti).
+   - I dati del carrello verranno persistiti localmente attraverso il sistema di storage di Zustand.
+   - L'esperienza sarà completamente funzionale all'interno dell'applicazione.
+
+Questa differenza di comportamento è dovuta alle limitazioni delle API DummyJSON e alla necessità di mantenere una simulazione coerente dell'esperienza di e-commerce, pur rispettando i vincoli tecnici del backend utilizzato.
+
+Comunque sia, nella `public/docs` folder trovate gli screen della documentazione di dummyJSON che indicano appunto questo comportamento
