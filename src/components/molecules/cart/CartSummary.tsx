@@ -52,6 +52,7 @@ const CartSummary: React.FC<ICartSummaryProps> = ({
               cartId={cartId as number}
               item={item}
               index={index}
+              product={item}
             />
             <CartSummaryProductPrice
               cartId={cartId as number}

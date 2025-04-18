@@ -182,18 +182,18 @@ export const useCartActions = (
         ...data,
         products: Array.isArray(data?.products)
           ? data?.products.map((p: any) => ({
-              ...p,
-              // Preserve stock and minimumOrderQuantity from original product
-              stock: p.id === product.id ? originalProductStock : p.stock,
-              minimumOrderQuantity:
-                p.id === product.id
-                  ? originalProductMinimumOrderQuantity
-                  : p.minimumOrderQuantity
-            }))
+            ...p,
+            // Preserve stock and minimumOrderQuantity from original product
+            stock: p.id === product.id ? originalProductStock : p.stock,
+            minimumOrderQuantity:
+              p.id === product.id
+                ? originalProductMinimumOrderQuantity
+                : p.minimumOrderQuantity
+          }))
           : []
       }
 
-      console.log('Enhanced cart data:', suitableForCartData)
+      /* console.log('Enhanced cart data:', suitableForCartData) */
 
       // Check if the Cart Data is empty
       if (!cartData) {

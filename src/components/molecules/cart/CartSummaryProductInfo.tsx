@@ -17,12 +17,20 @@ import { useCartActions } from '@/hooks'
 const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
   item,
   index,
-  cartId = '33'
+  cartId = '33',
+  product
 }): JSX.Element => {
   // -------------- ZUSTAND STORE
-  const { removeProductFromCart } = useCartStore()
+  const { removeProductFromCart, updateProductQuantity } = useCartStore()
   // ------------ CUSTOM HOOK
   const { state, retrieveCurrentQuantity } = useCartActions(item)
+
+  // ------------ HANDLER
+  const handleQuantityChange = (newQuantity: number) => {
+    if (cartId && product?.id) {
+      updateProductQuantity(cartId as number, product.id, newQuantity)
+    }
+  }
 
   return (
     <FlexContainer
@@ -74,7 +82,7 @@ const CartSummaryProductInfo: React.FC<ICartSummaryProductInfoProps> = ({
           }
           cart={item}
           isAddToCartVisible={false}
-          onRetrieveCurrentQuantity={retrieveCurrentQuantity}
+          onRetrieveCurrentQuantity={handleQuantityChange}
           isDecrementDisabled={state.isDecrementDisabled}
           isIncrementDisabled={state.isIncrementDisabled}
         />

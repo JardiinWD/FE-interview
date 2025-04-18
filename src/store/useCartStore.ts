@@ -18,6 +18,8 @@ interface ICartStore {
   removeProductFromCart: (cartId: number, productId: number) => void // New action to remove a product from the cart
   clearCart: () => void // New action to clear the cart
   loadUserCart: () => void // New action to load user-specific cart
+  updateProductQuantity: (cartId: number, productId: number, newQuantity: number) => void;
+
 
   // --> Stock Handlers
   isProductMaxedOut: (productId: number, stock: number) => boolean
@@ -332,7 +334,83 @@ const useCartStore = create<ICartStore>()(
       getRemainingStock: (productId, totalStock) => {
         const quantityInCart = get().getProductQuantityInCart(productId)
         return Math.max(0, totalStock - quantityInCart)
-      }
+      },
+
+      updateProductQuantity: (cartId: number, productId: number, newQuantity: number) =>
+        set((state) => {
+          // If state is null, return state without changes
+          if (!state.cartData) return state;
+
+          // Create a deep copy of the cart array
+          const updatedCart = state.cartData.map((cart) => {
+            // If the cart ID matches, we update the product quantity
+            if (cart.id === cartId) {
+              // Create a copy of the products array
+              const updatedProducts = cart.products.map((product) => {
+                // If the product ID matches, we update the quantity
+                if (product.id === productId) {
+                  // Validate the new quantity against min/max constraints
+                  const validatedQuantity = validateQuantity(
+                    product as IProduct,
+                    newQuantity
+                  );
+
+                  // Calculate the new total price of the product based on the new quantity
+                  const newTotal = (product.price || 0) * validatedQuantity;
+
+                  // Calculate the new discounted price based on the original discount percentage
+                  const discountPercentage = product.discountPercentage || 0;
+                  const newDiscountedPrice = newTotal * (1 - discountPercentage / 100);
+
+                  // Return the updated product with the new quantity and prices
+                  return {
+                    ...product,
+                    quantity: validatedQuantity,
+                    total: newTotal,
+                    discountedPrice: newDiscountedPrice
+                  };
+                }
+                return product; // Leave other products unchanged
+              });
+
+              // Change the cart's total products and quantities
+              const totalProducts = updatedProducts.length;
+              const totalQuantity = updatedProducts.reduce(
+                (sum, p) => sum + (p.quantity || 1),
+                0
+              );
+
+              const total = updatedProducts.reduce(
+                (sum, p) => sum + ((p.price || 0) * (p.quantity || 1)),
+                0
+              );
+
+              const discountedTotal = updatedProducts.reduce(
+                (sum, p) => {
+                  const productTotal = (p.price || 0) * (p.quantity || 1);
+                  const discount = productTotal * ((p.discountPercentage || 0) / 100);
+                  return sum + (productTotal - discount);
+                },
+                0
+              );
+
+              // Create a new cart with updated products and totals
+              return {
+                ...cart,
+                products: updatedProducts,
+                totalProducts,
+                totalQuantity,
+                total,
+                discountedTotal
+              };
+            }
+            // Return cart unchanged if IDs don't match
+            return cart;
+          });
+
+          // Return updated state
+          return { cartData: updatedCart };
+        }),
     }),
     {
       name: 'sikuro-cart-store',
