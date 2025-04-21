@@ -12,7 +12,15 @@
 - [Providers](./src/providers/README.md) - Context providers and dependency injection
 - [State Management](./src/store/README.md) - Zustand stores and persistence
 
+## Application Logic Workflow
+
+The link below provides an interactive diagram showing the complete logical flow of the application, including user authentication, product browsing, cart management, and checkout processes.
+
+[App Flow](https://excalidraw.com/#json=FHqBPLPlSmdDfzwPeLzLb,5Lf54Mx1Ie_iH2_Oy8k2Dw) - Application Workflow
+
 ## Installation
+
+> **Note:** Before exploring the application, please make sure to read the [Disclaimers section](#disclaimer) which contains essential information about API limitations and implementation choices.
 
 For installing the necessary dependencies launch the following command
 
@@ -89,8 +97,6 @@ Each test file uses modular test components from the feature folders:
 
 ## Disclaimer
 
-Spero le uniche note che troverete in italiano nel mio elaborato 😂
-
 ### DummyJSON Api - Cart Action
 
 **Nota importante sulla gestione del carrello:**
@@ -166,6 +172,10 @@ username: lilyb
 password: lilybpass
 ```
 
+#### Soluzione Alternativa - Terza Via (Mockapi.io)
+
+La terza via con la quale avrei potuto proseguire in questo elaborato sarebbe stato quello di utilizzare il servizio di [Mockapi](https://mockapi.io) il quale mi avrebbe effettivamente fornito delle CRUD Api per l'aggiunta, rimozione e modifica del carrello e dei prodotti. Avrei potuto, grazie ai tipi e schema forniti da DummyJSON creare dei Mock tramite questo servizio e contattarli per tutte le operazioni C.R.U.D. La scelta di non utilizzarlo é dovuta al fatto che ho preferito mostrare le capacità di creazione e modifica tramite store di Zustand Persist e per non deviare troppo dalla traccia. Comunque sia, nel mio file api di `CartApi` sono state ugualmente scritte le chiamate CRUD verso `dummyJSON`
+
 ---
 
 ### DummyJSON Api - Pagination
@@ -182,7 +192,7 @@ Durante l'esperienza e il giro per analizzare il flusso, potreste notare che le 
 
 ### DummyJSON Api - Environments e Dati Sensibili
 
-Potreste appunto aver notato che in questo file readme ho fornito la env necessaria per dummyJSON e le credenziali d'accesso. **Ovviamente non sono solito lasciare variabili d'ambiente o credenziali in un readme** a disposizione di tutti, ho quindi pensato di fornirvele per evitarvi lo sbatti di cercarle nella documentazione ufficiale 😂
+Potreste appunto aver notato che in questo file readme ho fornito la env necessaria per dummyJSON e le credenziali d'accesso. **Ovviamente non sono solito lasciare variabili d'ambiente o credenziali in un readme** a disposizione di tutti, ho quindi pensato di fornirvele per evitarvi di navigare nella documentazione ufficiale.
 
 Nel caso lascio qui i link utili di Dummy JSON per credenziali e altro per fare un giro con eventuali utenti differenti con carrello API o meno.
 
